@@ -128,7 +128,7 @@
     ZumpaSubItem *zsi = [self.items objectAtIndex:indexPath.item];
     CGSize size = CGSizeMake(DISPLAY_WIDTH - 10, 100000);
     CGSize measuredSize = [zsi.body sizeWithFont:self.measureFont constrainedToSize:size lineBreakMode:NSLineBreakByClipping];
-    return measuredSize.height + 35;
+    return measuredSize.height + 40;
 }
 
 

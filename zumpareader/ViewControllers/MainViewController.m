@@ -48,9 +48,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    
     self.measureFont = [UIFont boldSystemFontOfSize:17];
     self.title = @"Žumpička";
     self.measureCell = [[ZumpaMainViewCell alloc]init];

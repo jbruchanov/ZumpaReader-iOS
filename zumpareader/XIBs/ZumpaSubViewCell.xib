@@ -14,6 +14,7 @@
 			<string>IBProxyObject</string>
 			<string>IBUILabel</string>
 			<string>IBUITableViewCell</string>
+			<string>IBUITextView</string>
 			<string>IBUIView</string>
 		</array>
 		<array key="IBDocument.PluginDependencies">
@@ -46,7 +47,6 @@
 								<string key="NSFrame">{{9, 5}, {159, 21}}</string>
 								<reference key="NSSuperview" ref="588240849"/>
 								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView" ref="705628655"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
@@ -103,38 +103,6 @@
 								</object>
 								<bool key="IBUIAdjustsFontSizeToFit">NO</bool>
 							</object>
-							<object class="IBUILabel" id="705628655">
-								<reference key="NSNextResponder" ref="588240849"/>
-								<int key="NSvFlags">274</int>
-								<string key="NSFrame">{{9, 29}, {302, 31}}</string>
-								<reference key="NSSuperview" ref="588240849"/>
-								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView" ref="698934719"/>
-								<string key="NSReuseIdentifierKey">_NS:9</string>
-								<bool key="IBUIOpaque">NO</bool>
-								<bool key="IBUIClipsSubviews">YES</bool>
-								<int key="IBUIContentMode">7</int>
-								<bool key="IBUIUserInteractionEnabled">NO</bool>
-								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-								<string key="IBUIText">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries,</string>
-								<reference key="IBUITextColor" ref="237735005"/>
-								<reference key="IBUIHighlightedColor" ref="260665560"/>
-								<int key="IBUINumberOfLines">0</int>
-								<int key="IBUILineBreakMode">2</int>
-								<object class="IBUIFontDescription" key="IBUIFontDescription">
-									<string key="name">Verdana</string>
-									<string key="family">Verdana</string>
-									<int key="traits">0</int>
-									<double key="pointSize">14</double>
-								</object>
-								<object class="NSFont" key="IBUIFont">
-									<string key="NSName">Verdana</string>
-									<double key="NSSize">14</double>
-									<int key="NSfFlags">16</int>
-								</object>
-								<bool key="IBUIAdjustsFontSizeToFit">NO</bool>
-								<double key="preferredMaxLayoutWidth">302</double>
-							</object>
 							<object class="IBUIView" id="41616655">
 								<reference key="NSNextResponder" ref="588240849"/>
 								<int key="NSvFlags">-2147483372</int>
@@ -148,6 +116,34 @@
 									<bytes key="NSRGB">MC4xNDkwMTk2MTM5IDEgMC4yOTgwMzkyMjc3AA</bytes>
 								</object>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
+							</object>
+							<object class="IBUITextView" id="608222717">
+								<reference key="NSNextResponder" ref="588240849"/>
+								<int key="NSvFlags">274</int>
+								<string key="NSFrame">{{0, 28}, {320, 32}}</string>
+								<reference key="NSSuperview" ref="588240849"/>
+								<reference key="NSWindow"/>
+								<string key="NSReuseIdentifierKey">_NS:9</string>
+								<bool key="IBUIClipsSubviews">YES</bool>
+								<bool key="IBUIMultipleTouchEnabled">YES</bool>
+								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
+								<bool key="IBUIScrollEnabled">NO</bool>
+								<bool key="IBUIEditable">NO</bool>
+								<string key="IBUIText">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+								<object class="IBUITextInputTraits" key="IBUITextInputTraits">
+									<int key="IBUIAutocapitalizationType">2</int>
+									<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
+								</object>
+								<int key="IBUIDataDetectorTypes">3</int>
+								<object class="IBUIFontDescription" key="IBUIFontDescription">
+									<int key="type">1</int>
+									<double key="pointSize">14</double>
+								</object>
+								<object class="NSFont" key="IBUIFont">
+									<string key="NSName">Helvetica</string>
+									<double key="NSSize">14</double>
+									<int key="NSfFlags">16</int>
+								</object>
 							</object>
 						</array>
 						<string key="NSFrameSize">{320, 60}</string>
@@ -171,7 +167,6 @@
 				<reference key="NSWindow"/>
 				<reference key="NSNextKeyView" ref="588240849"/>
 				<string key="NSReuseIdentifierKey">_NS:16</string>
-				<bool key="IBUIUserInteractionEnabled">NO</bool>
 				<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 				<bool key="IBUIHidesAccessoryWhenEditing">NO</bool>
 				<int key="IBUIIndentationLevel">1</int>
@@ -201,19 +196,19 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchOutletConnection" key="connection">
-						<string key="label">message</string>
-						<reference key="source" ref="30765362"/>
-						<reference key="destination" ref="705628655"/>
-					</object>
-					<int key="connectionID">10</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">strip</string>
 						<reference key="source" ref="30765362"/>
 						<reference key="destination" ref="41616655"/>
 					</object>
 					<int key="connectionID">11</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">message</string>
+						<reference key="source" ref="30765362"/>
+						<reference key="destination" ref="608222717"/>
+					</object>
+					<int key="connectionID">28</int>
 				</object>
 			</array>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -240,21 +235,15 @@
 						<reference key="object" ref="30765362"/>
 						<array class="NSMutableArray" key="children">
 							<reference ref="41616655"/>
-							<reference ref="705628655"/>
 							<reference ref="698934719"/>
 							<reference ref="328533195"/>
+							<reference ref="608222717"/>
 						</array>
 						<reference key="parent" ref="0"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">4</int>
 						<reference key="object" ref="41616655"/>
-						<reference key="parent" ref="30765362"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">5</int>
-						<reference key="object" ref="705628655"/>
-						<array class="NSMutableArray" key="children"/>
 						<reference key="parent" ref="30765362"/>
 					</object>
 					<object class="IBObjectRecord">
@@ -269,21 +258,21 @@
 						<array class="NSMutableArray" key="children"/>
 						<reference key="parent" ref="30765362"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">27</int>
+						<reference key="object" ref="608222717"/>
+						<reference key="parent" ref="30765362"/>
+					</object>
 				</array>
 			</object>
 			<dictionary class="NSMutableDictionary" key="flattenedProperties">
 				<string key="-1.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="-2.CustomClassName">UIResponder</string>
 				<string key="-2.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+				<string key="27.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="3.CustomClassName">ZumpaSubViewCell</string>
 				<string key="3.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="4.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-				<string key="5.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-				<object class="NSMutableAttributedString" key="5.notes">
-					<object class="NSMutableString" key="NSString">
-						<characters key="NS.bytes"/>
-					</object>
-				</object>
 				<string key="6.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="7.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 			</dictionary>
@@ -291,7 +280,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">26</int>
+			<int key="maxID">28</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -300,7 +289,7 @@
 					<string key="superclassName">UITableViewCell</string>
 					<dictionary class="NSMutableDictionary" key="outlets">
 						<string key="author">UILabel</string>
-						<string key="message">UILabel</string>
+						<string key="message">UITextView</string>
 						<string key="strip">UIView</string>
 						<string key="time">UILabel</string>
 					</dictionary>
@@ -311,7 +300,7 @@
 						</object>
 						<object class="IBToOneOutletInfo" key="message">
 							<string key="name">message</string>
-							<string key="candidateClassName">UILabel</string>
+							<string key="candidateClassName">UITextView</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="strip">
 							<string key="name">strip</string>

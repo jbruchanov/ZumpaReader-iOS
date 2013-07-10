@@ -15,7 +15,7 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *author;
 @property (weak, nonatomic) IBOutlet UILabel *time;
-@property (weak, nonatomic) IBOutlet UILabel *message;
+@property (weak, nonatomic) IBOutlet UITextView *message;
 @property (weak, nonatomic) IBOutlet UIView *strip;
 
 
@@ -38,6 +38,11 @@
 -(void)setItem:(ZumpaSubItem*)item{
     _item = item;
     self.author.text = item.authorReal;
+    if(item.hasInsideUris){
+        self.message.dataDetectorTypes = UIDataDetectorTypeLink;
+    }else{
+        self.message.dataDetectorTypes = UIDataDetectorTypeNone;
+    }
     self.message.text = item.body;
 //    [self.message sizeToFit];
     
