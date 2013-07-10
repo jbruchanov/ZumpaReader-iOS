@@ -173,6 +173,32 @@
             <point key="canvasLocation" x="442" y="422"/>
         </scene>
     </scenes>
+    <classes>
+        <class className="DetailViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/DetailViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="plusButton" candidateClass="UIBarButtonItem"/>
+            </relationships>
+        </class>
+        <class className="MainViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/MainViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="reloadDidClick:"/>
+                <relationship kind="outlet" name="plusButton" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
+            </relationships>
+        </class>
+        <class className="PostViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/PostViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="cancelDidClick:"/>
+                <relationship kind="action" name="doneDidClick:"/>
+                <relationship kind="action" name="sendDidClick:"/>
+                <relationship kind="outlet" name="message" candidateClass="UITextView"/>
+                <relationship kind="outlet" name="subject" candidateClass="UITextField"/>
+            </relationships>
+        </class>
+    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>

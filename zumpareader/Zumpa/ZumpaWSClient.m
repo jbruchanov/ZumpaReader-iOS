@@ -97,7 +97,7 @@ const double kDefaultTimeout = 2.0;
 
     NSMutableArray *nsa = [NSMutableArray arrayWithArray:params];
     [nsa addObject:@"UserName"];
-    [nsa addObject:[self.defaults stringForKey:USERNAME]];
+    [nsa addObject:@""];//[self.defaults stringForKey:USERNAME]];
     
 
     if(self.cookie){
