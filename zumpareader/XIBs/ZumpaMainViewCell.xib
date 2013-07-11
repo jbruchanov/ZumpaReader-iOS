@@ -42,8 +42,9 @@
 							<object class="IBUILabel" id="354204037">
 								<reference key="NSNextResponder" ref="17957522"/>
 								<int key="NSvFlags">306</int>
-								<string key="NSFrame">{{5, 0}, {280, 29}}</string>
+								<string key="NSFrame">{{5, 2}, {280, 29}}</string>
 								<reference key="NSSuperview" ref="17957522"/>
+								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="1060122153"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIOpaque">NO</bool>
@@ -80,6 +81,7 @@
 								<int key="NSvFlags">289</int>
 								<string key="NSFrame">{{280, 0}, {25, 29}}</string>
 								<reference key="NSSuperview" ref="17957522"/>
+								<reference key="NSWindow"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
@@ -98,8 +100,9 @@
 							<object class="IBUILabel" id="883423554">
 								<reference key="NSNextResponder" ref="17957522"/>
 								<int key="NSvFlags">265</int>
-								<string key="NSFrame">{{205, 28}, {100, 21}}</string>
+								<string key="NSFrame">{{205, 24}, {100, 21}}</string>
 								<reference key="NSSuperview" ref="17957522"/>
+								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="880879786"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIOpaque">NO</bool>
@@ -126,8 +129,9 @@
 							<object class="IBUILabel" id="1060122153">
 								<reference key="NSNextResponder" ref="17957522"/>
 								<int key="NSvFlags">270</int>
-								<string key="NSFrame">{{5, 28}, {203, 21}}</string>
+								<string key="NSFrame">{{5, 24}, {203, 21}}</string>
 								<reference key="NSSuperview" ref="17957522"/>
+								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="883423554"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIOpaque">NO</bool>
@@ -141,18 +145,19 @@
 								<int key="IBUIBaselineAdjustment">0</int>
 								<object class="IBUIFontDescription" key="IBUIFontDescription">
 									<int key="type">1</int>
-									<double key="pointSize">16</double>
+									<double key="pointSize">13</double>
 								</object>
 								<object class="NSFont" key="IBUIFont">
 									<string key="NSName">Helvetica</string>
-									<double key="NSSize">16</double>
+									<double key="NSSize">13</double>
 									<int key="NSfFlags">16</int>
 								</object>
 								<bool key="IBUIAdjustsFontSizeToFit">NO</bool>
 							</object>
 						</array>
-						<string key="NSFrameSize">{310, 49}</string>
+						<string key="NSFrameSize">{310, 45}</string>
 						<reference key="NSSuperview" ref="582406428"/>
+						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="354204037"/>
 						<string key="NSReuseIdentifierKey">_NS:11</string>
 						<object class="NSColor" key="IBUIBackgroundColor">
@@ -166,15 +171,16 @@
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 					</object>
 				</array>
-				<string key="NSFrameSize">{310, 50}</string>
+				<string key="NSFrameSize">{310, 46}</string>
 				<reference key="NSSuperview"/>
+				<reference key="NSWindow"/>
 				<reference key="NSNextKeyView" ref="17957522"/>
 				<string key="NSReuseIdentifierKey">_NS:9</string>
 				<bool key="IBUIUserInteractionEnabled">NO</bool>
 				<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 				<int key="IBUISelectionStyle">2</int>
 				<reference key="IBUIContentView" ref="17957522"/>
-				<real value="50" key="IBUIRowHeight"/>
+				<real value="46" key="IBUIRowHeight"/>
 			</object>
 		</array>
 		<object class="IBObjectContainer" key="IBDocument.Objects">
@@ -283,7 +289,42 @@
 			<nil key="sourceID"/>
 			<int key="maxID">35</int>
 		</object>
-		<object class="IBClassDescriber" key="IBDocument.Classes"/>
+		<object class="IBClassDescriber" key="IBDocument.Classes">
+			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
+				<object class="IBPartialClassDescription">
+					<string key="className">ZumpaMainViewCell</string>
+					<string key="superclassName">UITableViewCell</string>
+					<dictionary class="NSMutableDictionary" key="outlets">
+						<string key="author">UILabel</string>
+						<string key="date">UILabel</string>
+						<string key="responds">UILabel</string>
+						<string key="subject">UILabel</string>
+					</dictionary>
+					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
+						<object class="IBToOneOutletInfo" key="author">
+							<string key="name">author</string>
+							<string key="candidateClassName">UILabel</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="date">
+							<string key="name">date</string>
+							<string key="candidateClassName">UILabel</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="responds">
+							<string key="name">responds</string>
+							<string key="candidateClassName">UILabel</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="subject">
+							<string key="name">subject</string>
+							<string key="candidateClassName">UILabel</string>
+						</object>
+					</dictionary>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/ZumpaMainViewCell.h</string>
+					</object>
+				</object>
+			</array>
+		</object>
 		<int key="IBDocument.localizationMode">0</int>
 		<string key="IBDocument.TargetRuntimeIdentifier">IBCocoaTouchFramework</string>
 		<bool key="IBDocument.PluginDeclaredDependenciesTrackSystemTargetVersion">YES</bool>
