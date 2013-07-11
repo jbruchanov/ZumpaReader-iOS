@@ -14,11 +14,12 @@
 #import "DetailViewController.h"
 #import "PostViewController.h"
 #import "SettingsViewController.h"
+#import "Settings.h"
 
 #define DISPLAY_WIDTH self.view.frame.size.width
 #define LOAD_LIMIT_OFFSET 5
 
-@interface MainViewController () <SettingsViewControllerDelegate>
+@interface MainViewController () <SettingsViewControllerDelegate, PostViewControllerDelegate>
 
 @property (strong, nonatomic) ZumpaAsyncWrapper *zumpa;
 @property (strong, nonatomic) NSMutableArray* zumpaItems;
@@ -30,9 +31,12 @@
 @property (strong, nonatomic) UIFont *measureFont;
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *reloadButton;
+@property (strong, nonatomic) NSUserDefaults *settings;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *postButton;
 
 -(void)setSpinnerVisible:(BOOL) visible;
 -(void)didReceiveResponse:(ZumpaMainPageResult*) result appendData:(BOOL) append;
+-(void)willReload;
 -(void)willLoadNextPage;
 
 @end
@@ -49,6 +53,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.settings = [[NSUserDefaults alloc]init];
     self.measureFont = [UIFont boldSystemFontOfSize:17];
     self.title = @"Žumpička";
     self.measureCell = [[ZumpaMainViewCell alloc]init];
@@ -60,19 +65,22 @@
     self.zumpa = [[ZumpaAsyncWrapper alloc]initWithWebService:[[ZumpaWSClient alloc]init]];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
-
-    self.isLoading = YES;
-    [self.zumpa getItemsWithCallback:^(ZumpaMainPageResult *result) {
-        [self didReceiveResponse:result appendData:NO];
-    }];
     
-        
+    [self willReload];
+    
+    
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
- 
+    
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
+
+-(void) viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [self.postButton setEnabled:[self.settings boolForKey:IS_LOGGED_IN]];
+}
+
 - (IBAction)reloadDidClick:(id)sender {
     if(!self.isLoading){
         [self setSpinnerVisible:YES];
@@ -84,7 +92,7 @@
 }
 
 -(void)didReceiveResponse:(ZumpaMainPageResult*) result appendData:(BOOL)append{
-   [self setSpinnerVisible:NO];
+    [self setSpinnerVisible:NO];
     self.isLoading = NO;
     self.currentResult = result;
     if(!append){
@@ -118,7 +126,7 @@
     static NSString *CellIdentifier = @"Cell";
     ZumpaMainViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if(!cell){
-       cell = [[ZumpaMainViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+        cell = [[ZumpaMainViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
     int index = indexPath.item;
     
@@ -137,43 +145,53 @@
     return self.measureCell.frame.size.height;
 }
 /*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
+ // Override to support conditional editing of the table view.
+ - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+ {
+ // Return NO if you do not want the specified item to be editable.
+ return YES;
+ }
+ */
 
 /*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    }   
-    else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
+ // Override to support editing the table view.
+ - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+ {
+ if (editingStyle == UITableViewCellEditingStyleDelete) {
+ // Delete the row from the data source
+ [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+ }
+ else if (editingStyle == UITableViewCellEditingStyleInsert) {
+ // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
+ }
+ }
+ */
 
 /*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
-{
-}
-*/
+ // Override to support rearranging the table view.
+ - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
+ {
+ }
+ */
 
 /*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
+ // Override to support conditional rearranging of the table view.
+ - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
+ {
+ // Return NO if you do not want the item to be re-orderable.
+ return YES;
+ }
+ */
+
+-(void)willReload{
+    if(!self.isLoading){
+        [self setSpinnerVisible:YES];
+        [self.zumpa getItemsWithCallback:^(ZumpaMainPageResult *result) {
+            [self didReceiveResponse:result appendData:NO];
+        }];
+        
+    }
 }
-*/
 
 -(void)willLoadNextPage{
     if(!self.isLoading && self.currentResult){
@@ -202,7 +220,7 @@
      // Pass the selected object to the new view controller.
      [self.navigationController pushViewController:detailViewController animated:YES];
      */
-
+    
     [self performSegueWithIdentifier:@"OpenDetail" sender:[self.zumpaItems objectAtIndex:indexPath.item]];
 }
 
@@ -214,12 +232,13 @@
     }else if([@"Post" isEqualToString:segue.identifier]){
         PostViewController *pc = (PostViewController*)segue.destinationViewController;
         pc.zumpa = self.zumpa;
+        pc.delegate = self;
     }else if([@"Settings" isEqualToString:segue.identifier]){
         SettingsViewController *scv = (SettingsViewController*)segue.destinationViewController;
         scv.zumpa = self.zumpa;
         scv.delegate = self;
     }
-
+    
 }
 
 
@@ -239,10 +258,15 @@
 - (void)viewDidUnload {
     [self setTableView:nil];
     [self setReloadButton:nil];
+    [self setPostButton:nil];
     [super viewDidUnload];
 }
 
 -(void)settingsWillClose:(id)source{
     
+}
+
+-(void)userDidSendMessage{
+    [self willReload];
 }
 @end

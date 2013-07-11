@@ -95,7 +95,7 @@ const double kDefaultTimeout = 2.0;
 
     NSMutableArray *nsa = [NSMutableArray arrayWithArray:params];
     [nsa addObject:@"UserName"];
-    [nsa addObject:@""];//[self.defaults stringForKey:USERNAME]];
+    [nsa addObject:[self.defaults stringForKey:USERNAME]];
     
 
     if(self.cookie){
@@ -136,7 +136,7 @@ const double kDefaultTimeout = 2.0;
 #endif
     self.cookie = context;
     
-    BOOL isLoggedIn = [context rangeOfString:@"PHPSESSID="].location != NSNotFound;
+    BOOL isLoggedIn = [context rangeOfString:[@"portal_lln=" stringByAppendingString:uid]].location != NSNotFound;
     [self.defaults setBool:isLoggedIn forKey:IS_LOGGED_IN];
     if(isLoggedIn){
         [self.defaults setObject:uid forKey:USERNAME];
@@ -227,7 +227,7 @@ const double kDefaultTimeout = 2.0;
     
     NSData* jsonData = [self sendRequest:[self createPostRequest:[self.serviceUrl stringByAppendingString:@"post"]
                                                        andParams:params]];
-    
+
     NSDictionary *jsonDict = [NSJSONSerialization JSONObjectWithData:jsonData options:kNilOptions error:nil];
     NSString *result = [jsonDict objectForKey:kContext];
     

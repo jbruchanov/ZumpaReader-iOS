@@ -13,14 +13,14 @@
 
 @interface PostViewController ()
 @property (weak, nonatomic) IBOutlet UITextView *message;
-@property (weak, nonatomic) IBOutlet UITextField *subject;
+@property (weak, nonatomic) IBOutlet UITextView *subject;
 @property (strong, nonatomic) UIActivityIndicatorView *pBar;
 
 @end
 
 @implementation PostViewController
 
-@synthesize zumpa = _zumpa;
+@synthesize zumpa = _zumpa, delegate = _delegate;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -57,7 +57,7 @@
 - (IBAction)sendDidClick:(id)sender {
     [self doneDidClick:nil];
     NSString *subj = [self.subject.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-    NSString *msg = [self.subject.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    NSString *msg = [self.message.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     
     if([subj length] > 0 && [msg length] > 0){
         [self showProgressBar:YES];
@@ -72,6 +72,7 @@
 -(void) zumpaDidPost:(BOOL) result{
     [self showProgressBar:NO];
     if(result){
+        [self.delegate userDidSendMessage];
         [self cancelDidClick:nil];
     }else{
         [[[UIAlertView alloc]initWithTitle:@"Error :(" message:@"Some problem with sending!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil] show];

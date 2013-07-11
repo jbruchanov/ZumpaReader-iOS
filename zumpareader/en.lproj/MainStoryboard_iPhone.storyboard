@@ -61,6 +61,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="postButton" destination="syb-Jq-BT6" id="8ZD-Gf-RMR"/>
                         <outlet property="reloadButton" destination="lxX-AP-3XD" id="iPp-Er-TMt"/>
                         <outlet property="tableView" destination="iiD-vZ-G1x" id="xeT-ue-yck"/>
                         <segue destination="1oc-6b-LR4" kind="push" identifier="OpenDetail" id="cF8-5z-Re6"/>
@@ -252,7 +253,8 @@
                     <nil key="simulatedTopBarMetrics"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
                     <connections>
-                        <outlet property="message" destination="WLw-vz-lxp" id="pus-2p-nKS"/>
+                        <outlet property="message" destination="WLw-vz-lxp" id="z7q-k7-HhD"/>
+                        <outlet property="subject" destination="63I-ni-cjn" id="me4-E9-mgV"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CWv-C1-aJl" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -273,6 +275,7 @@
             <source key="sourceIdentifier" type="project" relativePath="./Classes/MainViewController.h"/>
             <relationships>
                 <relationship kind="action" name="reloadDidClick:"/>
+                <relationship kind="outlet" name="postButton" candidateClass="UIBarButtonItem"/>
                 <relationship kind="outlet" name="reloadButton" candidateClass="UIBarButtonItem"/>
                 <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
             </relationships>
@@ -284,7 +287,7 @@
                 <relationship kind="action" name="doneDidClick:"/>
                 <relationship kind="action" name="sendDidClick:"/>
                 <relationship kind="outlet" name="message" candidateClass="UITextView"/>
-                <relationship kind="outlet" name="subject" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="subject" candidateClass="UITextView"/>
             </relationships>
         </class>
         <class className="SettingsViewController" superclassName="UIViewController">

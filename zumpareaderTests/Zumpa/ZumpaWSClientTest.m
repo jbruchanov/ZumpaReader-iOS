@@ -129,4 +129,10 @@
     [client logIn:self.login with:self.password];
     //[client replyToThread:1152897 withSubject:@"iOS subject" andMessage:@"iOS 1234 test"];
 }
+
+-(void) testFailedLogin{
+    ZumpaWSClient *client = [[ZumpaWSClient alloc] init];
+    STAssertFalse([client logIn:self.login with:@"blabla"], @"Should be NO for invalid login credentials!");
+    //[client replyToThread:1152897 withSubject:@"iOS subject" andMessage:@"iOS 1234 test"];
+}
 @end
