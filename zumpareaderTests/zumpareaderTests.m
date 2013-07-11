@@ -24,4 +24,13 @@
     [super tearDown];
 }
 
+-(void) testFormatDate{
+    long long q = 1373585070000;
+    NSDate* date = [NSDate dateWithTimeIntervalSince1970:q];
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss zzz"];
+    NSString *result = [formatter stringFromDate:date];
+    NSLog(@"%@", result);
+}
+
 @end
