@@ -20,7 +20,7 @@
 
 @implementation PostViewController
 
-@synthesize zumpa = _zumpa, delegate = _delegate;
+@synthesize zumpa = _zumpa, delegate = _delegate, item = _item;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -34,6 +34,11 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    if(self.item){
+        self.subject.text = self.item.subject;
+        [self.subject setEditable:NO];
+    }
     
 //    self.message.layer.borderWidth = 1;
 //    self.message.layer.borderColor = [[UIColor grayColor] CGColor];
@@ -61,9 +66,15 @@
     
     if([subj length] > 0 && [msg length] > 0){
         [self showProgressBar:YES];
-        [self.zumpa postThread:subj andMessage:msg withCallback:^(BOOL result) {
-            [self zumpaDidPost:result];
-        }];
+        if(self.item){
+            [self.zumpa replyToThread:self.item.ID withSubject:subj andMessage:msg withCallback:^(BOOL result) {
+                [self zumpaDidPost:result];
+            }];
+        }else{
+            [self.zumpa postThread:subj andMessage:msg withCallback:^(BOOL result) {
+                [self zumpaDidPost:result];
+            }];
+        }
     }else{
         [[[UIAlertView alloc]initWithTitle:@"Nope :P" message:@"Subject or message is incomplete!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil] show];
     }

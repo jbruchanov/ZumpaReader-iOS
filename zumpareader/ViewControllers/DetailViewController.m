@@ -9,9 +9,10 @@
 #import "DetailViewController.h"
 #import "ZumpaSubItem.h"
 #import "ZumpaSubViewCell.h"
+#import "PostViewController.h"
 
 #define DISPLAY_WIDTH self.view.frame.size.width
-@interface DetailViewController ()
+@interface DetailViewController () <PostViewControllerDelegate>
 
 
 -(void)setSpinnerVisible:(BOOL) visible;
@@ -43,6 +44,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [self initHeader];
     
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
@@ -62,6 +64,13 @@
  
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+}
+
+-(void) initHeader{
+    UIBarButtonItem *reload = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(dataWillLoad:)];
+    UIBarButtonItem *add = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addDidClick:)];
+    
+     self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:reload,add,nil];
 }
 
 -(void)dataWillLoad{
@@ -154,8 +163,26 @@
     [self dataWillLoad];
 }
 
+- (IBAction)addDidClick:(id)sender {
+    [self performSegueWithIdentifier:@"Post" sender:sender];
+}
+
 - (void)viewDidUnload {
     [self setTableView:nil];
     [super viewDidUnload];
 }
+
+-(void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+    if([@"Post" isEqualToString:segue.identifier]){
+        PostViewController *pvc = (PostViewController*) segue.destinationViewController;
+        pvc.item = self.item;
+        pvc.zumpa = self.zumpa;
+        pvc.delegate = self;
+    }
+}
+
+-(void) userDidSendMessage{
+    [self dataWillLoad];
+}
+
 @end

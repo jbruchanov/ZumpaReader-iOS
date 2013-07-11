@@ -8,15 +8,18 @@
 
 #import <UIKit/UIKit.h>
 #import "ZumpaAsyncWrapper.h"
+#import "ZumpaItem.h"
 
 @protocol PostViewControllerDelegate <NSObject>
 
 -(void) userDidSendMessage;
 
+
 @end
 
 @interface PostViewController : UIViewController
 
+@property (weak, nonatomic) ZumpaItem *item;
 @property (weak, nonatomic) ZumpaAsyncWrapper *zumpa;
 @property (weak, nonatomic) id<PostViewControllerDelegate> delegate;
 

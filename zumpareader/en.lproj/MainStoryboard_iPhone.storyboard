@@ -159,15 +159,10 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" id="MaF-cw-7YP">
-                        <barButtonItem key="rightBarButtonItem" systemItem="refresh" id="juS-Mn-fCs">
-                            <connections>
-                                <action selector="dataWillLoad:" destination="1oc-6b-LR4" id="bjL-pz-3xp"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" id="MaF-cw-7YP"/>
                     <connections>
                         <outlet property="tableView" destination="fXM-98-IGE" id="uQF-eN-B7o"/>
+                        <segue destination="14z-Mp-h78" kind="push" identifier="Post" id="Dmb-bx-EgC"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nV0-zx-lJu" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -306,4 +301,7 @@
         <simulatedOrientationMetrics key="orientation"/>
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
+    <inferredMetricsTieBreakers>
+        <segue reference="Dmb-bx-EgC"/>
+    </inferredMetricsTieBreakers>
 </document>
