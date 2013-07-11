@@ -11,7 +11,7 @@
 #import "ZumpaAsyncWrapper.h"
 #import "ZumpaItem.h"
 
-@interface DetailViewController : UITableViewController
+@interface DetailViewController : UIViewController<UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic, strong) ZumpaAsyncWrapper *zumpa;
 @property (nonatomic, weak) ZumpaItem *item;

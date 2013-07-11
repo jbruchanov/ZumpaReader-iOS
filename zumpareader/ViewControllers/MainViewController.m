@@ -26,9 +26,9 @@
 @property (strong, nonatomic) UIColor *colorEven;
 @property (strong, nonatomic) UIColor *colorOdd;
 @property (strong, nonatomic) ZumpaMainViewCell *measureCell;
-@property (strong, nonatomic) IBOutlet UIBarButtonItem *plusButton;
 @property (strong, nonatomic) UIFont *measureFont;
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
+@property (strong, nonatomic) IBOutlet UIBarButtonItem *reloadButton;
 
 -(void)setSpinnerVisible:(BOOL) visible;
 -(void)didReceiveResponse:(ZumpaMainPageResult*) result appendData:(BOOL) append;
@@ -228,11 +228,12 @@
         [activityIndicator startAnimating];
         self.navigationItem.rightBarButtonItem = barButton;
     }else{
-        self.navigationItem.rightBarButtonItem = self.plusButton;
+        self.navigationItem.rightBarButtonItem = self.reloadButton;
     }
 }
 - (void)viewDidUnload {
     [self setTableView:nil];
+    [self setReloadButton:nil];
     [super viewDidUnload];
 }
 @end

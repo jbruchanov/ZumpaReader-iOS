@@ -13,6 +13,7 @@
 #define DISPLAY_WIDTH self.view.frame.size.width
 @interface DetailViewController ()
 
+
 -(void)setSpinnerVisible:(BOOL) visible;
 -(void)dataDidLoad:(NSArray*) items;
 -(void)clientDidFinishLoading;
@@ -26,10 +27,12 @@
 @property (strong, nonatomic) NSMutableArray *heights;
 @property (strong, nonatomic) ZumpaSubViewCell *measureCell;
 @property (strong, nonatomic) UIFont *measureFont;
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @end
 
 @implementation DetailViewController
+
 
 @synthesize zumpa = _zumpa;
 @synthesize item = _item;
@@ -40,6 +43,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    self.tableView.delegate = self;
+    self.tableView.dataSource = self;
 
     self.measureFont = [UIFont fontWithName:@"Verdana" size:14];
     
@@ -53,10 +59,6 @@
     self.heights = [[NSMutableArray alloc]init];
     [self dataWillLoad];
     
-
-  
-    // Uncomment the following line to preserve selection between presentations.
-    self.clearsSelectionOnViewWillAppear = NO;
  
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
@@ -152,4 +154,8 @@
     [self dataWillLoad];
 }
 
+- (void)viewDidUnload {
+    [self setTableView:nil];
+    [super viewDidUnload];
+}
 @end

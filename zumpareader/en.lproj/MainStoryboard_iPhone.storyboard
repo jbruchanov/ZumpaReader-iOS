@@ -28,35 +28,74 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="iiD-vZ-G1x">
-                                <rect key="frame" x="5" y="0.0" width="310" height="500"/>
+                                <rect key="frame" x="0.0" y="0.0" width="325" height="460"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <inset key="scrollIndicatorInsets" minX="50" minY="0.0" maxX="-2" maxY="0.0"/>
                             </tableView>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" barStyle="blackOpaque" id="wvo-5F-7eN">
+                                <rect key="frame" x="0.0" y="460" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                <items>
+                                    <barButtonItem systemItem="organize" id="69k-pB-zIK"/>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="VyJ-iO-ZEo"/>
+                                    <barButtonItem systemItem="add" id="syb-Jq-BT6">
+                                        <connections>
+                                            <segue destination="14z-Mp-h78" kind="modal" identifier="Post" modalTransitionStyle="flipHorizontal" id="3Dd-u9-lUN"/>
+                                        </connections>
+                                    </barButtonItem>
+                                </items>
+                            </toolbar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="nrO-nK-kG5">
-                        <barButtonItem key="leftBarButtonItem" title="Reload" id="XZ1-1P-bMs">
+                        <barButtonItem key="rightBarButtonItem" systemItem="refresh" id="lxX-AP-3XD">
                             <connections>
-                                <action selector="reloadDidClick:" destination="A0w-wC-guX" id="2d4-n9-QWn"/>
-                            </connections>
-                        </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" enabled="NO" title="+" id="syb-Jq-BT6">
-                            <connections>
-                                <segue destination="14z-Mp-h78" kind="modal" identifier="Post" modalTransitionStyle="flipHorizontal" id="3Dd-u9-lUN"/>
+                                <action selector="reloadDidClick:" destination="A0w-wC-guX" id="8fg-Bn-TGP"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="plusButton" destination="syb-Jq-BT6" id="j4s-QR-oCH"/>
+                        <outlet property="reloadButton" destination="lxX-AP-3XD" id="iPp-Er-TMt"/>
                         <outlet property="tableView" destination="iiD-vZ-G1x" id="xeT-ue-yck"/>
-                        <segue destination="g8L-ux-Rt8" kind="push" identifier="OpenDetail" id="yt4-I4-w34"/>
+                        <segue destination="1oc-6b-LR4" kind="push" identifier="OpenDetail" id="cF8-5z-Re6"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fs7-hu-GJR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-29" y="-46"/>
+        </scene>
+        <!--Detail View Controller-->
+        <scene sceneID="wy9-ct-Rah">
+            <objects>
+                <viewController id="1oc-6b-LR4" customClass="DetailViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="5OG-6z-bbq">
+                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="fXM-98-IGE">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="504"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="MaF-cw-7YP">
+                        <barButtonItem key="rightBarButtonItem" systemItem="refresh" id="juS-Mn-fCs">
+                            <connections>
+                                <action selector="dataWillLoad:" destination="1oc-6b-LR4" id="bjL-pz-3xp"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="tableView" destination="fXM-98-IGE" id="uQF-eN-B7o"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="nV0-zx-lJu" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="517" y="284"/>
         </scene>
         <!--Post View Controller-->
         <scene sceneID="xvy-b3-n3C">
@@ -144,47 +183,20 @@
             </objects>
             <point key="canvasLocation" x="531" y="-297"/>
         </scene>
-        <!--Detail View Controller-->
-        <scene sceneID="mjo-tP-Pz3">
-            <objects>
-                <tableViewController id="g8L-ux-Rt8" customClass="DetailViewController" sceneMemberID="viewController">
-                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="50" sectionHeaderHeight="22" sectionFooterHeight="22" id="gGZ-5a-0YG">
-                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <connections>
-                            <outlet property="dataSource" destination="g8L-ux-Rt8" id="Z8G-22-qmr"/>
-                            <outlet property="delegate" destination="g8L-ux-Rt8" id="rIL-1c-heF"/>
-                        </connections>
-                    </tableView>
-                    <navigationItem key="navigationItem" id="kXw-bH-q8x">
-                        <barButtonItem key="rightBarButtonItem" title="Reload" id="gph-C4-kjK">
-                            <connections>
-                                <action selector="dataWillLoad:" destination="g8L-ux-Rt8" id="CWb-xO-Ii8"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
-                    <connections>
-                        <outlet property="plusButton" destination="gph-C4-kjK" id="hyA-vt-WCg"/>
-                    </connections>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="lCc-km-Crq" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="442" y="422"/>
-        </scene>
     </scenes>
     <classes>
-        <class className="DetailViewController" superclassName="UITableViewController">
+        <class className="DetailViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/DetailViewController.h"/>
             <relationships>
                 <relationship kind="outlet" name="plusButton" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
             </relationships>
         </class>
         <class className="MainViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/MainViewController.h"/>
             <relationships>
                 <relationship kind="action" name="reloadDidClick:"/>
-                <relationship kind="outlet" name="plusButton" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="reloadButton" candidateClass="UIBarButtonItem"/>
                 <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
             </relationships>
         </class>
