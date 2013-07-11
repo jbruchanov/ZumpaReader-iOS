@@ -45,6 +45,7 @@
 {
     [super viewDidLoad];
     [self initHeader];
+    self.title = self.item.subject;
     
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
