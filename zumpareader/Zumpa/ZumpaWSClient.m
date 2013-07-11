@@ -10,6 +10,7 @@
 #import "ZumpaItem.h"
 #import "ZumpaSubItem.h"
 #import "NSString+URLEncoding.h"
+#import "Settings.h"
 
 #define kPost @"POST"
 #define kContentLen @"Content-length"
@@ -21,13 +22,7 @@
 #define kPrevPage @"PreviousPage"
 #define kNextPage @"NextPage"
 
-#define IS_LOGGED_IN @"IS_LOGGED_IN"
-#define COOKIES @"COOKIES"
-#define USERNAME @"USERNAME"
-
-
 const double kDefaultTimeout = 2.0;
-
 
 @interface ZumpaWSClient()
 @property (nonatomic, copy) NSString *cookie;
@@ -48,12 +43,7 @@ const double kDefaultTimeout = 2.0;
 -(id) init{
     self = [super init];
     if(self){
-        self.defaults = [[NSUserDefaults alloc]init];
-        self.isLoggedIn = [self.defaults boolForKey:IS_LOGGED_IN];
-        if(self.isLoggedIn){
-            self.cookie = [self.defaults stringForKey:COOKIES];
-        }
-        
+        [self reloadSettings];
         NSBundle* bundle = [NSBundle mainBundle];
         NSString* plistPath = [bundle pathForResource:@"PrivateSettings" ofType:@"plist"];
             
@@ -62,6 +52,14 @@ const double kDefaultTimeout = 2.0;
         
     }
     return self;
+}
+
+-(void)reloadSettings{
+    self.defaults = [[NSUserDefaults alloc]init];
+    self.isLoggedIn = [self.defaults boolForKey:IS_LOGGED_IN];
+    if(self.isLoggedIn){
+        self.cookie = [self.defaults stringForKey:COOKIES];
+    }
 }
 
 -(NSString*) encode:(NSArray*) params{

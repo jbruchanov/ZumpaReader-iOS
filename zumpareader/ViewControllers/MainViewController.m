@@ -13,11 +13,12 @@
 #import "ZumpaMainViewCell.h"
 #import "DetailViewController.h"
 #import "PostViewController.h"
+#import "SettingsViewController.h"
 
 #define DISPLAY_WIDTH self.view.frame.size.width
 #define LOAD_LIMIT_OFFSET 5
 
-@interface MainViewController ()
+@interface MainViewController () <SettingsViewControllerDelegate>
 
 @property (strong, nonatomic) ZumpaAsyncWrapper *zumpa;
 @property (strong, nonatomic) NSMutableArray* zumpaItems;
@@ -213,6 +214,10 @@
     }else if([@"Post" isEqualToString:segue.identifier]){
         PostViewController *pc = (PostViewController*)segue.destinationViewController;
         pc.zumpa = self.zumpa;
+    }else if([@"Settings" isEqualToString:segue.identifier]){
+        SettingsViewController *scv = (SettingsViewController*)segue.destinationViewController;
+        scv.zumpa = self.zumpa;
+        scv.delegate = self;
     }
 
 }
@@ -235,5 +240,9 @@
     [self setTableView:nil];
     [self setReloadButton:nil];
     [super viewDidUnload];
+}
+
+-(void)settingsWillClose:(id)source{
+    
 }
 @end

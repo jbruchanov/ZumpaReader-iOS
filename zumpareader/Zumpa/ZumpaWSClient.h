@@ -11,6 +11,8 @@
 
 @interface ZumpaWSClient : NSObject
 
+-(void) reloadSettings;
+
 -(ZumpaMainPageResult*) getItems;
 -(ZumpaMainPageResult*) getItems:(NSString*) withUrl;
 

@@ -35,8 +35,8 @@
 {
     [super viewDidLoad];
     
-    self.message.layer.borderWidth = 1;
-    self.message.layer.borderColor = [[UIColor grayColor] CGColor];
+//    self.message.layer.borderWidth = 1;
+//    self.message.layer.borderColor = [[UIColor grayColor] CGColor];
     
 	// Do any additional setup after loading the view.
 }
