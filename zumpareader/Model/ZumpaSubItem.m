@@ -18,6 +18,7 @@
 @synthesize hasInsideUris = _hasInsideUris;
 @synthesize insideUrls = _insideUrls;
 @synthesize survey = _survey;
+@synthesize parsedTime = _parsedTime;
 
 +(ZumpaSubItem*) fromJson:(NSDictionary*)dict{
     ZumpaSubItem *item = [[ZumpaSubItem alloc] init];
@@ -32,6 +33,13 @@
         item.insideUrls = [dict valueForKey:@"InsideUris"];
     }
     item.survey = [Survey fromJson:[dict valueForKey:@"Survey"]];
+    
+    NSDate* date = [NSDate dateWithTimeIntervalSince1970:item.time/1000];
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"dd.MM.yyyy HH:mm:ss"];
+    item.parsedTime = [formatter stringFromDate:date];
+    
+    
     return item;
 }
 @end

@@ -15,6 +15,7 @@
 @property (nonatomic) int responds;
 @property (nonatomic) long long time;
 @property (nonatomic, copy) NSString* itemsUrl;
+@property (nonatomic, strong) NSString *parsedTime;
 
 +(ZumpaItem*) fromJson:(NSDictionary*)dict;
 @end

@@ -17,6 +17,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *time;
 @property (weak, nonatomic) IBOutlet UITextView *message;
 @property (weak, nonatomic) IBOutlet UIView *strip;
+@property (strong, nonatomic) NSString *parsedTime;
 
 
 @end
@@ -24,7 +25,7 @@
 @implementation ZumpaSubViewCell
 
 @synthesize item = _item;
-@synthesize height = _height;
+@synthesize height = _height, parsedTime = _parsedTime;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
@@ -44,9 +45,7 @@
         self.message.dataDetectorTypes = UIDataDetectorTypeNone;
     }
     self.message.text = item.body;
-//    [self.message sizeToFit];
-    
-//    self.height = self.message.frame.origin.y + self.message.frame.size.height + 5;
+    self.time.text = item.parsedTime;
 }
 
 @end

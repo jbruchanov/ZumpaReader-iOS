@@ -15,6 +15,7 @@
 @synthesize subject = _subject;
 @synthesize responds = _responds;
 @synthesize itemsUrl = _itemsUrl;
+@synthesize parsedTime = _parsedTime;
 
 +(ZumpaItem*) fromJson:(NSDictionary*)dict{
     ZumpaItem *zi = [[ZumpaItem alloc]init];
@@ -23,7 +24,14 @@
     zi.subject = [dict valueForKey:@"Subject"];
     zi.responds = [[dict valueForKey:@"Responds"] integerValue];
     zi.itemsUrl = [dict valueForKey:@"ItemsUrl"];
-    zi.time = [[dict valueForKey:@"ItemsUrl"] longLongValue];
+    zi.time = [[dict valueForKey:@"Time"] longLongValue];
+    
+    NSDate* date = [NSDate dateWithTimeIntervalSince1970:zi.time/1000];
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"dd.MM.yyyy HH:mm:ss"];
+    zi.parsedTime = [formatter stringFromDate:date];
+
+    
     return zi;
 }
 

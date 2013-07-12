@@ -19,6 +19,7 @@
 @property (nonatomic) BOOL hasInsideUris;
 @property (nonatomic, assign) NSArray* insideUrls;
 @property (nonatomic, assign) Survey* survey;
+@property (nonatomic, strong) NSString *parsedTime;
 
 +(ZumpaSubItem*) fromJson:(NSDictionary*)dict;
 

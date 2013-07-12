@@ -55,7 +55,7 @@ const static int kBottomMargin = 10;
         self.responds.text = [NSString stringWithFormat:@"%d", self.item.responds];
         self.subject.text = self.item.subject;
         self.author.text = self.item.author;
-        self.date.text = [NSString stringWithFormat:@"%llu", self.item.time];
+        self.date.text = self.item.parsedTime;
         
         CGRect subjectFrame = self.subject.frame;
         
