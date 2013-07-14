@@ -94,8 +94,11 @@ const double kDefaultTimeout = 2.0;
     [request setHTTPMethod:kPost];
 
     NSMutableArray *nsa = [NSMutableArray arrayWithArray:params];
-    [nsa addObject:@"UserName"];
-    [nsa addObject:[self.defaults stringForKey:USERNAME]];
+    NSString *uName = [self.defaults stringForKey:USERNAME];
+    if(uName){
+        [nsa addObject:@"UserName"];
+        [nsa addObject:uName];
+    }
     
 
     if(self.cookie){
