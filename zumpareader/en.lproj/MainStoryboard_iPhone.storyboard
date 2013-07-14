@@ -245,7 +245,6 @@
                                         <color key="backgroundColor" red="0.96185427295918369" green="0.96185427295918369" blue="0.96185427295918369" alpha="1" colorSpace="calibratedRGB"/>
                                     </view>
                                 </subviews>
-                                <inset key="scrollIndicatorInsets" minX="50" minY="50" maxX="50" maxY="50"/>
                             </scrollView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
@@ -255,6 +254,8 @@
                     <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
                     <connections>
                         <outlet property="message" destination="WLw-vz-lxp" id="z7q-k7-HhD"/>
+                        <outlet property="messageLabel" destination="upj-Ty-K5f" id="F6R-nf-eGv"/>
+                        <outlet property="scrollView" destination="285-Ky-yeP" id="8O9-0Z-eFD"/>
                         <outlet property="subject" destination="oQh-oA-mw3" id="hza-9f-h9U"/>
                     </connections>
                 </viewController>
@@ -289,6 +290,8 @@
                 <relationship kind="action" name="doneDidClick:"/>
                 <relationship kind="action" name="sendDidClick:"/>
                 <relationship kind="outlet" name="message" candidateClass="UITextView"/>
+                <relationship kind="outlet" name="messageLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="scrollView" candidateClass="UIScrollView"/>
                 <relationship kind="outlet" name="subject" candidateClass="UITextField"/>
             </relationships>
         </class>

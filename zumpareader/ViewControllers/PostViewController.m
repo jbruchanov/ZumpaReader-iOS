@@ -15,10 +15,15 @@
 @property (weak, nonatomic) IBOutlet UITextView *message;
 @property (weak, nonatomic) IBOutlet UITextField *subject;
 @property (strong, nonatomic) UIActivityIndicatorView *pBar;
+@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
+@property (weak, nonatomic) IBOutlet UILabel *messageLabel;
+
 
 @end
 
 @implementation PostViewController
+
+CGRect originalScrollViewRect;
 
 @synthesize zumpa = _zumpa, delegate = _delegate, item = _item;
 
@@ -34,16 +39,37 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
+
+    [self initKeyboardListeners];
     if(self.item){
         self.subject.text = self.item.subject;
         [self.subject setEnabled:NO];
     }
     
+    originalScrollViewRect = self.scrollView.frame;
+    self.scrollView.contentSize = originalScrollViewRect.size;
+    
 //    self.message.layer.borderWidth = 1;
 //    self.message.layer.borderColor = [[UIColor grayColor] CGColor];
     
 	// Do any additional setup after loading the view.
+}
+
+-(void) initKeyboardListeners{
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(onKeyboardShow:) name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(onKeyboardHide:) name:UIKeyboardWillHideNotification object:nil];
+    
+}
+
+-(void) onKeyboardShow:(NSNotification *) notification{
+    CGRect r = originalScrollViewRect;
+    NSDictionary* info = [notification userInfo];
+    CGSize kbSize = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
+    self.scrollView.frame = CGRectMake(r.origin.x, r.origin.y, r.size.width, r.size.height - kbSize.height);
+}
+
+-(void) onKeyboardHide:(NSNotification *)notification{
+    self.scrollView.frame = originalScrollViewRect;
 }
 
 - (void)didReceiveMemoryWarning
@@ -119,4 +145,9 @@
     [self.navigationController setNavigationBarHidden:NO animated:animated];
 }
 
+- (void)viewDidUnload {
+    [self setScrollView:nil];
+    [self setMessageLabel:nil];
+    [super viewDidUnload];
+}
 @end
