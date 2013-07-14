@@ -39,39 +39,39 @@
 @synthesize item = _item;
 @synthesize items = _items;
 @synthesize heights = _heights;
-@synthesize measureCell = _measureCell;
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     [self initHeader];
+    [self initMeasurementStuff];
     self.title = self.item.subject;
     
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
-
-    self.measureFont = [UIFont fontWithName:@"Verdana" size:14];
-    
-    NSArray *nibObjects = [[NSBundle mainBundle] loadNibNamed:@"ZumpaSubViewCell" owner:nil options:nil];
-    self.measureCell = [nibObjects lastObject];
-    
+        
     self.colorEven = [UIColor whiteColor];
     self.colorOdd = [UIColor colorWithRed:0.95 green:0.95 blue:0.95 alpha:1];
     [self.tableView registerNib:[UINib nibWithNibName:@"ZumpaSubViewCell" bundle:nil] forCellReuseIdentifier:@"DetailCell"];
     self.items = [[NSMutableArray alloc]init];
     self.heights = [[NSMutableArray alloc]init];
-    [self dataWillLoad];
+    [self dataWillLoad];    
     
- 
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+}
+
+-(void) initMeasurementStuff{
+    NSArray *nibObjects = [[NSBundle mainBundle] loadNibNamed:@"ZumpaSubViewCell" owner:nil options:nil];
+    ZumpaSubViewCell *cell = [nibObjects lastObject];
+    self.measureFont = [cell fontForMeasurement];
 }
 
 -(void) initHeader{
     UIBarButtonItem *reload = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(dataWillLoad:)];
     UIBarButtonItem *add = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addDidClick:)];
     
-     self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:reload,add,nil];
+    self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:reload,add,nil];
 }
 
 -(void)dataWillLoad{
@@ -138,7 +138,7 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     
     ZumpaSubItem *zsi = [self.items objectAtIndex:indexPath.item];
-    CGSize size = CGSizeMake(DISPLAY_WIDTH - 10, 100000);
+    CGSize size = CGSizeMake(DISPLAY_WIDTH, 100000);
     CGSize measuredSize = [zsi.body sizeWithFont:self.measureFont constrainedToSize:size lineBreakMode:NSLineBreakByClipping];
     return measuredSize.height + 40;
 }

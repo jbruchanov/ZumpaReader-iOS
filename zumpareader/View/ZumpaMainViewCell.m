@@ -57,6 +57,8 @@ const static int kBottomMargin = 10;
         self.author.text = self.item.author;
         self.date.text = self.item.parsedTime;
         
+        
+        //doesnt count with rotation and screen width change!
         CGRect subjectFrame = self.subject.frame;
         
         CGSize size = [self.subject.text sizeWithFont:self.subject.font constrainedToSize:CGSizeMake(subjectFrame.size.width, 100000)];

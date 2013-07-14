@@ -48,4 +48,8 @@
     self.time.text = item.parsedTime;
 }
 
+-(UIFont*) fontForMeasurement{
+    return [UIFont fontWithName:self.message.font.fontName size:self.message.font.pointSize];
+}
+
 @end

@@ -13,7 +13,7 @@
 
 @interface PostViewController ()
 @property (weak, nonatomic) IBOutlet UITextView *message;
-@property (weak, nonatomic) IBOutlet UITextView *subject;
+@property (weak, nonatomic) IBOutlet UITextField *subject;
 @property (strong, nonatomic) UIActivityIndicatorView *pBar;
 
 @end
@@ -37,7 +37,7 @@
     
     if(self.item){
         self.subject.text = self.item.subject;
-        [self.subject setEditable:NO];
+        [self.subject setEnabled:NO];
     }
     
 //    self.message.layer.borderWidth = 1;

@@ -207,15 +207,15 @@
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="460"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <subviews>
-                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="6IV-d9-t3B">
-                                                <rect key="frame" x="0.0" y="9" width="42" height="21"/>
+                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Subject" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="6IV-d9-t3B">
+                                                <rect key="frame" x="0.0" y="9" width="320" height="21"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="upj-Ty-K5f">
-                                                <rect key="frame" x="0.0" y="76" width="42" height="21"/>
+                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Message" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="upj-Ty-K5f">
+                                                <rect key="frame" x="0.0" y="76" width="320" height="21"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -228,13 +228,19 @@
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences" enablesReturnKeyAutomatically="YES"/>
                                             </textView>
-                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" id="63I-ni-cjn">
+                                            <view contentMode="scaleToFill" id="MyS-9b-aqJ">
                                                 <rect key="frame" x="0.0" y="38" width="320" height="30"/>
-                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences" enablesReturnKeyAutomatically="YES"/>
-                                            </textView>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <subviews>
+                                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" id="oQh-oA-mw3">
+                                                        <rect key="frame" x="7" y="0.0" width="306" height="30"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                        <textInputTraits key="textInputTraits"/>
+                                                    </textField>
+                                                </subviews>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            </view>
                                         </subviews>
                                         <color key="backgroundColor" red="0.96185427295918369" green="0.96185427295918369" blue="0.96185427295918369" alpha="1" colorSpace="calibratedRGB"/>
                                     </view>
@@ -249,7 +255,7 @@
                     <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
                     <connections>
                         <outlet property="message" destination="WLw-vz-lxp" id="z7q-k7-HhD"/>
-                        <outlet property="subject" destination="63I-ni-cjn" id="me4-E9-mgV"/>
+                        <outlet property="subject" destination="oQh-oA-mw3" id="hza-9f-h9U"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CWv-C1-aJl" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -261,6 +267,7 @@
         <class className="DetailViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/DetailViewController.h"/>
             <relationships>
+                <relationship kind="action" name="addDidClick:"/>
                 <relationship kind="action" name="dataWillLoad:"/>
                 <relationship kind="outlet" name="plusButton" candidateClass="UIBarButtonItem"/>
                 <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
@@ -282,7 +289,7 @@
                 <relationship kind="action" name="doneDidClick:"/>
                 <relationship kind="action" name="sendDidClick:"/>
                 <relationship kind="outlet" name="message" candidateClass="UITextView"/>
-                <relationship kind="outlet" name="subject" candidateClass="UITextView"/>
+                <relationship kind="outlet" name="subject" candidateClass="UITextField"/>
             </relationships>
         </class>
         <class className="SettingsViewController" superclassName="UIViewController">

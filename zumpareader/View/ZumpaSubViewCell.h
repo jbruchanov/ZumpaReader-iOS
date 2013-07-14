@@ -13,5 +13,6 @@
 
 @property (nonatomic, readonly) int height;
 -(void)setItem:(ZumpaSubItem*)item;
+-(UIFont*) fontForMeasurement;
 
 @end
