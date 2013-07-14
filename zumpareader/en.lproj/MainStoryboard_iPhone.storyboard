@@ -181,18 +181,18 @@
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                 <items>
-                                    <barButtonItem title="Cancel" id="BcT-gG-Rgu">
+                                    <barButtonItem systemItem="cancel" id="BcT-gG-Rgu">
                                         <connections>
                                             <action selector="cancelDidClick:" destination="14z-Mp-h78" id="Ykg-eA-q1I"/>
                                         </connections>
                                     </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="iKQ-NG-L9d"/>
-                                    <barButtonItem title="Done" id="l8a-NX-FN0">
+                                    <barButtonItem systemItem="done" id="l8a-NX-FN0">
                                         <connections>
                                             <action selector="doneDidClick:" destination="14z-Mp-h78" id="53f-36-Uwa"/>
                                         </connections>
                                     </barButtonItem>
-                                    <barButtonItem title="Send" id="G3b-5l-DHG">
+                                    <barButtonItem systemItem="save" id="G3b-5l-DHG">
                                         <connections>
                                             <action selector="sendDidClick:" destination="14z-Mp-h78" id="LG2-kg-5VN"/>
                                         </connections>
