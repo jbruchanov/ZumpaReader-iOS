@@ -19,6 +19,7 @@
 
 #define DISPLAY_WIDTH self.view.frame.size.width
 #define LOAD_LIMIT_OFFSET 5
+#define REQUEST_ITEMS_SIZE 35
 
 @interface MainViewController () <SettingsViewControllerDelegate, PostViewControllerDelegate>
 
@@ -98,7 +99,11 @@
     self.currentResult = result;
     if(!append){
         [self.zumpaItems removeAllObjects];
-        [self.tableView scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:NO];
+        NSArray *paths = [self.tableView indexPathsForVisibleRows];
+        NSIndexPath *ip = [paths lastObject];
+        if(ip && ip.item > REQUEST_ITEMS_SIZE){ //scroll only if we reloaded data and user is below first page
+            [self.tableView scrollsToTop];
+        }
     }
     [self.zumpaItems addObjectsFromArray:result.items];
     [self.tableView reloadData];
