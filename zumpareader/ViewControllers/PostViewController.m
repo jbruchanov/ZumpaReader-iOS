@@ -7,7 +7,7 @@
 //
 
 #import "PostViewController.h"
-#import <QuartzCore/QuartzCore.h>
+#import "DialogHelper.h"
 
 #define DISPLAY_WIDTH self.view.frame.size.width
 
@@ -118,20 +118,11 @@ CGRect originalScrollViewRect;
 
 -(void)showProgressBar:(BOOL) visible{
     if(visible){
-        if(!self.pBar){
-            UIActivityIndicatorView *indicator = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-            indicator.frame = CGRectMake(0.0, 0.0, 100.0, 100.0);
-            indicator.backgroundColor = [UIColor colorWithRed:0.9 green:0.1 blue:0.1 alpha:0.3];
-            indicator.center = self.view.center;
-            [indicator bringSubviewToFront:self.view];
-            [indicator startAnimating];
-            self.pBar = indicator;
-        }
-        [self.pBar startAnimating];
-        [self.view addSubview:self.pBar];
+        self.pBar = [DialogHelper showProgressDialog:self.view];
     }else{
         [self.pBar removeFromSuperview];
         [self.pBar stopAnimating];
+        self.pBar = nil;
     }
 }
 

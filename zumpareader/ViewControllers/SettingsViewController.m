@@ -8,6 +8,7 @@
 
 #import "SettingsViewController.h"
 #import "Settings.h"
+#import "DialogHelper.h"
 
 @interface SettingsViewController ()
 @property (weak, nonatomic) IBOutlet UIButton *loginButton;
@@ -15,6 +16,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *userName;
 @property (weak, nonatomic) IBOutlet UITextField *password;
 @property (weak, nonatomic) IBOutlet UILabel *loginStatus;
+@property (weak, nonatomic) UIActivityIndicatorView *progressBar;
 
 -(void) initButtons;
 -(void) loadSettings;
@@ -70,6 +72,7 @@
 }
 
 - (IBAction)loginDidClick:(id)sender {
+    [self.progressBar removeFromSuperview];
     if([self.settings boolForKey:IS_LOGGED_IN] == NO){
         NSString *uid = self.userName.text;
         NSString *pwd = self.password.text;
@@ -78,14 +81,18 @@
             [[[UIAlertView alloc]initWithTitle:@"Nope :P" message:@"Missing username or password" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
             return;
         }
+        self.progressBar = [DialogHelper showProgressDialog:self.view];
         [self.zumpa logIn:uid andPassword:pwd withCallback:^(BOOL result) {
             [self loginStatusChanged:result save:YES];
+            self.loginButton.enabled = NO;
             if(!result){
                 [[[UIAlertView alloc]initWithTitle:@":(" message:@"Unable to login" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
             }
 
         }];
     }else{
+        self.progressBar = [DialogHelper showProgressDialog:self.view];
+        self.loginButton.enabled = NO;
         [self.zumpa logOutWithCallback:^(BOOL result) {
             [self loginStatusChanged:!result save:YES];
         }];
@@ -101,6 +108,9 @@
 }
 
 -(void) loginStatusChanged:(BOOL) isLoggedIn save:(BOOL) saveIt{
+    self.loginButton.enabled = YES;
+    [self.progressBar removeFromSuperview];
+    self.progressBar = nil;
     if(saveIt){
         [self.settings setBool:isLoggedIn forKey:IS_LOGGED_IN];
         [self.settings synchronize];

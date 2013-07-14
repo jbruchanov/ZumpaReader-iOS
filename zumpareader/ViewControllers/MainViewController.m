@@ -15,6 +15,7 @@
 #import "PostViewController.h"
 #import "SettingsViewController.h"
 #import "Settings.h"
+#import "DialogHelper.h"
 
 #define DISPLAY_WIDTH self.view.frame.size.width
 #define LOAD_LIMIT_OFFSET 5
@@ -238,7 +239,6 @@
         scv.zumpa = self.zumpa;
         scv.delegate = self;
     }
-    
 }
 
 
