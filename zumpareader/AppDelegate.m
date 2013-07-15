@@ -2,7 +2,7 @@
 //  AppDelegate.m
 //  zumpareader
 //
-//  Created by Joe Scurab on 7/15/13.
+//  Created by Joe Scurab on 7/10/13.
 //  Copyright (c) 2013 Jiri Bruchanov. All rights reserved.
 //
 
