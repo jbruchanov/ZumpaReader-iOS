@@ -12,6 +12,7 @@
 
 #define DISPLAY_WIDTH self.view.frame.size.width
 #define JPEG_QUALITY 0.8
+#define MAX_IMAGE_SIZE 1000.0
 
 @interface PostViewController () <UINavigationControllerDelegate, UIImagePickerControllerDelegate, UIScrollViewDelegate>
 @property (weak, nonatomic) IBOutlet UITextView *message;
@@ -153,7 +154,8 @@ CGRect originalScrollViewRect;
     [super viewDidUnload];
 }
 - (IBAction)cameraDidClick:(id)sender {
-    [self showImagePickerForSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
+//    [self showImagePickerForSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
+        [self showImagePickerForSourceType:UIImagePickerControllerSourceTypeCamera];
 }
 
 - (void)showImagePickerForSourceType:(UIImagePickerControllerSourceType)sourceType
@@ -161,32 +163,24 @@ CGRect originalScrollViewRect;
     UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
     imagePickerController.modalPresentationStyle = UIModalPresentationCurrentContext;
     imagePickerController.sourceType = sourceType;
-    imagePickerController.delegate = self;
-    
-//    if (sourceType == UIImagePickerControllerSourceTypeCamera)
-//    {
-//        /*
-//         The user wants to use the camera interface. Set up our custom overlay view for the camera.
-//         */
-//        imagePickerController.showsCameraControls = NO;
-//        
-//        /*
-//         Load the overlay view from the OverlayView nib file. Self is the File's Owner for the nib file, so the overlayView outlet is set to the main view in the nib. Pass that view to the image picker controller to use as its overlay view, and set self's reference to the view to nil.
-//         */
-//        [[NSBundle mainBundle] loadNibNamed:@"OverlayView" owner:self options:nil];
-//        self.overlayView.frame = imagePickerController.cameraOverlayView.frame;
-//        imagePickerController.cameraOverlayView = self.overlayView;
-//        self.overlayView = nil;
-//    }
-    
+    imagePickerController.delegate = self;    
     self.imagePickerController = imagePickerController;
     [self presentViewController:self.imagePickerController animated:YES completion:nil];
 }
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info{
-    [self doneDidClick:nil];
+    [self doneDidClick:nil];//hide keyboard
+    
     [picker dismissViewControllerAnimated:YES completion:nil];
     UIImage *image = [info valueForKey:UIImagePickerControllerOriginalImage];
+    int max = MAX(image.size.width, image.size.width);
+
+    //resize image to smaller one, if w/h is > 1000
+    if(max > MAX_IMAGE_SIZE){
+        float ratio = MAX_IMAGE_SIZE / max;
+        image = [self imageWithImage:image scaledToSize:CGSizeMake(image.size.width * ratio, image.size.height * ratio)];
+    }
+
     if(image){
         NSData *data = UIImageJPEGRepresentation(image, JPEG_QUALITY);
         UIActivityIndicatorView *progress = [DialogHelper showProgressDialog:self.view];
@@ -201,6 +195,17 @@ CGRect originalScrollViewRect;
     }else{
         [[[UIAlertView alloc]initWithTitle:@"Error" message:@"Image not selected?!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil] show];
     }
+}
+
+- (UIImage*)imageWithImage:(UIImage*)image
+              scaledToSize:(CGSize)newSize;
+{
+    UIGraphicsBeginImageContext( newSize );
+    [image drawInRect:CGRectMake(0,0,newSize.width,newSize.height)];
+    UIImage* newImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    return newImage;
 }
 
 @end
