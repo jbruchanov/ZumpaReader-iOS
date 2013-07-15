@@ -11,7 +11,7 @@
 #import "ZumpaSubViewCell.h"
 #import "PostViewController.h"
 
-#define DISPLAY_WIDTH self.view.frame.size.width
+#define MESSAGE_WIDTH self.view.frame.size.width - 16
 @interface DetailViewController () <PostViewControllerDelegate>
 
 
@@ -138,7 +138,7 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     
     ZumpaSubItem *zsi = [self.items objectAtIndex:indexPath.item];
-    CGSize size = CGSizeMake(DISPLAY_WIDTH, 100000);
+    CGSize size = CGSizeMake(MESSAGE_WIDTH, 100000);
     CGSize measuredSize = [zsi.body sizeWithFont:self.measureFont constrainedToSize:size lineBreakMode:NSLineBreakByClipping];
     return measuredSize.height + 40;
 }
