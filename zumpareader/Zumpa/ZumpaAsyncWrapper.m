@@ -82,4 +82,14 @@
     });
 }
 
+-(void) sendImageToQ3:(NSData*)jpeg withCallback:(void (^) (NSString*))callback{
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        NSString *result = [self.client sendImageToQ3:jpeg];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            callback(result);
+        });
+    });
+
+}
+
 @end

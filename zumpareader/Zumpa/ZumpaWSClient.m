@@ -249,4 +249,22 @@ const double kDefaultTimeout = 2.0;
     return [self post:threadId withSubject:subject andMessage:message];
 }
 
+-(NSString*) sendImageToQ3:(NSData*)jpeg{
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:[self.serviceUrl stringByAppendingString:@"image"]]];
+    [request setHTTPMethod:kPost];
+    
+    [request setHTTPBody:jpeg];
+    NSData* jsonData = [self sendRequest:request];
+    
+    NSDictionary *jsonDict = [NSJSONSerialization JSONObjectWithData:jsonData options:kNilOptions error:nil];
+    NSString *context = [jsonDict objectForKey:kContext];
+    
+#ifdef DEBUG
+    NSString *responseString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+    NSLog(@"%@",responseString);
+#endif
+
+    return context;
+}
+
 @end

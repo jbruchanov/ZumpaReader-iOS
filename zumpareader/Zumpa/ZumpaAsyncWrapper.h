@@ -25,4 +25,6 @@
 
 -(void) replyToThread:(int)threadId withSubject:(NSString*) subject andMessage:(NSString*)message withCallback:(void (^)(BOOL))callback;
 
+-(void) sendImageToQ3:(NSData*)jpeg withCallback:(void (^) (NSString*))callback;
+
 @end

@@ -32,4 +32,6 @@
 
 -(BOOL) replyToThread:(int)threadId withSubject:(NSString*) subject andMessage:(NSString*)message;
 
+-(NSString*) sendImageToQ3:(NSData*)jpeg;
+
 @end

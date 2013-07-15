@@ -135,4 +135,17 @@
     STAssertFalse([client logIn:self.login with:@"blabla"], @"Should be NO for invalid login credentials!");
     //[client replyToThread:1152897 withSubject:@"iOS subject" andMessage:@"iOS 1234 test"];
 }
+
+-(void) privatestPostQ3{
+    //it works, disabled for not doing mess around
+    NSString *filePath = [[NSBundle mainBundle] pathForResource:@"appicon@2" ofType:@"png"]; 
+    if(filePath){
+        NSData *img = [NSData dataWithContentsOfFile:filePath];
+        ZumpaWSClient *client = [[ZumpaWSClient alloc] init];
+        NSString *serverURL = [client sendImageToQ3:img];
+        STAssertNotNil(serverURL, @"There should be some image url");
+        NSLog(@"%@", serverURL);
+    }
+}
+
 @end
