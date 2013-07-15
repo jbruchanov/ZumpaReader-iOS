@@ -11,6 +11,8 @@
 
 
 @implementation DialogHelper
+
+//    [indicator removeFromSuperview]   
 +(UIActivityIndicatorView*) showProgressDialog:(UIView*)parentView{
     UIActivityIndicatorView *indicator = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
     indicator.frame = CGRectMake(0.0, 0.0, 100.0, 100.0);
