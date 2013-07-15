@@ -162,7 +162,7 @@
                     <navigationItem key="navigationItem" id="MaF-cw-7YP"/>
                     <connections>
                         <outlet property="tableView" destination="fXM-98-IGE" id="uQF-eN-B7o"/>
-                        <segue destination="14z-Mp-h78" kind="push" identifier="Post" id="Dmb-bx-EgC"/>
+                        <segue destination="14z-Mp-h78" kind="modal" identifier="Post" modalTransitionStyle="flipHorizontal" id="Dmb-bx-EgC"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nV0-zx-lJu" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -187,7 +187,7 @@
                                         </connections>
                                     </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="iKQ-NG-L9d"/>
-                                    <barButtonItem enabled="NO" systemItem="camera" id="Q7n-BC-QT3">
+                                    <barButtonItem systemItem="camera" id="Q7n-BC-QT3">
                                         <connections>
                                             <action selector="cameraDidClick:" destination="14z-Mp-h78" id="M5F-Ka-dJ9"/>
                                         </connections>
@@ -270,12 +270,53 @@
             <point key="canvasLocation" x="531" y="-297"/>
         </scene>
     </scenes>
+    <classes>
+        <class className="DetailViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/DetailViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="plusButton" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
+            </relationships>
+        </class>
+        <class className="MainViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/MainViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="postButton" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="reloadButton" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
+            </relationships>
+        </class>
+        <class className="PostViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/PostViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="cameraDidClick:"/>
+                <relationship kind="action" name="cancelDidClick:"/>
+                <relationship kind="action" name="doneDidClick:"/>
+                <relationship kind="action" name="sendDidClick:"/>
+                <relationship kind="outlet" name="cameraButton" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="message" candidateClass="UITextView"/>
+                <relationship kind="outlet" name="messageLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="scrollView" candidateClass="UIScrollView"/>
+                <relationship kind="outlet" name="subject" candidateClass="UITextField"/>
+            </relationships>
+        </class>
+        <class className="SettingsViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/SettingsViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="loginDidClick:"/>
+                <relationship kind="outlet" name="loginButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="loginStatus" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="password" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="userName" candidateClass="UITextField"/>
+            </relationships>
+        </class>
+    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="3Dd-u9-lUN"/>
+        <segue reference="Dmb-bx-EgC"/>
     </inferredMetricsTieBreakers>
 </document>
