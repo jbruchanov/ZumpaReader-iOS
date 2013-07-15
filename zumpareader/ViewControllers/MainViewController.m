@@ -57,7 +57,13 @@
     [super viewDidLoad];
     self.settings = [[NSUserDefaults alloc]init];
     self.measureFont = [UIFont boldSystemFontOfSize:17];
-    self.title = @"Žumpička";
+    
+    
+    NSBundle *bundle = [NSBundle mainBundle];
+    NSDictionary *info = [bundle infoDictionary];
+    NSString *prodName = [info objectForKey:@"CFBundleDisplayName"];
+    self.title = prodName;
+    
     self.measureCell = [[ZumpaMainViewCell alloc]init];
     self.colorEven = [UIColor whiteColor];
     self.colorOdd = [UIColor colorWithRed:0.95 green:0.95 blue:0.95 alpha:1];
