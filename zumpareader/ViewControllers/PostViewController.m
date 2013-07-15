@@ -8,15 +8,20 @@
 
 #import "PostViewController.h"
 #import "DialogHelper.h"
+#import <AssetsLibrary/ALAsset.h>
 
 #define DISPLAY_WIDTH self.view.frame.size.width
+#define JPEG_QUALITY 0.8
 
-@interface PostViewController ()
+@interface PostViewController () <UINavigationControllerDelegate, UIImagePickerControllerDelegate, UIScrollViewDelegate>
 @property (weak, nonatomic) IBOutlet UITextView *message;
 @property (weak, nonatomic) IBOutlet UITextField *subject;
 @property (strong, nonatomic) UIActivityIndicatorView *pBar;
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet UILabel *messageLabel;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *cameraButton;
+
+@property (nonatomic) UIImagePickerController *imagePickerController;
 
 
 @end
@@ -40,6 +45,7 @@ CGRect originalScrollViewRect;
 {
     [super viewDidLoad];
 
+    self.scrollView.delegate = self;
     [self initKeyboardListeners];
     if(self.item){
         self.subject.text = self.item.subject;
@@ -53,6 +59,10 @@ CGRect originalScrollViewRect;
 //    self.message.layer.borderColor = [[UIColor grayColor] CGColor];
     
 	// Do any additional setup after loading the view.
+}
+
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
+    NSLog(@"%f decelerate:%@", scrollView.bounds.origin.y, decelerate ? @"Y" : @"N");
 }
 
 -(void) initKeyboardListeners{
@@ -139,6 +149,58 @@ CGRect originalScrollViewRect;
 - (void)viewDidUnload {
     [self setScrollView:nil];
     [self setMessageLabel:nil];
+    [self setCameraButton:nil];
     [super viewDidUnload];
 }
+- (IBAction)cameraDidClick:(id)sender {
+    [self showImagePickerForSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
+}
+
+- (void)showImagePickerForSourceType:(UIImagePickerControllerSourceType)sourceType
+{
+    UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
+    imagePickerController.modalPresentationStyle = UIModalPresentationCurrentContext;
+    imagePickerController.sourceType = sourceType;
+    imagePickerController.delegate = self;
+    
+//    if (sourceType == UIImagePickerControllerSourceTypeCamera)
+//    {
+//        /*
+//         The user wants to use the camera interface. Set up our custom overlay view for the camera.
+//         */
+//        imagePickerController.showsCameraControls = NO;
+//        
+//        /*
+//         Load the overlay view from the OverlayView nib file. Self is the File's Owner for the nib file, so the overlayView outlet is set to the main view in the nib. Pass that view to the image picker controller to use as its overlay view, and set self's reference to the view to nil.
+//         */
+//        [[NSBundle mainBundle] loadNibNamed:@"OverlayView" owner:self options:nil];
+//        self.overlayView.frame = imagePickerController.cameraOverlayView.frame;
+//        imagePickerController.cameraOverlayView = self.overlayView;
+//        self.overlayView = nil;
+//    }
+    
+    self.imagePickerController = imagePickerController;
+    [self presentViewController:self.imagePickerController animated:YES completion:nil];
+}
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info{
+    [self doneDidClick:nil];
+    [picker dismissViewControllerAnimated:YES completion:nil];
+    UIImage *image = [info valueForKey:UIImagePickerControllerOriginalImage];
+    if(image){
+        NSData *data = UIImageJPEGRepresentation(image, JPEG_QUALITY);
+        UIActivityIndicatorView *progress = [DialogHelper showProgressDialog:self.view];
+        [self.zumpa sendImageToQ3:data withCallback:^(NSString *url) {
+            [progress removeFromSuperview];
+            if(url){
+                self.message.text = [self.message.text stringByAppendingFormat:@"\n<%@>", url];
+            }else{
+                [[[UIAlertView alloc]initWithTitle:@"Error" message:@"Unable to upload image!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil] show];
+            }
+        }];
+    }else{
+        [[[UIAlertView alloc]initWithTitle:@"Error" message:@"Image not selected?!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil] show];
+    }
+}
+
 @end
