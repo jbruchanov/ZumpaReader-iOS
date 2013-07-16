@@ -14,7 +14,7 @@
 #define JPEG_QUALITY 0.8
 #define MAX_IMAGE_SIZE 1000.0
 
-@interface PostViewController () <UINavigationControllerDelegate, UIImagePickerControllerDelegate, UIScrollViewDelegate>
+@interface PostViewController () <UINavigationControllerDelegate, UIImagePickerControllerDelegate, UIScrollViewDelegate, UIActionSheetDelegate>
 @property (weak, nonatomic) IBOutlet UITextView *message;
 @property (weak, nonatomic) IBOutlet UITextField *subject;
 @property (strong, nonatomic) UIActivityIndicatorView *pBar;
@@ -154,8 +154,25 @@ CGRect originalScrollViewRect;
     [super viewDidUnload];
 }
 - (IBAction)cameraDidClick:(id)sender {
-//    [self showImagePickerForSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
+    [self showActionSheet];
+}
+
+-(void)showActionSheet{
+    if([UIImagePickerController isCameraDeviceAvailable:UIImagePickerControllerCameraDeviceFront] ||
+            [UIImagePickerController isCameraDeviceAvailable:UIImagePickerControllerCameraDeviceRear]){
+        UIActionSheet *sheet = [[UIActionSheet alloc]initWithTitle:@"Source" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Camera", @"Gallery", nil];
+        [sheet showInView:self.view];
+    }else{
+        [self showImagePickerForSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
+    }
+}
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex{
+    if(buttonIndex == 0){
         [self showImagePickerForSourceType:UIImagePickerControllerSourceTypeCamera];
+    }else if (buttonIndex == 1){
+        [self showImagePickerForSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
+    }
 }
 
 - (void)showImagePickerForSourceType:(UIImagePickerControllerSourceType)sourceType
