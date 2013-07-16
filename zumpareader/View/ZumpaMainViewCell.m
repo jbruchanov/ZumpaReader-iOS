@@ -13,6 +13,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *subject;
 @property (weak, nonatomic) IBOutlet UILabel *author;
 @property (weak, nonatomic) IBOutlet UILabel *date;
+@property (weak, nonatomic) IBOutlet UIView *colorStrip;
 
 #define GAP 5
 
@@ -73,6 +74,15 @@ const static int kBottomMargin = 10;
         self.date.frame = CGRectMake(oldDate.origin.x, size.height + GAP, oldDate.size.width, oldDate.size.height);
         
         self.frame = CGRectMake(0, 0, self.frame.size.width, size.height + oldOne.size.height + 2*GAP);
+        
+        self.colorStrip.frame = CGRectMake(0,0,self.colorStrip.frame.size.width,self.frame.size.height);
+        
+        if([@"JtS" isEqualToString:self.author.text]){
+            self.colorStrip.backgroundColor = [UIColor colorWithRed:1 green:0 blue:1 alpha:1];
+            self.colorStrip.alpha = 1;
+        }else{
+            self.colorStrip.alpha = 0;
+        }
     }
 }
 

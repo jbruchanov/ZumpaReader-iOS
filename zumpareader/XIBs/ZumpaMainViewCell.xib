@@ -14,6 +14,7 @@
 			<string>IBProxyObject</string>
 			<string>IBUILabel</string>
 			<string>IBUITableViewCell</string>
+			<string>IBUIView</string>
 		</array>
 		<array key="IBDocument.PluginDependencies">
 			<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
@@ -155,11 +156,25 @@
 								</object>
 								<bool key="IBUIAdjustsFontSizeToFit">NO</bool>
 							</object>
+							<object class="IBUIView" id="559870543">
+								<reference key="NSNextResponder" ref="17957522"/>
+								<int key="NSvFlags">276</int>
+								<string key="NSFrameSize">{2, 50}</string>
+								<reference key="NSSuperview" ref="17957522"/>
+								<reference key="NSWindow"/>
+								<reference key="NSNextKeyView" ref="354204037"/>
+								<string key="NSReuseIdentifierKey">_NS:9</string>
+								<object class="NSColor" key="IBUIBackgroundColor">
+									<int key="NSColorSpace">1</int>
+									<bytes key="NSRGB">MSAwIDEAA</bytes>
+								</object>
+								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
+							</object>
 						</array>
 						<string key="NSFrameSize">{320, 45}</string>
 						<reference key="NSSuperview" ref="582406428"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="354204037"/>
+						<reference key="NSNextKeyView" ref="559870543"/>
 						<string key="NSReuseIdentifierKey">_NS:11</string>
 						<object class="NSColor" key="IBUIBackgroundColor">
 							<int key="NSColorSpace">3</int>
@@ -218,6 +233,14 @@
 					</object>
 					<int key="connectionID">35</int>
 				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">colorStrip</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="559870543"/>
+					</object>
+					<int key="connectionID">37</int>
+				</object>
 			</array>
 			<object class="IBMutableOrderedSet" key="objectRecords">
 				<array key="orderedObjects">
@@ -246,6 +269,7 @@
 							<reference ref="1060122153"/>
 							<reference ref="880879786"/>
 							<reference ref="883423554"/>
+							<reference ref="559870543"/>
 						</array>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -270,6 +294,11 @@
 						<reference key="object" ref="883423554"/>
 						<reference key="parent" ref="582406428"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">36</int>
+						<reference key="object" ref="559870543"/>
+						<reference key="parent" ref="582406428"/>
+					</object>
 				</array>
 			</object>
 			<dictionary class="NSMutableDictionary" key="flattenedProperties">
@@ -281,6 +310,7 @@
 				<string key="17.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="3.CustomClassName">ZumpaMainViewCell</string>
 				<string key="3.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+				<string key="36.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="4.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="7.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 			</dictionary>
@@ -288,7 +318,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">35</int>
+			<int key="maxID">37</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -297,6 +327,7 @@
 					<string key="superclassName">UITableViewCell</string>
 					<dictionary class="NSMutableDictionary" key="outlets">
 						<string key="author">UILabel</string>
+						<string key="colorStrip">UIView</string>
 						<string key="date">UILabel</string>
 						<string key="responds">UILabel</string>
 						<string key="subject">UILabel</string>
@@ -305,6 +336,10 @@
 						<object class="IBToOneOutletInfo" key="author">
 							<string key="name">author</string>
 							<string key="candidateClassName">UILabel</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="colorStrip">
+							<string key="name">colorStrip</string>
+							<string key="candidateClassName">UIView</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="date">
 							<string key="name">date</string>
