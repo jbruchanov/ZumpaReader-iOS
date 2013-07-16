@@ -1,0 +1,19 @@
+/* 
+  Localizable.strings
+  zumpareader
+
+  Created by Joe Scurab on 7/16/13.
+  Copyright (c) 2013 Jiri Bruchanov. All rights reserved.
+*/
+
+"Source" = "Source";
+"Cancel" = "Cancel";
+"Gallery" = "Gallery";
+"Camera" = "Camera";
+"OK" = "OK";
+"Error" = "Error :(";
+"Nope" = "Nope :P";
+"SubjectOrMessageEmpty" = "Subject or message is incomplete!";
+"SendingProblem" = "Some problem with sending!";
+"UnableToUploadImage" = "Unable to upload image!";
+"ImageNotSelected" = "Image not selected?!"

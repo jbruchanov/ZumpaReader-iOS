@@ -9,6 +9,7 @@
 #import "PostViewController.h"
 #import "DialogHelper.h"
 #import <AssetsLibrary/ALAsset.h>
+#import "I18N.h"
 
 #define DISPLAY_WIDTH self.view.frame.size.width
 #define JPEG_QUALITY 0.8
@@ -113,7 +114,7 @@ CGRect originalScrollViewRect;
             }];
         }
     }else{
-        [[[UIAlertView alloc]initWithTitle:@"Nope :P" message:@"Subject or message is incomplete!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil] show];
+        [[[UIAlertView alloc]initWithTitle:NSLoc(@"Nope") message:NSLoc(@"SubjectOrMessageEmpty") delegate:nil cancelButtonTitle:NSLoc(@"OK") otherButtonTitles: nil] show];
     }
 }
 
@@ -123,7 +124,7 @@ CGRect originalScrollViewRect;
         [self.delegate userDidSendMessage];
         [self cancelDidClick:nil];
     }else{
-        [[[UIAlertView alloc]initWithTitle:@"Error :(" message:@"Some problem with sending!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil] show];
+        [[[UIAlertView alloc]initWithTitle:NSLoc(@"Error") message:NSLoc(@"SendingProblem") delegate:nil cancelButtonTitle:NSLoc(@"OK")  otherButtonTitles: nil] show];
     }
 }
 
@@ -157,10 +158,10 @@ CGRect originalScrollViewRect;
     [self showActionSheet];
 }
 
--(void)showActionSheet{
+-(void)showActionSheet{    
     if([UIImagePickerController isCameraDeviceAvailable:UIImagePickerControllerCameraDeviceFront] ||
-            [UIImagePickerController isCameraDeviceAvailable:UIImagePickerControllerCameraDeviceRear]){
-        UIActionSheet *sheet = [[UIActionSheet alloc]initWithTitle:@"Source" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Camera", @"Gallery", nil];
+       [UIImagePickerController isCameraDeviceAvailable:UIImagePickerControllerCameraDeviceRear]){
+        UIActionSheet *sheet = [[UIActionSheet alloc]initWithTitle:NSLoc(@"Source") delegate:self cancelButtonTitle:NSLoc(@"Cancel") destructiveButtonTitle:nil otherButtonTitles:NSLoc(@"Camera"), NSLoc(@"Gallery"), nil];
         [sheet showInView:self.view];
     }else{
         [self showImagePickerForSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
@@ -206,11 +207,11 @@ CGRect originalScrollViewRect;
             if(url){
                 self.message.text = [self.message.text stringByAppendingFormat:@"\n<%@>", url];
             }else{
-                [[[UIAlertView alloc]initWithTitle:@"Error" message:@"Unable to upload image!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil] show];
+                [[[UIAlertView alloc]initWithTitle:NSLoc(@"Error") message:NSLoc(@"UnableToUploadImage") delegate:nil cancelButtonTitle:NSLoc(@"OK") otherButtonTitles: nil] show];
             }
         }];
     }else{
-        [[[UIAlertView alloc]initWithTitle:@"Error" message:@"Image not selected?!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil] show];
+        [[[UIAlertView alloc]initWithTitle:NSLoc(@"Error") message:NSLoc(@"ImageNotSelected") delegate:nil cancelButtonTitle:NSLoc(@"OK") otherButtonTitles: nil] show];
     }
 }
 
