@@ -15,7 +15,7 @@
 #define kPost @"POST"
 #define kContentLen @"Content-length"
 #define kContentType @"Content-Type"
-#define kContentTypeValue @"application/x-www-form-urlencoded"
+#define kContentTypeValue @"application/json"
 
 #define kContext @"Context"
 #define kItems @"Items"
@@ -62,30 +62,23 @@ const double kDefaultTimeout = 2.0;
     }
 }
 
--(NSString*) encode:(NSArray*) params{
-    NSMutableString *result = [[NSMutableString alloc]init];
-
+-(NSData*) encode:(NSArray*) params{
     int len = [params count] - ([params count] % 2);
+    NSMutableDictionary *dict = [[NSMutableDictionary alloc]init];
     for (int i = 0; i<len ;i++)
     {
-        NSString *arg = [params objectAtIndex:i];
-        if(i % 2 == 0){
-            if([[params objectAtIndex:i+1] length] > 0){//ignore if value is nil
-                [result appendString:arg];
-                [result appendString:@"="];
-            }else{
-                i++;
-            }
-        }else{
-            [result appendString:[arg urlEncode]];
-            [result appendString:@"&"];
-        }
+        NSString *key = [params objectAtIndex:i];
+        NSString *value = [params objectAtIndex:++i];
+        [dict setObject:value forKey:key];
     }
     
-    NSString *toReturn = result;
-    if([result length] > 0){
-        toReturn = [result substringToIndex:[result length] - 1];
-    }
+    NSData *toReturn = [NSJSONSerialization dataWithJSONObject:dict options:NSJSONWritingPrettyPrinted error:nil];
+    
+#ifdef DEBUG
+    NSString *responseString = [[NSString alloc] initWithData:toReturn encoding:NSUTF8StringEncoding];
+    NSLog(@"%@",responseString);
+#endif
+    
     return toReturn;
 }
 
@@ -109,9 +102,10 @@ const double kDefaultTimeout = 2.0;
     params = nsa;
     
     if(params){
-        NSString *postString = [self encode:params];
+        NSData *postString = [self encode:params];
+        [request setValue:kContentTypeValue forHTTPHeaderField: kContentType];
         [request setValue:[NSString stringWithFormat:@"%d", [postString length]] forHTTPHeaderField:kContentLen];
-        [request setHTTPBody:[postString dataUsingEncoding:NSUTF8StringEncoding]];
+        [request setHTTPBody:postString];
     }
     return request;
 }
