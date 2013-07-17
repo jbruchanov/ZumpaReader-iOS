@@ -10,6 +10,7 @@
 #import "DialogHelper.h"
 #import <AssetsLibrary/ALAsset.h>
 #import "I18N.h"
+#import "ImageEditorViewController.h"
 
 #define DISPLAY_WIDTH self.view.frame.size.width
 #define JPEG_QUALITY 0.8
@@ -25,6 +26,8 @@
 
 @property (nonatomic) UIImagePickerController *imagePickerController;
 
+@property (strong, nonatomic) UIImage *selectedImage;
+
 
 @end
 
@@ -32,7 +35,7 @@
 
 CGRect originalScrollViewRect;
 
-@synthesize zumpa = _zumpa, delegate = _delegate, item = _item;
+@synthesize zumpa = _zumpa, delegate = _delegate, item = _item, selectedImage = _selectedImage;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -155,10 +158,13 @@ CGRect originalScrollViewRect;
     [super viewDidUnload];
 }
 - (IBAction)cameraDidClick:(id)sender {
-    [self showActionSheet];
+    self.selectedImage = [UIImage imageNamed:@"appicon@2.png"];
+    [self performSegueWithIdentifier:@"PhotoEdit" sender:self];
+//    [self showActionSheet];
 }
 
--(void)showActionSheet{    
+-(void)showActionSheet{
+    self.selectedImage = nil;
     if([UIImagePickerController isCameraDeviceAvailable:UIImagePickerControllerCameraDeviceFront] ||
        [UIImagePickerController isCameraDeviceAvailable:UIImagePickerControllerCameraDeviceRear]){
         UIActionSheet *sheet = [[UIActionSheet alloc]initWithTitle:NSLoc(@"Source") delegate:self cancelButtonTitle:NSLoc(@"Cancel") destructiveButtonTitle:nil otherButtonTitles:NSLoc(@"Camera"), NSLoc(@"Gallery"), nil];
@@ -190,29 +196,32 @@ CGRect originalScrollViewRect;
     [self doneDidClick:nil];//hide keyboard
     
     [picker dismissViewControllerAnimated:YES completion:nil];
-    UIImage *image = [info valueForKey:UIImagePickerControllerOriginalImage];
-    int max = MAX(image.size.width, image.size.width);
+    self.selectedImage = [info valueForKey:UIImagePickerControllerOriginalImage];
+    [self performSegueWithIdentifier:@"PhotoEdit" sender:self];
 
-    //resize image to smaller one, if w/h is > 1000
-    if(max > MAX_IMAGE_SIZE){
-        float ratio = MAX_IMAGE_SIZE / max;
-        image = [self imageWithImage:image scaledToSize:CGSizeMake(image.size.width * ratio, image.size.height * ratio)];
-    }
 
-    if(image){
-        NSData *data = UIImageJPEGRepresentation(image, JPEG_QUALITY);
-        UIActivityIndicatorView *progress = [DialogHelper showProgressDialog:self.view];
-        [self.zumpa sendImageToQ3:data withCallback:^(NSString *url) {
-            [progress removeFromSuperview];
-            if(url){
-                self.message.text = [self.message.text stringByAppendingFormat:@"\n<%@>", url];
-            }else{
-                [[[UIAlertView alloc]initWithTitle:NSLoc(@"Error") message:NSLoc(@"UnableToUploadImage") delegate:nil cancelButtonTitle:NSLoc(@"OK") otherButtonTitles: nil] show];
-            }
-        }];
-    }else{
-        [[[UIAlertView alloc]initWithTitle:NSLoc(@"Error") message:NSLoc(@"ImageNotSelected") delegate:nil cancelButtonTitle:NSLoc(@"OK") otherButtonTitles: nil] show];
-    }
+//    int max = MAX(image.size.width, image.size.width);
+//
+//    //resize image to smaller one, if w/h is > 1000
+//    if(max > MAX_IMAGE_SIZE){
+//        float ratio = MAX_IMAGE_SIZE / max;
+//        image = [self imageWithImage:image scaledToSize:CGSizeMake(image.size.width * ratio, image.size.height * ratio)];
+//    }
+//
+//    if(image){
+//        NSData *data = UIImageJPEGRepresentation(image, JPEG_QUALITY);
+//        UIActivityIndicatorView *progress = [DialogHelper showProgressDialog:self.view];
+//        [self.zumpa sendImageToQ3:data withCallback:^(NSString *url) {
+//            [progress removeFromSuperview];
+//            if(url){
+//                self.message.text = [self.message.text stringByAppendingFormat:@"\n<%@>", url];
+//            }else{
+//                [[[UIAlertView alloc]initWithTitle:NSLoc(@"Error") message:NSLoc(@"UnableToUploadImage") delegate:nil cancelButtonTitle:NSLoc(@"OK") otherButtonTitles: nil] show];
+//            }
+//        }];
+//    }else{
+//        [[[UIAlertView alloc]initWithTitle:NSLoc(@"Error") message:NSLoc(@"ImageNotSelected") delegate:nil cancelButtonTitle:NSLoc(@"OK") otherButtonTitles: nil] show];
+//    }
 }
 
 - (UIImage*)imageWithImage:(UIImage*)image
@@ -224,6 +233,13 @@ CGRect originalScrollViewRect;
     UIGraphicsEndImageContext();
     
     return newImage;
+}
+
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+    if([@"PhotoEdit" isEqualToString:segue.identifier]){
+        ImageEditorViewController *ievc = segue.destinationViewController;
+        ievc.image = self.selectedImage;
+    }
 }
 
 @end
