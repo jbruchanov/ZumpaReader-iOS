@@ -11,6 +11,7 @@
 #import <AssetsLibrary/ALAsset.h>
 #import "I18N.h"
 #import "ImageEditorViewController.h"
+#import "Settings.h"
 
 #define DISPLAY_WIDTH self.view.frame.size.width
 #define JPEG_QUALITY 0.8
@@ -35,7 +36,7 @@
 
 CGRect originalScrollViewRect;
 
-@synthesize zumpa = _zumpa, delegate = _delegate, item = _item, selectedImage = _selectedImage;
+@synthesize zumpa = _zumpa, delegate = _delegate, item = _item, selectedImage = _selectedImage, settings = _settings;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -52,13 +53,23 @@ CGRect originalScrollViewRect;
     
     self.scrollView.delegate = self;
     [self initKeyboardListeners];
-    if(self.item){
-        self.subject.text = self.item.subject;
-        [self.subject setEnabled:NO];
-    }
+    
     
     originalScrollViewRect = self.scrollView.frame;
     self.scrollView.contentSize = originalScrollViewRect.size;
+    
+    NSString *subj = [self.settings stringForKey:SUBJECT];
+    NSString *msg = [self.settings stringForKey:MESSAGE];
+    
+    if(self.item){
+        self.subject.text = self.item.subject;
+    }else if(subj){
+        self.subject.text = subj;
+    }
+    
+    if(msg){
+        self.message.text = subj;
+    }
     
     //    self.message.layer.borderWidth = 1;
     //    self.message.layer.borderColor = [[UIColor grayColor] CGColor];
@@ -93,6 +104,8 @@ CGRect originalScrollViewRect;
     // Dispose of any resources that can be recreated.
 }
 - (IBAction)cancelDidClick:(id)sender {
+    self.subject.text = @"";
+    self.message.text = @"";
     [self.navigationController popViewControllerAnimated:YES];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
@@ -126,6 +139,8 @@ CGRect originalScrollViewRect;
 -(void) zumpaDidPost:(BOOL) result{
     [self showProgressBar:NO];
     if(result){
+        self.subject.text = @"";
+        self.message.text = @"";
         [self.delegate userDidSendMessage];
         [self cancelDidClick:nil];
     }else{
@@ -149,6 +164,16 @@ CGRect originalScrollViewRect;
 }
 
 - (void) viewWillDisappear:(BOOL)animated {
+    NSString *subj = self.subject.text;
+    NSString *msg = self.message.text;
+    if(subj){
+        [self.settings setObject:subj forKey:SUBJECT];
+    }
+    if(msg){
+        [self.settings setObject:msg forKey:MESSAGE];
+    }
+    [self.settings synchronize];
+
     [super viewWillDisappear:animated];
     [self.navigationController setNavigationBarHidden:NO animated:animated];
 }

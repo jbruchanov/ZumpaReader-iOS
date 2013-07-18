@@ -241,10 +241,12 @@
         DetailViewController *dc = (DetailViewController*)segue.destinationViewController;
         dc.zumpa = self.zumpa;
         dc.item = sender;
+        dc.settings = self.settings;
     }else if([@"Post" isEqualToString:segue.identifier]){
         PostViewController *pc = (PostViewController*)segue.destinationViewController;
         pc.zumpa = self.zumpa;
         pc.delegate = self;
+        pc.settings = self.settings;
     }else if([@"Settings" isEqualToString:segue.identifier]){
         SettingsViewController *scv = (SettingsViewController*)segue.destinationViewController;
         scv.zumpa = self.zumpa;

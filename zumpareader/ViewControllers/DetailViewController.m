@@ -39,6 +39,7 @@
 @synthesize item = _item;
 @synthesize items = _items;
 @synthesize heights = _heights;
+@synthesize settings = _settings;
 
 - (void)viewDidLoad
 {
@@ -179,6 +180,7 @@
         pvc.item = self.item;
         pvc.zumpa = self.zumpa;
         pvc.delegate = self;
+        pvc.settings = self.settings;
     }
 }
 

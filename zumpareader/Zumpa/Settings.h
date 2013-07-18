@@ -13,5 +13,7 @@
 #define COOKIES @"COOKIES"
 #define USERNAME @"USERNAME"
 #define PASSWORD @"PASSWORD"
+#define SUBJECT @"SUBJECT"
+#define MESSAGE @"MESSAGE"
 
 #endif

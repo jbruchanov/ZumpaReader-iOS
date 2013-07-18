@@ -15,5 +15,6 @@
 
 @property (nonatomic, strong) ZumpaAsyncWrapper *zumpa;
 @property (nonatomic, weak) ZumpaItem *item;
+@property (nonatomic, weak) NSUserDefaults *settings;
 
 @end
