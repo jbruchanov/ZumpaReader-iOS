@@ -8,6 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol ImageEditorViewControllerDelegate <NSObject>
+
+-(void) didFinishEditing:(NSData*)result;
+
+@end
+
 @interface ImageEditorViewController : UIViewController
 @property (nonatomic, strong) UIImage *image;
+@property (nonatomic, weak) id<ImageEditorViewControllerDelegate> delegate;
 @end

@@ -16,7 +16,7 @@
 #define JPEG_QUALITY 0.8
 #define MAX_IMAGE_SIZE 1000.0
 
-@interface PostViewController () <UINavigationControllerDelegate, UIImagePickerControllerDelegate, UIScrollViewDelegate, UIActionSheetDelegate>
+@interface PostViewController () <UINavigationControllerDelegate, UIImagePickerControllerDelegate, UIScrollViewDelegate, UIActionSheetDelegate, ImageEditorViewControllerDelegate>
 @property (weak, nonatomic) IBOutlet UITextView *message;
 @property (weak, nonatomic) IBOutlet UITextField *subject;
 @property (strong, nonatomic) UIActivityIndicatorView *pBar;
@@ -49,7 +49,7 @@ CGRect originalScrollViewRect;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
+    
     self.scrollView.delegate = self;
     [self initKeyboardListeners];
     if(self.item){
@@ -60,8 +60,8 @@ CGRect originalScrollViewRect;
     originalScrollViewRect = self.scrollView.frame;
     self.scrollView.contentSize = originalScrollViewRect.size;
     
-//    self.message.layer.borderWidth = 1;
-//    self.message.layer.borderColor = [[UIColor grayColor] CGColor];
+    //    self.message.layer.borderWidth = 1;
+    //    self.message.layer.borderColor = [[UIColor grayColor] CGColor];
     
 	// Do any additional setup after loading the view.
 }
@@ -96,10 +96,12 @@ CGRect originalScrollViewRect;
     [self.navigationController popViewControllerAnimated:YES];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
+
 - (IBAction)doneDidClick:(id)sender {
     [self.subject resignFirstResponder];
     [self.message resignFirstResponder];
 }
+
 - (IBAction)sendDidClick:(id)sender {
     [self doneDidClick:nil];
     NSString *subj = [self.subject.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
@@ -158,9 +160,7 @@ CGRect originalScrollViewRect;
     [super viewDidUnload];
 }
 - (IBAction)cameraDidClick:(id)sender {
-    self.selectedImage = [UIImage imageNamed:@"appicon@2.png"];
-    [self performSegueWithIdentifier:@"PhotoEdit" sender:self];
-//    [self showActionSheet];
+    [self showActionSheet];
 }
 
 -(void)showActionSheet{
@@ -187,7 +187,7 @@ CGRect originalScrollViewRect;
     UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
     imagePickerController.modalPresentationStyle = UIModalPresentationCurrentContext;
     imagePickerController.sourceType = sourceType;
-    imagePickerController.delegate = self;    
+    imagePickerController.delegate = self;
     self.imagePickerController = imagePickerController;
     [self presentViewController:self.imagePickerController animated:YES completion:nil];
 }
@@ -195,33 +195,9 @@ CGRect originalScrollViewRect;
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info{
     [self doneDidClick:nil];//hide keyboard
     
-    [picker dismissViewControllerAnimated:YES completion:nil];
+    [picker dismissViewControllerAnimated:NO completion:nil]; //must be NO
     self.selectedImage = [info valueForKey:UIImagePickerControllerOriginalImage];
     [self performSegueWithIdentifier:@"PhotoEdit" sender:self];
-
-
-//    int max = MAX(image.size.width, image.size.width);
-//
-//    //resize image to smaller one, if w/h is > 1000
-//    if(max > MAX_IMAGE_SIZE){
-//        float ratio = MAX_IMAGE_SIZE / max;
-//        image = [self imageWithImage:image scaledToSize:CGSizeMake(image.size.width * ratio, image.size.height * ratio)];
-//    }
-//
-//    if(image){
-//        NSData *data = UIImageJPEGRepresentation(image, JPEG_QUALITY);
-//        UIActivityIndicatorView *progress = [DialogHelper showProgressDialog:self.view];
-//        [self.zumpa sendImageToQ3:data withCallback:^(NSString *url) {
-//            [progress removeFromSuperview];
-//            if(url){
-//                self.message.text = [self.message.text stringByAppendingFormat:@"\n<%@>", url];
-//            }else{
-//                [[[UIAlertView alloc]initWithTitle:NSLoc(@"Error") message:NSLoc(@"UnableToUploadImage") delegate:nil cancelButtonTitle:NSLoc(@"OK") otherButtonTitles: nil] show];
-//            }
-//        }];
-//    }else{
-//        [[[UIAlertView alloc]initWithTitle:NSLoc(@"Error") message:NSLoc(@"ImageNotSelected") delegate:nil cancelButtonTitle:NSLoc(@"OK") otherButtonTitles: nil] show];
-//    }
 }
 
 - (UIImage*)imageWithImage:(UIImage*)image
@@ -239,6 +215,17 @@ CGRect originalScrollViewRect;
     if([@"PhotoEdit" isEqualToString:segue.identifier]){
         ImageEditorViewController *ievc = segue.destinationViewController;
         ievc.image = self.selectedImage;
+        ievc.delegate = self;
+    }
+}
+
+-(void) didFinishEditing:(NSData *)result{
+    if(result){
+        UIActivityIndicatorView *pbar = [DialogHelper showProgressDialog:self.view];
+        [self.zumpa sendImageToQ3:result withCallback:^(NSString *url) {
+            [pbar removeFromSuperview];
+            self.message.text = [self.message.text stringByAppendingFormat:@"\n%@",url];
+        }];
     }
 }
 

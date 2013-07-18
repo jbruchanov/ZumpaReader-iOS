@@ -17,6 +17,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *updatedSize;
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
 @property (strong, nonatomic) IBOutlet UIImage *updatedImage;
+@property (strong, nonatomic) NSData *updatedImageData;
 
 @property int currentRotation;
 
@@ -24,7 +25,7 @@
 
 @implementation ImageEditorViewController
 
-@synthesize image = _image, updatedImage = _updatedImage, currentRotation = _currentRotation;
+@synthesize image = _image, updatedImage = _updatedImage, currentRotation = _currentRotation, delegate = _delegate;
 
 - (void)viewDidLoad
 {
@@ -78,8 +79,8 @@ UIImageOrientation rotation = UIImageOrientationUp;
     
     if(self.updatedImage){
         NSString *res = [NSString stringWithFormat:@"%dx%d", (int)self.updatedImage.size.width, (int)self.updatedImage.size.height];
-        NSData* imageData = [NSData dataWithData:UIImageJPEGRepresentation(self.updatedImage, JPEG_QUALITY)];
-        NSString *size = [NSString stringWithFormat:@"%d KiB", ([imageData length] / 1000)];
+        self.updatedImageData = [NSData dataWithData:UIImageJPEGRepresentation(self.updatedImage, JPEG_QUALITY)];
+        NSString *size = [NSString stringWithFormat:@"%d KiB", ([self.updatedImageData length] / 1000)];
         self.updatedResolution.text = res;
         self.updatedSize.text = size;
     }else{
@@ -112,6 +113,16 @@ UIImageOrientation rotation = UIImageOrientationUp;
     UIGraphicsEndImageContext();
     
     return newImage;
+}
+
+- (IBAction)cancelDidClick:(id)sender {
+    [self dismissViewControllerAnimated:YES completion:nil];
+    [self.delegate didFinishEditing:nil];
+}
+
+- (IBAction)doneDidClick:(id)sender {
+    [self dismissViewControllerAnimated:YES completion:nil];
+    [self.delegate didFinishEditing:self.updatedImageData];
 }
 
 @end

@@ -278,8 +278,25 @@
                         <rect key="frame" x="0.0" y="20" width="320" height="548"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" barStyle="blackOpaque" id="Oql-0B-vqQ">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                <items>
+                                    <barButtonItem systemItem="cancel" id="B2Z-R8-wXy">
+                                        <connections>
+                                            <action selector="cancelDidClick:" destination="Md0-nP-tka" id="O77-C2-DLX"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="nUo-Ms-YfA"/>
+                                    <barButtonItem systemItem="done" id="cng-uJ-VWR">
+                                        <connections>
+                                            <action selector="doneDidClick:" destination="Md0-nP-tka" id="Cqf-Bj-lMZ"/>
+                                        </connections>
+                                    </barButtonItem>
+                                </items>
+                            </toolbar>
                             <view contentMode="scaleToFill" id="QXj-rY-rPo">
-                                <rect key="frame" x="0.0" y="12" width="320" height="79"/>
+                                <rect key="frame" x="0.0" y="50" width="320" height="79"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Resolution" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Duq-jA-Ody">
@@ -342,11 +359,11 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                             </view>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" id="8pt-NH-QtD">
-                                <rect key="frame" x="5" y="150" width="310" height="390"/>
+                                <rect key="frame" x="5" y="188" width="310" height="352"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             </imageView>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" id="Kxz-ez-wfY">
-                                <rect key="frame" x="15" y="99" width="199" height="44"/>
+                                <rect key="frame" x="14" y="137" width="199" height="44"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <segments>
                                     <segment title="1/1"/>
@@ -359,7 +376,7 @@
                                 </connections>
                             </segmentedControl>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="zYl-9D-nFe">
-                                <rect key="frame" x="229" y="99" width="71" height="44"/>
+                                <rect key="frame" x="229" y="137" width="71" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                 <state key="normal" title="Rotate">
@@ -404,6 +421,10 @@
         <class className="ImageEditorViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/ImageEditorViewController.h"/>
             <relationships>
+                <relationship kind="action" name="cancelDidClick:"/>
+                <relationship kind="action" name="doneDidClick:"/>
+                <relationship kind="action" name="resizeDidClick:" candidateClass="UISegmentedControl"/>
+                <relationship kind="action" name="rotateDidClick:"/>
                 <relationship kind="outlet" name="imageView" candidateClass="UIImageView"/>
                 <relationship kind="outlet" name="originalResolution" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="originalSize" candidateClass="UILabel"/>
