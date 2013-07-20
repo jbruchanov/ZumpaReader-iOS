@@ -15,5 +15,6 @@
 #define PASSWORD @"PASSWORD"
 #define SUBJECT @"SUBJECT"
 #define MESSAGE @"MESSAGE"
+#define NICK_RESPONSE @"NICK_RESPONSE"
 
 #endif

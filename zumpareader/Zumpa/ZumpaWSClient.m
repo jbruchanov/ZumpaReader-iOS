@@ -93,6 +93,11 @@ const double kDefaultTimeout = 2.0;
         [nsa addObject:uName];
     }
     
+    NSString *fakeUserName = [self.defaults stringForKey:NICK_RESPONSE];
+    if(fakeUserName && [fakeUserName length] > 0){
+        [nsa addObject:@"FakeUserName"];
+        [nsa addObject:fakeUserName];
+    }
 
     if(self.cookie){
         [nsa addObject:@"Cookies"];

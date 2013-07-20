@@ -17,6 +17,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *password;
 @property (weak, nonatomic) IBOutlet UILabel *loginStatus;
 @property (weak, nonatomic) UIActivityIndicatorView *progressBar;
+@property (weak, nonatomic) IBOutlet UITextField *responseNick;
 
 -(void) initButtons;
 -(void) loadSettings;
@@ -54,10 +55,18 @@
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
+    [self saveSettings];
     if(self.delegate){
         [self.delegate settingsWillClose:self];
     }
     [super viewWillDisappear:animated];
+}
+
+-(void) saveSettings{
+    //stuff around login is on diff place
+    [self.settings setObject:self.responseNick.text forKey:NICK_RESPONSE];
+    
+    [self.settings synchronize];
 }
 
 -(void)initButtons{
@@ -105,6 +114,7 @@
     BOOL isLoggedIn = [self.settings boolForKey:IS_LOGGED_IN];
     self.loginStatus.text = isLoggedIn ? @"YES" : @"NO";
     [self loginStatusChanged:isLoggedIn save:NO];
+    self.responseNick.text = [self.settings stringForKey:NICK_RESPONSE];
 }
 
 -(void) loginStatusChanged:(BOOL) isLoggedIn save:(BOOL) saveIt{
@@ -113,7 +123,6 @@
     self.progressBar = nil;
     if(saveIt){
         [self.settings setBool:isLoggedIn forKey:IS_LOGGED_IN];
-        [self.settings synchronize];
     }
     self.loginStatus.text = isLoggedIn ? @"YES" : @"NO";
     [self.loginButton setTitle:isLoggedIn ? @"Logout" : @"Login" forState:UIControlStateNormal];

@@ -38,7 +38,12 @@
 
 -(void)setItem:(ZumpaSubItem*)item{
     _item = item;
-    self.author.text = item.authorReal;
+    if(item.authorFake){
+        self.author.text = [NSString stringWithFormat:@"%@ (%@)", item.authorFake, item.authorReal];
+    }else{
+        self.author.text = item.authorReal;
+    }
+    
     if(item.hasInsideUris){
         self.message.dataDetectorTypes = UIDataDetectorTypeLink;
     }else{
