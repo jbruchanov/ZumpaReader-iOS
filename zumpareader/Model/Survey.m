@@ -24,7 +24,7 @@
     Survey *item = [[Survey alloc] init];
     
     item.answers = [jsonDict valueForKey:@"Answers"];
-    item.ID = [jsonDict valueForKey:@"ID"];
+    item.ID = [[jsonDict valueForKey:@"ID"] intValue];
     item.percents = [jsonDict valueForKey:@"Percents"];
     item.question = [jsonDict valueForKey:@"Question"];
     item.responds = [[jsonDict valueForKey:@"Responds"] intValue];

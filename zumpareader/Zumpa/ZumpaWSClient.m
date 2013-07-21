@@ -277,4 +277,24 @@ const double kDefaultTimeout = 2.0;
     return context;
 }
 
+-(Survey*) voteSurvey:(int)surveyId forItem:(int)surveyButtonIndex{
+
+    NSMutableArray *params = [NSMutableArray arrayWithObjects:@"SurveyID", [NSNumber numberWithInt:surveyId],
+                              @"SurveyItem", [NSNumber numberWithInt:surveyButtonIndex],
+                              nil];
+            
+    NSData* jsonData = [self sendRequest:[self createPostRequest:[self.serviceUrl stringByAppendingString:@"survey"]
+                                                       andParams:params]];
+    
+    NSDictionary *jsonDict = [NSJSONSerialization JSONObjectWithData:jsonData options:kNilOptions error:nil];
+    NSDictionary *result = [jsonDict objectForKey:kContext];
+    
+#ifdef DEBUG
+    NSString *responseString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+    NSLog(@"%@",responseString);
+#endif
+    
+    Survey *s = [Survey fromJson:result];
+    return s;
+}
 @end

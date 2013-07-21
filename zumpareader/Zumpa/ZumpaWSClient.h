@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 #import "ZumpaMainPageResult.h"
+#import "Survey.h"
+
 @protocol ZumpaWSClientDelegate
 
 -(void) hasErrorDuringSending:(NSError*)error;
@@ -41,5 +43,7 @@
 -(BOOL) replyToThread:(int)threadId withSubject:(NSString*) subject andMessage:(NSString*)message;
 
 -(NSString*) sendImageToQ3:(NSData*)jpeg;
+
+-(Survey*) voteSurvey:(int)surveyId forItem:(int)surveyButtonIndex;
 
 @end

@@ -12,7 +12,7 @@
 
 @property (nonatomic, copy) NSString *question;
 @property (nonatomic) int responds;
-@property (nonatomic, copy) NSString *ID;
+@property (nonatomic) int ID;
 @property (nonatomic, strong) NSArray *answers;
 @property (nonatomic, strong) NSArray *percents;
 @property (nonatomic) int votedItem;

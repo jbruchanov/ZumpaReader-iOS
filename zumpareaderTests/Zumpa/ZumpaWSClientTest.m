@@ -148,4 +148,12 @@
     }
 }
 
+-(void)testVoteSurvey{
+    ZumpaWSClient *client = [[ZumpaWSClient alloc] init];
+    [client logIn:self.login with:self.password];
+    Survey *s = [client voteSurvey:3879 forItem:4];
+    STAssertNotNil(s, @"Survey should be ni;!");
+    STAssertEquals(3879, s.ID, @"Different survey ID");
+}
+
 @end

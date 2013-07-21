@@ -12,6 +12,8 @@
 #import "PostViewController.h"
 #import "Survey.h"
 #import "UISurvey.h"
+#import "I18N.h"
+#import "DialogHelper.h"
 
 #define MESSAGE_WIDTH self.view.frame.size.width - 16
 @interface DetailViewController () <PostViewControllerDelegate, UISurveyDelegate>
@@ -214,7 +216,21 @@
 }
 
 -(void)didVote:(int)surveyButtonIndex{
-    [[[UIAlertView alloc]initWithTitle:@"Vote" message:[NSString stringWithFormat:@"%d", surveyButtonIndex] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil] show];
+    ZumpaSubItem *zsi = [self.items objectAtIndex:0];
+    if(zsi.survey){
+        UIActivityIndicatorView *pbar = [DialogHelper showProgressDialog:self.view];
+        [self.zumpa voteSurvey:zsi.survey.ID forItem:surveyButtonIndex withCallback:^(Survey *newSurvey) {
+            [pbar removeFromSuperview];
+            zsi.survey = newSurvey;
+            if(self.survey){
+                [self.survey setSurvey: newSurvey];
+            }else{
+                [self.tableView reloadData];
+            }
+        }];
+    }else{
+        [[[UIAlertView alloc]initWithTitle:NSLoc(@"Error") message:NSLoc(@"WTF_SurveyNotFound") delegate:nil cancelButtonTitle:NSLoc(@"OK") otherButtonTitles: nil]show];
+    }
 }
 
 @end

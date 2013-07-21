@@ -27,4 +27,6 @@
 
 -(void) sendImageToQ3:(NSData*)jpeg withCallback:(void (^) (NSString*))callback;
 
+-(void) voteSurvey:(int)surveyId forItem:(int)surveyButtonIndex withCallback:(void (^) (Survey*))callback;
+
 @end

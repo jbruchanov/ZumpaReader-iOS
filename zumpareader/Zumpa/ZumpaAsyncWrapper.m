@@ -89,7 +89,15 @@
             callback(result);
         });
     });
+}
 
+-(void) voteSurvey:(int)surveyId forItem:(int)surveyButtonIndex withCallback:(void (^) (Survey*))callback{
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        Survey *result = [self.client voteSurvey:surveyId forItem:surveyButtonIndex];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            callback(result);
+        });
+    });
 }
 
 @end
