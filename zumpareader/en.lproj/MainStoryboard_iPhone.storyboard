@@ -19,6 +19,34 @@
             </objects>
             <point key="canvasLocation" x="-455" y="60"/>
         </scene>
+        <!--Test View Controller-->
+        <scene sceneID="rRi-Is-Gd3">
+            <objects>
+                <viewController id="4Ld-ed-1w6" customClass="TestViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Nlj-R4-fPq">
+                        <rect key="frame" x="0.0" y="20" width="320" height="548"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="gwo-Y7-s0Q" customClass="UISurveyButton">
+                                <rect key="frame" x="20" y="20" width="280" height="44"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal" title="Button">
+                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="jSG-r6-sh1" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-455" y="754"/>
+        </scene>
         <!--Main View Controller-->
         <scene sceneID="Prq-nN-T8S">
             <objects>
@@ -420,8 +448,6 @@
         <class className="DetailViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/DetailViewController.h"/>
             <relationships>
-                <relationship kind="action" name="addDidClick:"/>
-                <relationship kind="action" name="dataWillLoad:"/>
                 <relationship kind="outlet" name="plusButton" candidateClass="UIBarButtonItem"/>
                 <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
             </relationships>
@@ -429,10 +455,6 @@
         <class className="ImageEditorViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/ImageEditorViewController.h"/>
             <relationships>
-                <relationship kind="action" name="cancelDidClick:"/>
-                <relationship kind="action" name="doneDidClick:"/>
-                <relationship kind="action" name="resizeDidClick:" candidateClass="UISegmentedControl"/>
-                <relationship kind="action" name="rotateDidClick:"/>
                 <relationship kind="outlet" name="doneKey" candidateClass="UIBarButtonItem"/>
                 <relationship kind="outlet" name="imageView" candidateClass="UIImageView"/>
                 <relationship kind="outlet" name="originalResolution" candidateClass="UILabel"/>
@@ -463,13 +485,18 @@
         <class className="SettingsViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/SettingsViewController.h"/>
             <relationships>
-                <relationship kind="action" name="loginDidClick:"/>
                 <relationship kind="outlet" name="loginButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="loginStatus" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="password" candidateClass="UITextField"/>
                 <relationship kind="outlet" name="responseNick" candidateClass="UITextField"/>
                 <relationship kind="outlet" name="userName" candidateClass="UITextField"/>
             </relationships>
+        </class>
+        <class className="TestViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/TestViewController.h"/>
+        </class>
+        <class className="UISurveyButton" superclassName="UIButton">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/UISurveyButton.h"/>
         </class>
     </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
