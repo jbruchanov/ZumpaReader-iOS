@@ -14,7 +14,7 @@
 #import "UISurvey.h"
 
 #define MESSAGE_WIDTH self.view.frame.size.width - 16
-@interface DetailViewController () <PostViewControllerDelegate>
+@interface DetailViewController () <PostViewControllerDelegate, UISurveyDelegate>
 
 
 -(void)setSpinnerVisible:(BOOL) visible;
@@ -123,6 +123,8 @@
 {
     static NSString *CellIdentifier = @"DetailCell";
     ZumpaSubViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+    cell.surveyDelegate = self;
+    
     ZumpaSubItem *zsi = [self.items objectAtIndex:indexPath.item];
     
     [cell setItem:zsi withSurvey:!self.survey];
@@ -209,6 +211,10 @@
 
 -(void) userDidSendMessage{
     [self dataWillLoad];
+}
+
+-(void)didVote:(int)surveyButtonIndex{
+    [[[UIAlertView alloc]initWithTitle:@"Vote" message:[NSString stringWithFormat:@"%d", surveyButtonIndex] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil] show];
 }
 
 @end

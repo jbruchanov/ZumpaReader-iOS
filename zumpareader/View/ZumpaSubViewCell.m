@@ -53,6 +53,7 @@
     if(item.survey){
         if(createSurvey){//createSurvey can be false, when viewcontrollerl has survey in cache, and will be added in few moments later
             self.survey = [[UISurvey alloc]initWithSurvey:item.survey forTop:self.message.contentSize.height andWidth:self.frame.size.width];
+            self.survey.delegate = self.surveyDelegate;
             [self addSubview:self.survey];
         }else{
             if(self.survey){
