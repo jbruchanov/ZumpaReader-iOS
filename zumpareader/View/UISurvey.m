@@ -15,6 +15,9 @@ static int const kTopMargin = kLeftMargin;
 static int const kSpacing = 10;
 static CGFloat const kButtonHeight = 40;
 
+#define MSG_FONT_NAME @"Verdana"
+#define MSG_FONT_SIZE 14.0
+
 @interface UISurvey()
 
 @property (nonatomic, strong) UILabel* question;
@@ -45,14 +48,16 @@ static CGFloat const kButtonHeight = 40;
     NSString *question = [NSString stringWithFormat:@"%@\n%@: %d", survey.question, NSLoc(@"Responses"), survey.responds];
     
     self.question = [[UILabel alloc]init];//WithFrame:CGRectMake(kLeftMargin, kTopMargin, width - kRightMargin - kLeftMargin, 50)];
+    self.question.font = [UIFont fontWithName:MSG_FONT_NAME size:MSG_FONT_SIZE];
+    
     CGSize size = [question sizeWithFont:self.question.font constrainedToSize:CGSizeMake(contentWidth, 100000) lineBreakMode:NSLineBreakByWordWrapping];
-    self.question.frame = CGRectMake(kLeftMargin, top + kTopMargin, contentWidth, size.height);
+    self.question.frame = CGRectMake(kLeftMargin, kTopMargin, contentWidth, size.height);
     self.question.numberOfLines = 5;
     self.question.lineBreakMode = UILineBreakModeWordWrap;
     
     [self.question setText:question];
     
-    int y = top + kTopMargin + kSpacing + size.height;
+    int y = kTopMargin + kSpacing + size.height;
 
     for(int i = 0, n = [survey.answers count]; i<n;i++){
     
@@ -77,6 +82,30 @@ static CGFloat const kButtonHeight = 40;
 
 -(void) surveyButtonDidClick:(UISurveyButton*) source{
     [self.delegate didVote:source.surveyButtonIndex];
+}
+
++ (int) estimateHeight:(Survey*) survey forWidth:(int) width{
+    int contentWidth = width - kRightMargin - kLeftMargin;
+    NSString *question = [NSString stringWithFormat:@"%@\n%@: %d", survey.question, NSLoc(@"Responses"), survey.responds];
+    UIFont *font = [UIFont fontWithName:MSG_FONT_NAME size:MSG_FONT_SIZE];
+    CGSize size = [question sizeWithFont:font constrainedToSize:CGSizeMake(contentWidth, 100000) lineBreakMode:NSLineBreakByWordWrapping];
+    
+    int y = kTopMargin + size.height + kSpacing//question
+            + [survey.answers count] * (kSpacing + kButtonHeight);//buttons
+    return y;
+}
+
+-(void) setSurvey:(Survey *)survey{
+    NSString *question = [NSString stringWithFormat:@"%@\n%@: %d", survey.question, NSLoc(@"Responses"), survey.responds];
+    [self.question setText:question];
+    if([self.buttons count] == [survey.answers count]){//just for sure
+        for(int i = 0, n = [self.buttons count];i<n;i++){
+            UISurveyButton *usb = [self.buttons objectAtIndex:i];
+            usb.percentage = [[survey.percents objectAtIndex:i]intValue];
+            [usb setEnabled: i != survey.votedItem];
+            [usb setTitle:[survey.answers objectAtIndex:i] forState:UIControlStateNormal];
+        }
+    }
 }
 
 /*

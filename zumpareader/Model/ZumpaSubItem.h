@@ -17,9 +17,9 @@
 @property (nonatomic) long long time;
 @property (nonatomic) BOOL hasResponseForYou;
 @property (nonatomic) BOOL hasInsideUris;
-@property (nonatomic, assign) NSArray* insideUrls;
-@property (nonatomic, assign) Survey* survey;
-@property (nonatomic, strong) NSString *parsedTime;
+@property (nonatomic, strong) NSArray* insideUrls;
+@property (nonatomic, strong) Survey* survey;
+@property (nonatomic, copy) NSString *parsedTime;
 
 +(ZumpaSubItem*) fromJson:(NSDictionary*)dict;
 

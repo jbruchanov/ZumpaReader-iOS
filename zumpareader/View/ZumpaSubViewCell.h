@@ -8,11 +8,17 @@
 
 #import <UIKit/UIKit.h>
 #import "ZumpaSubItem.h"
+#import "UISurvey.h"
 
 @interface ZumpaSubViewCell : UITableViewCell
 
+@property (nonatomic, readonly) int surveyHeight;
+
 @property (nonatomic, readonly) int height;
--(void)setItem:(ZumpaSubItem*)item;
+
+@property (strong, nonatomic) UISurvey *survey;
+
+-(void)setItem:(ZumpaSubItem*)item withSurvey:(BOOL) createSurvey;
 -(UIFont*) fontForMeasurement;
 
 @end

@@ -10,6 +10,8 @@
 #import "ZumpaSubItem.h"
 #import "ZumpaSubViewCell.h"
 #import "PostViewController.h"
+#import "Survey.h"
+#import "UISurvey.h"
 
 #define MESSAGE_WIDTH self.view.frame.size.width - 16
 @interface DetailViewController () <PostViewControllerDelegate>
@@ -29,6 +31,7 @@
 @property (strong, nonatomic) ZumpaSubViewCell *measureCell;
 @property (strong, nonatomic) UIFont *measureFont;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (strong, nonatomic) UISurvey *survey;
 
 @end
 
@@ -50,13 +53,13 @@
     
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
-        
+    
     self.colorEven = [UIColor whiteColor];
     self.colorOdd = [UIColor colorWithRed:0.95 green:0.95 blue:0.95 alpha:1];
     [self.tableView registerNib:[UINib nibWithNibName:@"ZumpaSubViewCell" bundle:nil] forCellReuseIdentifier:@"DetailCell"];
     self.items = [[NSMutableArray alloc]init];
     self.heights = [[NSMutableArray alloc]init];
-    [self dataWillLoad];    
+    [self dataWillLoad];
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
@@ -79,6 +82,7 @@
     if(self.isLoading == NO){
         [self setSpinnerVisible:YES];
         self.isLoading = YES;
+        self.survey = nil;
         [self.zumpa getSubItemsWithUrl:self.item.itemsUrl andCallback:^(NSArray *array)  {
             [self dataDidLoad:array];
         }];
@@ -86,10 +90,10 @@
 }
 
 -(void)dataDidLoad:(NSArray *)items{
-    [self clientDidFinishLoading];
     [self.items removeAllObjects];
     [self.items addObjectsFromArray:items];
     [self.tableView reloadData];
+    [self clientDidFinishLoading];
 }
 
 -(void)clientDidFinishLoading{
@@ -121,7 +125,7 @@
     ZumpaSubViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     ZumpaSubItem *zsi = [self.items objectAtIndex:indexPath.item];
     
-    [cell setItem:zsi];
+    [cell setItem:zsi withSurvey:!self.survey];
     [self.heights insertObject:[NSNumber numberWithInt:cell.height] atIndex:indexPath.item];
     return cell;
 }
@@ -133,6 +137,12 @@
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath{
+    if(indexPath.item == 0 && self.survey){
+        ZumpaSubViewCell *zsvc = ((ZumpaSubViewCell*)cell);
+        zsvc.survey = self.survey;
+        [zsvc addSubview: zsvc.survey];
+        
+    }
     [cell setBackgroundColor: (indexPath.row % 2 == 0) ? self.colorEven : self.colorOdd];
 }
 
@@ -141,10 +151,12 @@
     ZumpaSubItem *zsi = [self.items objectAtIndex:indexPath.item];
     CGSize size = CGSizeMake(MESSAGE_WIDTH, 100000);
     CGSize measuredSize = [zsi.body sizeWithFont:self.measureFont constrainedToSize:size lineBreakMode:NSLineBreakByClipping];
-    return measuredSize.height + 40;
+    int height = measuredSize.height + 40;
+    if(zsi.survey){
+        height += [UISurvey estimateHeight:zsi.survey forWidth:self.view.frame.size.width];
+    }
+    return height;
 }
-
-
 
 -(void)setSpinnerVisible:(BOOL) visible{
     
@@ -181,6 +193,17 @@
         pvc.zumpa = self.zumpa;
         pvc.delegate = self;
         pvc.settings = self.settings;
+    }
+}
+
+- (void)tableView:(UITableView *)tableView didEndDisplayingCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath{
+    if(indexPath.item == 0){
+        ZumpaSubViewCell *zsvc = (ZumpaSubViewCell*)cell;
+        if(zsvc.survey){
+            self.survey = (self.isLoading) ? nil : zsvc.survey;
+            [zsvc.survey removeFromSuperview];
+            zsvc.survey = nil;
+        }
     }
 }
 

@@ -10,22 +10,12 @@
 
 @implementation ZumpaSubItem
 
-@synthesize authorReal = _authorReal;
-@synthesize authorFake = _authorFake;
-@synthesize body = _body;
-@synthesize time = _time;
-@synthesize hasResponseForYou = _hasResponseForYou;
-@synthesize hasInsideUris = _hasInsideUris;
-@synthesize insideUrls = _insideUrls;
-@synthesize survey = _survey;
-@synthesize parsedTime = _parsedTime;
-
 +(ZumpaSubItem*) fromJson:(NSDictionary*)dict{
     ZumpaSubItem *item = [[ZumpaSubItem alloc] init];
     
     item.authorReal = [dict valueForKey:@"AuthorReal"];
     item.authorFake = [dict valueForKey:@"AuthorFake"];
-    item.body = [dict valueForKey:@"Body"];
+    item.body = [dict valueForKey:@"Body"];    
     item.time = [[dict valueForKey:@"Time"] longLongValue];
     item.hasResponseForYou = [[dict valueForKey:@"HasRespondForYou"] boolValue];
     item.hasInsideUris = [[dict valueForKey:@"HasInsideUris"] boolValue];

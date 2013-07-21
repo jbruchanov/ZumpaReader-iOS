@@ -24,9 +24,6 @@
 
 @implementation ZumpaSubViewCell
 
-@synthesize item = _item;
-@synthesize height = _height, parsedTime = _parsedTime;
-
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
@@ -36,7 +33,7 @@
     return self;
 }
 
--(void)setItem:(ZumpaSubItem*)item{
+-(void)setItem:(ZumpaSubItem*)item withSurvey:(BOOL) createSurvey{
     _item = item;
     if(item.authorFake){
         self.author.text = [NSString stringWithFormat:@"%@ (%@)", item.authorFake, item.authorReal];
@@ -49,12 +46,28 @@
     }else{
         self.message.dataDetectorTypes = UIDataDetectorTypeNone;
     }
+    
     self.message.text = item.body;
     self.time.text = item.parsedTime;
+    
+    if(item.survey){
+        if(createSurvey){//createSurvey can be false, when viewcontrollerl has survey in cache, and will be added in few moments later
+            self.survey = [[UISurvey alloc]initWithSurvey:item.survey forTop:self.message.contentSize.height andWidth:self.frame.size.width];
+            [self addSubview:self.survey];
+        }else{
+            if(self.survey){
+                [self.survey setSurvey:item.survey];
+            }
+        }
+    }
 }
 
 -(UIFont*) fontForMeasurement{
     return [UIFont fontWithName:self.message.font.fontName size:self.message.font.pointSize];
+}
+
+-(int)surveyHeight{
+    return (self.survey) ? self.survey.frame.size.height: 0;
 }
 
 @end
