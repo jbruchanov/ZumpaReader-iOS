@@ -9,6 +9,7 @@
 #import "ImageEditorViewController.h"
 
 #define JPEG_QUALITY 80
+#define Q3_SIZE_LIMIT 3000
 
 @interface ImageEditorViewController ()
 @property (weak, nonatomic) IBOutlet UILabel *originalResolution;
@@ -18,6 +19,7 @@
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
 @property (strong, nonatomic) IBOutlet UIImage *updatedImage;
 @property (strong, nonatomic) NSData *updatedImageData;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *doneKey;
 
 @property int currentRotation;
 
@@ -34,7 +36,7 @@
     self.imageView.image = self.image;
     self.updatedImage = self.image;
     [self updateStats];
-
+    
 }
 
 - (void)didReceiveMemoryWarning
@@ -80,9 +82,12 @@ UIImageOrientation rotation = UIImageOrientationUp;
     if(self.updatedImage){
         NSString *res = [NSString stringWithFormat:@"%dx%d", (int)self.updatedImage.size.width, (int)self.updatedImage.size.height];
         self.updatedImageData = [NSData dataWithData:UIImageJPEGRepresentation(self.updatedImage, JPEG_QUALITY)];
-        NSString *size = [NSString stringWithFormat:@"%d KiB", ([self.updatedImageData length] / 1000)];
+        int kibs = ([self.updatedImageData length] / 1000);
+        NSString *size = [NSString stringWithFormat:@"%d KiB", kibs];
         self.updatedResolution.text = res;
         self.updatedSize.text = size;
+        self.updatedSize.textColor = kibs >= Q3_SIZE_LIMIT ? [UIColor redColor] : [UIColor blackColor];
+        [self.doneKey setEnabled:kibs < Q3_SIZE_LIMIT];
     }else{
         self.updatedResolution.text = @"";
         self.updatedSize.text = @"";
@@ -103,7 +108,7 @@ UIImageOrientation rotation = UIImageOrientationUp;
 }
 
 - (UIImage*)imageWithImage:(UIImage*)image
-              scaleRatio:(float)ratio
+                scaleRatio:(float)ratio
 {
     CGSize origSize = image.size;
     CGSize newSize = CGSizeMake(origSize.width * ratio, origSize.height * ratio);

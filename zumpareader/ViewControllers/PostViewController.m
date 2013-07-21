@@ -249,7 +249,11 @@ CGRect originalScrollViewRect;
         UIActivityIndicatorView *pbar = [DialogHelper showProgressDialog:self.view];
         [self.zumpa sendImageToQ3:result withCallback:^(NSString *url) {
             [pbar removeFromSuperview];
-            self.message.text = [self.message.text stringByAppendingFormat:@"\n%@",url];
+            if(url){
+                self.message.text = [self.message.text stringByAppendingFormat:@"\n%@",url];
+            }else{
+                [[[UIAlertView alloc]initWithTitle:NSLoc(@"Error") message:NSLoc(@"UnableToUploadImage") delegate:nil cancelButtonTitle:NSLoc(@"OK") otherButtonTitles:nil] show];
+            }
         }];
     }
 }

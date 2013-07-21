@@ -8,8 +8,16 @@
 
 #import <Foundation/Foundation.h>
 #import "ZumpaMainPageResult.h"
+@protocol ZumpaWSClientDelegate
+
+-(void) hasErrorDuringSending:(NSError*)error;
+
+@end
+
 
 @interface ZumpaWSClient : NSObject
+
+@property (nonatomic, weak) id<ZumpaWSClientDelegate> delegate;
 
 -(void) reloadSettings;
 

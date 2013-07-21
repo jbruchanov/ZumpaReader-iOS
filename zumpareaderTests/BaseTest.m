@@ -7,6 +7,7 @@
 //
 
 #import "BaseTest.h"
+#import "RLog.h"
 
 @interface BaseTest()
 
@@ -26,6 +27,10 @@
 {
     [super setUp];
     [self initProperties];
+}
+
+- (void)testQ{
+    [RLog v:self Category:@"CAT" Message:@"HOLAHEJ"];
 }
 
 -(void) initProperties{

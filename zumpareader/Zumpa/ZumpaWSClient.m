@@ -16,6 +16,7 @@
 #define kContentLen @"Content-length"
 #define kContentType @"Content-Type"
 #define kContentTypeValue @"application/json"
+#define kContentTypeImage @"image/jpeg"
 
 #define kContext @"Context"
 #define kItems @"Items"
@@ -119,7 +120,14 @@ const double kDefaultTimeout = 2.0;
     NSURLResponse* response;
     NSError* error = nil;
     
-    return [NSURLConnection sendSynchronousRequest:request  returningResponse:&response error:&error];
+    NSData *toReturn = [NSURLConnection sendSynchronousRequest:request  returningResponse:&response error:&error];
+    if(error){
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.delegate hasErrorDuringSending:error];
+        });
+        return [@"{}" dataUsingEncoding:NSUTF8StringEncoding]; //fake data for json parser to avoid throwing exception
+    }
+    return toReturn;
 }
 
 
@@ -229,7 +237,7 @@ const double kDefaultTimeout = 2.0;
     
     NSData* jsonData = [self sendRequest:[self createPostRequest:[self.serviceUrl stringByAppendingString:@"post"]
                                                        andParams:params]];
-
+    
     NSDictionary *jsonDict = [NSJSONSerialization JSONObjectWithData:jsonData options:kNilOptions error:nil];
     NSString *result = [jsonDict objectForKey:kContext];
     
@@ -250,6 +258,9 @@ const double kDefaultTimeout = 2.0;
 
 -(NSString*) sendImageToQ3:(NSData*)jpeg{
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:[self.serviceUrl stringByAppendingString:@"image"]]];
+    [request setValue:kContentTypeImage forHTTPHeaderField: kContentType];
+    [request setValue:[NSString stringWithFormat:@"%d", [jpeg length]] forHTTPHeaderField:kContentLen];
+    
     [request setHTTPMethod:kPost];
     
     [request setHTTPBody:jpeg];

@@ -16,12 +16,13 @@
 #import "SettingsViewController.h"
 #import "Settings.h"
 #import "DialogHelper.h"
+#import "I18N.h"
 
 #define DISPLAY_WIDTH self.view.frame.size.width
 #define LOAD_LIMIT_OFFSET 5
 #define REQUEST_ITEMS_SIZE 35
 
-@interface MainViewController () <SettingsViewControllerDelegate, PostViewControllerDelegate>
+@interface MainViewController () <SettingsViewControllerDelegate, PostViewControllerDelegate, ZumpaWSClientDelegate>
 
 @property (strong, nonatomic) ZumpaAsyncWrapper *zumpa;
 @property (strong, nonatomic) NSMutableArray* zumpaItems;
@@ -70,7 +71,9 @@
     
     [self setSpinnerVisible:YES];
     self.zumpaItems = [[NSMutableArray alloc]init];
-    self.zumpa = [[ZumpaAsyncWrapper alloc]initWithWebService:[[ZumpaWSClient alloc]init]];
+    ZumpaWSClient *client = [[ZumpaWSClient alloc]init];
+    client.delegate = self;
+    self.zumpa = [[ZumpaAsyncWrapper alloc]initWithWebService:client];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     
@@ -82,6 +85,10 @@
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+}
+
+-(void)hasErrorDuringSending:(NSError *)error{
+    [[[UIAlertView alloc]initWithTitle:NSLoc(@"Error") message:[error localizedDescription] delegate:nil cancelButtonTitle:NSLoc(@"OK") otherButtonTitles: nil]show];
 }
 
 -(void) viewWillAppear:(BOOL)animated{
@@ -200,8 +207,7 @@
         [self setSpinnerVisible:YES];
         [self.zumpa getItemsWithCallback:^(ZumpaMainPageResult *result) {
             [self didReceiveResponse:result appendData:NO];
-        }];
-        
+        }];        
     }
 }
 
