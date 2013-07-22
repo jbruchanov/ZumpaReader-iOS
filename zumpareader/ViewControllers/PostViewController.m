@@ -71,6 +71,16 @@ CGRect originalScrollViewRect;
         self.message.text = subj;
     }
     
+    //add nice background for edittexts and left margin
+    UIImage *normal = [[UIImage imageNamed:@"home_button_background.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(2, 2, 2, 2)];
+    
+    self.subject.borderStyle = UITextBorderStyleNone;
+    UIView *paddingView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 5, 20)];
+    self.subject.leftView = paddingView;
+    self.subject.leftViewMode = UITextFieldViewModeAlways;
+    [self.subject setBackground:normal];
+    
+    
     //    self.message.layer.borderWidth = 1;
     //    self.message.layer.borderColor = [[UIColor grayColor] CGColor];
     
