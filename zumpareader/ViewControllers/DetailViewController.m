@@ -16,6 +16,9 @@
 #import "DialogHelper.h"
 
 #define MESSAGE_WIDTH self.view.frame.size.width - 16
+
+#define CELL_IDENTITY @"DetailCell"
+
 @interface DetailViewController () <PostViewControllerDelegate, UISurveyDelegate>
 
 
@@ -55,7 +58,6 @@
     
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
-    
     self.colorEven = [UIColor whiteColor];
     self.colorOdd = [UIColor colorWithRed:0.95 green:0.95 blue:0.95 alpha:1];
     [self.tableView registerNib:[UINib nibWithNibName:@"ZumpaSubViewCell" bundle:nil] forCellReuseIdentifier:@"DetailCell"];
@@ -123,9 +125,9 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"DetailCell";
-    ZumpaSubViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+    ZumpaSubViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CELL_IDENTITY forIndexPath:indexPath];
     cell.surveyDelegate = self;
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
     ZumpaSubItem *zsi = [self.items objectAtIndex:indexPath.item];
     
@@ -141,11 +143,14 @@
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath{
-    if(indexPath.item == 0 && self.survey){
-        ZumpaSubViewCell *zsvc = ((ZumpaSubViewCell*)cell);
-        zsvc.survey = self.survey;
-        [zsvc addSubview: zsvc.survey];
-        
+    ZumpaSubViewCell *zsvc = ((ZumpaSubViewCell*)cell);
+    if(indexPath.item == 0){
+        if(self.survey){
+            zsvc.survey = self.survey;
+            [zsvc addSubview: zsvc.survey];
+        }else{
+            self.survey = zsvc.survey;
+        }
     }
     [cell setBackgroundColor: (indexPath.row % 2 == 0) ? self.colorEven : self.colorOdd];
 }
@@ -217,7 +222,7 @@
 
 -(void)didVote:(int)surveyButtonIndex{
     ZumpaSubItem *zsi = [self.items objectAtIndex:0];
-    if(zsi.survey){
+    if(zsi.survey){        
         UIActivityIndicatorView *pbar = [DialogHelper showProgressDialog:self.view];
         [self.zumpa voteSurvey:zsi.survey.ID forItem:surveyButtonIndex withCallback:^(Survey *newSurvey) {
             [pbar removeFromSuperview];
