@@ -167,7 +167,13 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" id="Ycp-FO-C6S"/>
+                    <navigationItem key="navigationItem" id="Ycp-FO-C6S">
+                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="GUB-xw-Drg">
+                            <connections>
+                                <action selector="didSaveClick:" destination="96a-6H-oLp" id="OrH-x5-TD5"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <attributedString key="userComments">
                         <fragment content="sss">
                             <attributes>

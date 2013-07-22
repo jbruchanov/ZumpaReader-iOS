@@ -9,6 +9,7 @@
 #import "SettingsViewController.h"
 #import "Settings.h"
 #import "DialogHelper.h"
+#import <QuartzCore/QuartzCore.h>
 
 @interface SettingsViewController ()
 @property (weak, nonatomic) IBOutlet UIButton *loginButton;
@@ -44,6 +45,26 @@
     self.settings = [[NSUserDefaults alloc]init];
     [self initButtons];
     [self loadSettings];
+    
+    //add nice background for edittexts and left margin
+    UIImage *normal = [[UIImage imageNamed:@"home_button_background.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(2, 2, 2, 2)];
+    NSArray *textboxes = [NSArray arrayWithObjects:self.userName, self.password, self.responseNick, nil];
+    for(UITextField *tf  in textboxes){
+        tf.borderStyle = UITextBorderStyleNone;
+        UIView *paddingView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 5, 20)];
+        tf.leftView = paddingView;
+        tf.leftViewMode = UITextFieldViewModeAlways;
+        [tf setBackground:normal];
+    }
+}
+
+- (CGRect)textRectForBounds:(CGRect)bounds {
+    
+    CGRect frame = bounds;
+    frame.origin.y = 3;
+    frame.origin.x = 5;
+    bounds = frame;
+    return CGRectInset( bounds , 0 , 0 );
 }
 
 - (void)viewDidUnload {
@@ -53,14 +74,6 @@
     [self setLoginStatus:nil];
     [self setLoginButton:nil];
     [super viewDidUnload];
-}
-
--(void)viewWillDisappear:(BOOL)animated{
-    [self saveSettings];
-    if(self.delegate){
-        [self.delegate settingsWillClose:self];
-    }
-    [super viewWillDisappear:animated];
 }
 
 -(void) saveSettings{
@@ -128,5 +141,12 @@
     }
     self.loginStatus.text = isLoggedIn ? @"YES" : @"NO";
     [self.loginButton setTitle:isLoggedIn ? @"Logout" : @"Login" forState:UIControlStateNormal];
+}
+- (IBAction)didSaveClick:(id)sender {
+    [self saveSettings];
+    if(self.delegate){
+        [self.delegate settingsWillClose:self];
+    }
+    [self.navigationController popViewControllerAnimated:YES];
 }
 @end
