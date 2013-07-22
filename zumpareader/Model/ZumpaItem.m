@@ -10,13 +10,6 @@
 
 @implementation ZumpaItem
 
-@synthesize ID = _ID;
-@synthesize author = _author;
-@synthesize subject = _subject;
-@synthesize responds = _responds;
-@synthesize itemsUrl = _itemsUrl;
-@synthesize parsedTime = _parsedTime;
-
 +(ZumpaItem*) fromJson:(NSDictionary*)dict{
     ZumpaItem *zi = [[ZumpaItem alloc]init];
     zi.ID = [[dict valueForKey:@"ID"] integerValue];
@@ -28,7 +21,14 @@
     
     NSDate* date = [NSDate dateWithTimeIntervalSince1970:zi.time/1000];
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    [formatter setDateFormat:@"dd.MM.yyyy HH:mm:ss"];
+    long long time = zi.time/1000;
+    if(time < 86400){
+        [formatter setDateFormat:@"HH:mm"];
+        zi.lastAnswerAuthor = [dict valueForKey:@"LastAnswerAuthor"];
+    }else{
+        [formatter setDateFormat:@"dd.MM.yyyy HH:mm:ss"];
+    }
+    
     zi.parsedTime = [formatter stringFromDate:date];
 
     

@@ -16,6 +16,7 @@
 @property (nonatomic) long long time;
 @property (nonatomic, copy) NSString* itemsUrl;
 @property (nonatomic, strong) NSString *parsedTime;
+@property (nonatomic, copy) NSString *lastAnswerAuthor;
 
 +(ZumpaItem*) fromJson:(NSDictionary*)dict;
 @end

@@ -18,6 +18,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *loginStatus;
 @property (weak, nonatomic) UIActivityIndicatorView *progressBar;
 @property (weak, nonatomic) IBOutlet UITextField *responseNick;
+@property (weak, nonatomic) IBOutlet UISwitch *lastPostAuthor;
 
 -(void) initButtons;
 -(void) loadSettings;
@@ -65,7 +66,7 @@
 -(void) saveSettings{
     //stuff around login is on diff place
     [self.settings setObject:self.responseNick.text forKey:NICK_RESPONSE];
-    
+    [self.settings setBool:[self.lastPostAuthor isOn] forKey:LAST_ANSWER_AUTHOR];
     [self.settings synchronize];
 }
 
@@ -115,6 +116,7 @@
     self.loginStatus.text = isLoggedIn ? @"YES" : @"NO";
     [self loginStatusChanged:isLoggedIn save:NO];
     self.responseNick.text = [self.settings stringForKey:NICK_RESPONSE];
+    [self.lastPostAuthor setOn:[self.settings boolForKey:LAST_ANSWER_AUTHOR]];
 }
 
 -(void) loginStatusChanged:(BOOL) isLoggedIn save:(BOOL) saveIt{

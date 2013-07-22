@@ -35,12 +35,6 @@ const double kDefaultTimeout = 2.0;
 
 @implementation ZumpaWSClient
 
-@synthesize cookie = _cookie;
-@synthesize isLoggedIn = _isLoggedIn;
-@synthesize defaults = _defaults;
-@synthesize serviceUrl = _serviceUrl;
-
-
 -(id) init{
     self = [super init];
     if(self){
@@ -103,6 +97,12 @@ const double kDefaultTimeout = 2.0;
     if(self.cookie){
         [nsa addObject:@"Cookies"];
         [nsa addObject:self.cookie];
+    }
+    
+    BOOL lastAuthor = [self.defaults boolForKey:LAST_ANSWER_AUTHOR];
+    if(lastAuthor){
+        [nsa addObject:@"LastAnswerAuthor"];
+        [nsa addObject:@"true"];
     }
     
     params = nsa;

@@ -56,7 +56,11 @@ const static int kBottomMargin = 10;
         self.responds.text = [NSString stringWithFormat:@"%d", self.item.responds];
         self.subject.text = self.item.subject;
         self.author.text = self.item.author;
-        self.date.text = self.item.parsedTime;
+        if(self.item.lastAnswerAuthor){
+            self.date.text = [NSString stringWithFormat:@"%@\t%@", self.item.lastAnswerAuthor, self.item.parsedTime];
+        }else{
+            self.date.text = self.item.parsedTime;
+        }
         
         
         //doesnt count with rotation and screen width change!

@@ -131,6 +131,13 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Last post author" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ngf-5x-GOU">
+                                <rect key="frame" x="13" y="187" width="209" height="21"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="..." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="92M-ll-vkB">
                                 <rect key="frame" x="105" y="105" width="94" height="21"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -153,6 +160,10 @@
                                     <action selector="loginDidClick:" destination="96a-6H-oLp" eventType="touchUpInside" id="ndm-9q-Ngg"/>
                                 </connections>
                             </button>
+                            <switch opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="onl-YF-hsb">
+                                <rect key="frame" x="230" y="184" width="79" height="27"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </switch>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
@@ -166,6 +177,7 @@
                         </fragment>
                     </attributedString>
                     <connections>
+                        <outlet property="lastPostAuthor" destination="onl-YF-hsb" id="sDo-5J-DwD"/>
                         <outlet property="loginButton" destination="2Q3-Nu-aFL" id="BOo-8N-23r"/>
                         <outlet property="loginStatus" destination="92M-ll-vkB" id="U66-pv-GNs"/>
                         <outlet property="password" destination="wat-R4-cYe" id="Gdx-YB-w5R"/>
@@ -484,6 +496,7 @@
         <class className="SettingsViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/SettingsViewController.h"/>
             <relationships>
+                <relationship kind="outlet" name="lastPostAuthor" candidateClass="UISwitch"/>
                 <relationship kind="outlet" name="loginButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="loginStatus" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="password" candidateClass="UITextField"/>
