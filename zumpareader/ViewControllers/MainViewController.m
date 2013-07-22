@@ -36,6 +36,7 @@
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *reloadButton;
 @property (strong, nonatomic) NSUserDefaults *settings;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *postButton;
+@property (nonatomic) BOOL mustResetContentOffset;
 
 -(void)setSpinnerVisible:(BOOL) visible;
 -(void)didReceiveResponse:(ZumpaMainPageResult*) result appendData:(BOOL) append;
@@ -78,13 +79,26 @@
     self.tableView.dataSource = self;
     
     [self willReload];
-    
-    
+
+    [self.tableView addObserver:self forKeyPath:@"contentOffset" options:(NSKeyValueObservingOptionNew) context:NULL];
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+}
+
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context{
+    int y = (int)self.tableView.contentOffset.y;
+    if(!self.mustResetContentOffset &&  y < -100){
+        [self willReload];
+        self.mustResetContentOffset = YES;
+    }
+    
+    if(self.mustResetContentOffset){
+        self.mustResetContentOffset = !(y >= 0);//let overscroll return before next request
+    }
 }
 
 -(void)hasErrorDuringSending:(NSError *)error{
@@ -97,13 +111,7 @@
 }
 
 - (IBAction)reloadDidClick:(id)sender {
-    if(!self.isLoading){
-        [self setSpinnerVisible:YES];
-        self.isLoading = YES;
-        [self.zumpa getItemsWithCallback:^(ZumpaMainPageResult *result) {
-            [self didReceiveResponse:result appendData:NO];
-        }];
-    }
+    [self willReload];
 }
 
 -(void)didReceiveResponse:(ZumpaMainPageResult*) result appendData:(BOOL)append{
@@ -204,6 +212,7 @@
 
 -(void)willReload{
     if(!self.isLoading){
+        self.isLoading = YES;
         [self setSpinnerVisible:YES];
         [self.zumpa getItemsWithCallback:^(ZumpaMainPageResult *result) {
             [self didReceiveResponse:result appendData:NO];

@@ -37,6 +37,7 @@
 @property (strong, nonatomic) UIFont *measureFont;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) UISurvey *survey;
+@property (nonatomic) BOOL mustResetContentOffset;
 
 @end
 
@@ -65,8 +66,25 @@
     self.heights = [[NSMutableArray alloc]init];
     [self dataWillLoad];
     
+    [self.tableView addObserver:self forKeyPath:@"contentOffset" options:(NSKeyValueObservingOptionNew) context:NULL];
+    
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context{
+    if(self.tableView.contentSize.height < self.tableView.frame.size.height){
+        return;
+    }
+    int y = self.tableView.contentSize.height - (int)self.tableView.contentOffset.y - self.tableView.frame.size.height;
+    if(!self.mustResetContentOffset &&  y < -100){
+        [self dataWillLoad];
+        self.mustResetContentOffset = YES;
+    }
+    
+    if(self.mustResetContentOffset){
+        self.mustResetContentOffset = !(y >= 0);//let overscroll return before next request
+    }
 }
 
 -(void) initMeasurementStuff{
@@ -84,8 +102,8 @@
 
 -(void)dataWillLoad{
     if(self.isLoading == NO){
-        [self setSpinnerVisible:YES];
         self.isLoading = YES;
+        [self setSpinnerVisible:YES];
         self.survey = nil;
         [self.zumpa getSubItemsWithUrl:self.item.itemsUrl andCallback:^(NSArray *array)  {
             [self dataDidLoad:array];
