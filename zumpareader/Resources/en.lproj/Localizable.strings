@@ -19,3 +19,7 @@
 "ImageNotSelected" = "Image not selected?!";
 "Responses" = "Responses";
 "WTF_SurveyNotFound" = "WTF Error, Survey not found!?";
+"Filter" = "Filter";
+"NoFilter" = "No filter";
+"ByOwnThreads" = "Own threads";
+"ByFavThreads" = "Favourite threads";

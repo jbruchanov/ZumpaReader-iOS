@@ -22,7 +22,7 @@
 #define LOAD_LIMIT_OFFSET 5
 #define REQUEST_ITEMS_SIZE 35
 
-@interface MainViewController () <SettingsViewControllerDelegate, PostViewControllerDelegate, ZumpaWSClientDelegate>
+@interface MainViewController () <SettingsViewControllerDelegate, PostViewControllerDelegate, ZumpaWSClientDelegate, UIActionSheetDelegate>
 
 @property (strong, nonatomic) ZumpaAsyncWrapper *zumpa;
 @property (strong, nonatomic) NSMutableArray* zumpaItems;
@@ -81,7 +81,7 @@
     self.tableView.dataSource = self;
     
     [self willReload];
-
+    
     [self.tableView addObserver:self forKeyPath:@"contentOffset" options:(NSKeyValueObservingOptionNew) context:NULL];
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -219,7 +219,7 @@
         [self setSpinnerVisible:YES];
         [self.zumpa getItemsWithCallback:^(ZumpaMainPageResult *result) {
             [self didReceiveResponse:result appendData:NO];
-        }];        
+        }];
     }
 }
 
@@ -295,6 +295,18 @@
 
 -(void)settingsWillClose:(id)source{
     self.userName = [self.settings stringForKey:USERNAME];
+}
+
+- (IBAction)filterDidClick:(id)sender {
+    [[[UIActionSheet alloc]initWithTitle:NSLoc(@"Filter") delegate:self cancelButtonTitle:NSLoc(@"Cancel") destructiveButtonTitle:nil otherButtonTitles:NSLoc(@"NoFilter"),NSLoc(@"ByOwnThreads"),NSLoc(@"ByFavThreads"), nil] showFromBarButtonItem:sender animated:YES];
+}
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex{
+    if(buttonIndex >= 0 && buttonIndex <= 2){
+        [self.settings setInteger:buttonIndex forKey:FILTER];
+        [self.settings synchronize];
+        [self willReload];
+    }
 }
 
 -(void)userDidSendMessage{

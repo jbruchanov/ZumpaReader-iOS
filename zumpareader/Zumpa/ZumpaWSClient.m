@@ -105,6 +105,12 @@ const double kDefaultTimeout = 2.0;
         [nsa addObject:@"true"];
     }
     
+    NSInteger filter = [self.defaults integerForKey:FILTER];
+    if(filter && filter > 0){
+        [nsa addObject:@"FilterType"];
+        [nsa addObject: [NSNumber numberWithInt:filter]];
+    }
+    
     params = nsa;
     
     if(params){
