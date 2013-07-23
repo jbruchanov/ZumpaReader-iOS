@@ -13,10 +13,10 @@ static int const kLeftMargin = 10;
 static int const kRightMargin = kLeftMargin;
 static int const kTopMargin = kLeftMargin;
 static int const kSpacing = 10;
-static CGFloat const kButtonHeight = 40;
+static CGFloat const kButtonHeight = 50;
 
 #define MSG_FONT_NAME @"Verdana"
-#define MSG_FONT_SIZE 14.0
+#define MSG_FONT_SIZE 13.0
 
 @interface UISurvey()
 

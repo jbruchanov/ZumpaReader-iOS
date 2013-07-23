@@ -62,7 +62,7 @@ static CGFloat const kStripBottomMargin = 7;
 
 -(void) setTitle:(NSString *)title forState:(UIControlState)state{
     self.realTitle = title;
-    [super setTitle:[NSString stringWithFormat:@"%@ (%d%%)", title, self.percentage] forState:state];
+    [super setTitle:[NSString stringWithFormat:@"%@ (%d%%)", title, self.percentage] forState:state];    
 }
 
 -(void)initButton:(BOOL) fontColors{
@@ -73,6 +73,7 @@ static CGFloat const kStripBottomMargin = 7;
     [self setBackgroundImage:normal forState:UIControlStateNormal];
     [self setBackgroundImage:pressed forState:UIControlStateHighlighted];
     [self setClearsContextBeforeDrawing:YES];
+    self.titleLabel.numberOfLines = 0;
     
     /*
      Colors from android version
