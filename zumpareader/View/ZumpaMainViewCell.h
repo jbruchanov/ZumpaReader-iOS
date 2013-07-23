@@ -16,5 +16,4 @@
 
 -(int)measure;
 
--(void)setUserName:(NSString*)userName;
 @end
