@@ -12,5 +12,9 @@
 @interface ZumpaMainViewCell : UITableViewCell
 @property (nonatomic) ZumpaItem* item;
 
+@property (nonatomic, copy) NSString* currentUserName;
+
 -(int)measure;
+
+-(void)setUserName:(NSString*)userName;
 @end

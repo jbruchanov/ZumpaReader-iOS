@@ -81,7 +81,7 @@ const static int kBottomMargin = 10;
         
         self.colorStrip.frame = CGRectMake(0,0,self.colorStrip.frame.size.width,self.frame.size.height);
         
-        if([@"JtS" isEqualToString:self.author.text]){
+        if(self.currentUserName && [self.currentUserName isEqualToString:self.author.text]){
             self.colorStrip.backgroundColor = [UIColor colorWithRed:1 green:0 blue:1 alpha:1];
             self.colorStrip.alpha = 1;
         }else{

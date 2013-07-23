@@ -37,6 +37,7 @@
 @property (strong, nonatomic) NSUserDefaults *settings;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *postButton;
 @property (nonatomic) BOOL mustResetContentOffset;
+@property (nonatomic, strong) NSString *userName;
 
 -(void)setSpinnerVisible:(BOOL) visible;
 -(void)didReceiveResponse:(ZumpaMainPageResult*) result appendData:(BOOL) append;
@@ -59,6 +60,7 @@
     [super viewDidLoad];
     self.settings = [[NSUserDefaults alloc]init];
     self.measureFont = [UIFont boldSystemFontOfSize:17];
+    self.userName = [self.settings stringForKey:USERNAME];
     
     
     NSBundle *bundle = [NSBundle mainBundle];
@@ -154,6 +156,7 @@
     ZumpaMainViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if(!cell){
         cell = [[ZumpaMainViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+        cell.currentUserName = self.userName;
     }
     int index = indexPath.item;
     
@@ -291,7 +294,7 @@
 }
 
 -(void)settingsWillClose:(id)source{
-    
+    self.userName = [self.settings stringForKey:USERNAME];
 }
 
 -(void)userDidSendMessage{
