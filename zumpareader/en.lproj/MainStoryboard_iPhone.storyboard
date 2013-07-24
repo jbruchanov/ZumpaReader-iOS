@@ -363,14 +363,14 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Original" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="72l-Ek-jJt">
-                                        <rect key="frame" x="20" y="22" width="59" height="21"/>
+                                        <rect key="frame" x="20" y="22" width="88" height="21"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Updated" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="fHh-e4-08P">
-                                        <rect key="frame" x="20" y="51" width="65" height="21"/>
+                                        <rect key="frame" x="20" y="51" width="96" height="21"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -469,6 +469,8 @@
         <class className="DetailViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/DetailViewController.h"/>
             <relationships>
+                <relationship kind="action" name="addDidClick:"/>
+                <relationship kind="action" name="dataWillLoad:"/>
                 <relationship kind="outlet" name="plusButton" candidateClass="UIBarButtonItem"/>
                 <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
             </relationships>
@@ -476,6 +478,10 @@
         <class className="ImageEditorViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/ImageEditorViewController.h"/>
             <relationships>
+                <relationship kind="action" name="cancelDidClick:"/>
+                <relationship kind="action" name="doneDidClick:"/>
+                <relationship kind="action" name="resizeDidClick:" candidateClass="UISegmentedControl"/>
+                <relationship kind="action" name="rotateDidClick:"/>
                 <relationship kind="outlet" name="doneKey" candidateClass="UIBarButtonItem"/>
                 <relationship kind="outlet" name="imageView" candidateClass="UIImageView"/>
                 <relationship kind="outlet" name="originalResolution" candidateClass="UILabel"/>
@@ -488,6 +494,8 @@
         <class className="MainViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/MainViewController.h"/>
             <relationships>
+                <relationship kind="action" name="filterDidClick:"/>
+                <relationship kind="action" name="reloadDidClick:"/>
                 <relationship kind="outlet" name="postButton" candidateClass="UIBarButtonItem"/>
                 <relationship kind="outlet" name="reloadButton" candidateClass="UIBarButtonItem"/>
                 <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
@@ -496,6 +504,10 @@
         <class className="PostViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/PostViewController.h"/>
             <relationships>
+                <relationship kind="action" name="cameraDidClick:"/>
+                <relationship kind="action" name="cancelDidClick:"/>
+                <relationship kind="action" name="doneDidClick:"/>
+                <relationship kind="action" name="sendDidClick:"/>
                 <relationship kind="outlet" name="cameraButton" candidateClass="UIBarButtonItem"/>
                 <relationship kind="outlet" name="message" candidateClass="UITextView"/>
                 <relationship kind="outlet" name="messageLabel" candidateClass="UILabel"/>
