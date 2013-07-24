@@ -83,7 +83,7 @@
     
     [self willReload];
     
-    [self.tableView addObserver:self forKeyPath:CONTENT_OFFSET options:(NSKeyValueObservingOptionNew) context:NULL];
+    
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
     
@@ -111,6 +111,7 @@
 -(void) viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [self.postButton setEnabled:[self.settings boolForKey:IS_LOGGED_IN]];
+    [self.tableView addObserver:self forKeyPath:CONTENT_OFFSET options:(NSKeyValueObservingOptionNew) context:NULL];
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
