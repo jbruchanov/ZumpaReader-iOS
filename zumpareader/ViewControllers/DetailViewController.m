@@ -16,6 +16,7 @@
 #import "DialogHelper.h"
 
 #define MESSAGE_WIDTH self.view.frame.size.width - 16
+#define CONTENT_OFFSET @"contentOffset"
 
 #define CELL_IDENTITY @"DetailCell"
 
@@ -66,10 +67,15 @@
     self.heights = [[NSMutableArray alloc]init];
     [self dataWillLoad];
     
-    [self.tableView addObserver:self forKeyPath:@"contentOffset" options:(NSKeyValueObservingOptionNew) context:NULL];
+    [self.tableView addObserver:self forKeyPath:CONTENT_OFFSET options:(NSKeyValueObservingOptionNew) context:NULL];
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+}
+
+-(void)viewWillDisappear:(BOOL)animated{
+    [self.tableView removeObserver:self forKeyPath:CONTENT_OFFSET];
+    [super viewWillDisappear:animated];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context{

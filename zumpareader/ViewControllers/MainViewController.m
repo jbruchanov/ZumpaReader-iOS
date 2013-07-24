@@ -21,6 +21,7 @@
 #define DISPLAY_WIDTH self.view.frame.size.width
 #define LOAD_LIMIT_OFFSET 5
 #define REQUEST_ITEMS_SIZE 35
+#define CONTENT_OFFSET @"contentOffset"
 
 @interface MainViewController () <SettingsViewControllerDelegate, PostViewControllerDelegate, ZumpaWSClientDelegate, UIActionSheetDelegate>
 
@@ -82,7 +83,7 @@
     
     [self willReload];
     
-    [self.tableView addObserver:self forKeyPath:@"contentOffset" options:(NSKeyValueObservingOptionNew) context:NULL];
+    [self.tableView addObserver:self forKeyPath:CONTENT_OFFSET options:(NSKeyValueObservingOptionNew) context:NULL];
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
     
@@ -110,6 +111,11 @@
 -(void) viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [self.postButton setEnabled:[self.settings boolForKey:IS_LOGGED_IN]];
+}
+
+-(void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    [self.tableView removeObserver:self forKeyPath:CONTENT_OFFSET];
 }
 
 - (IBAction)reloadDidClick:(id)sender {

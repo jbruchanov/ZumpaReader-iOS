@@ -94,7 +94,6 @@ CGRect originalScrollViewRect;
 -(void) initKeyboardListeners{
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(onKeyboardShow:) name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(onKeyboardHide:) name:UIKeyboardWillHideNotification object:nil];
-    
 }
 
 -(void) onKeyboardShow:(NSNotification *) notification{
@@ -174,6 +173,8 @@ CGRect originalScrollViewRect;
 }
 
 - (void) viewWillDisappear:(BOOL)animated {
+    [[NSNotificationCenter defaultCenter]removeObserver:self name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter]removeObserver:self name:UIKeyboardWillHideNotification object:nil];
     NSString *subj = self.subject.text;
     NSString *msg = self.message.text;
     if(subj){
