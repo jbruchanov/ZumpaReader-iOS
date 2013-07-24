@@ -10,7 +10,7 @@
 #import "ZumpaSubItem.h"
 #import "UISurvey.h"
 
-@interface ZumpaSubViewCell : UITableViewCell<UISurveyDelegate>
+@interface ZumpaSubViewCell : UITableViewCell
 
 @property (nonatomic, readonly) int surveyHeight;
 
