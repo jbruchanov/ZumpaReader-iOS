@@ -224,8 +224,11 @@
     if(!self.isLoading){
         self.isLoading = YES;
         [self setSpinnerVisible:YES];
+        __weak MainViewController *zelf = self;
         [self.zumpa getItemsWithCallback:^(ZumpaMainPageResult *result) {
-            [self didReceiveResponse:result appendData:NO];
+            if(zelf){
+                [zelf didReceiveResponse:result appendData:NO];
+            }
         }];
     }
 }
@@ -235,8 +238,11 @@
         NSString *nextPage = self.currentResult.nextPage;
         if(nextPage){
             [self setSpinnerVisible:YES];
+            __weak MainViewController *zelf = self;
             [self.zumpa getItemsWithUrl:nextPage andCallback:^(ZumpaMainPageResult *result) {
-                [self didReceiveResponse:result appendData:YES];
+                if(zelf){
+                    [zelf didReceiveResponse:result appendData:YES];
+                }
             }];
         }
     }

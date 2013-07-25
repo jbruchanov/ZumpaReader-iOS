@@ -116,8 +116,11 @@
         self.isLoading = YES;
         [self setSpinnerVisible:YES];
         self.survey = nil;
+        __weak DetailViewController *zelf = self;
         [self.zumpa getSubItemsWithUrl:self.item.itemsUrl andCallback:^(NSArray *array)  {
-            [self dataDidLoad:array];
+            if(zelf){
+                [zelf dataDidLoad:array];
+            }
         }];
     }
 }
@@ -250,16 +253,19 @@
 }
 
 -(void)didVote:(int)surveyButtonIndex{
-    ZumpaSubItem *zsi = [self.items objectAtIndex:0];
-    if(zsi.survey){        
-        UIActivityIndicatorView *pbar = [DialogHelper showProgressDialog:self.view];
+    __weak ZumpaSubItem *zsi = [self.items objectAtIndex:0];
+    if(zsi.survey){
+        __weak UIActivityIndicatorView *pbar = [DialogHelper showProgressDialog:self.view];
+        __weak DetailViewController *zelf = self;
         [self.zumpa voteSurvey:zsi.survey.ID forItem:surveyButtonIndex withCallback:^(Survey *newSurvey) {
-            [pbar removeFromSuperview];
-            zsi.survey = newSurvey;
-            if(self.survey){
-                [self.survey setSurvey: newSurvey];
-            }else{
-                [self.tableView reloadData];
+            if(zelf){
+                [pbar removeFromSuperview];
+                zsi.survey = newSurvey;
+                if(zelf.survey){
+                    [zelf.survey setSurvey: newSurvey];
+                }else{
+                    [zelf.tableView reloadData];
+                }
             }
         }];
     }else{

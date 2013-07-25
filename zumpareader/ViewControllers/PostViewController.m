@@ -131,13 +131,18 @@ CGRect originalScrollViewRect;
     
     if([subj length] > 0 && [msg length] > 0){
         [self showProgressBar:YES];
+        __weak PostViewController *zelf = self;
         if(self.item){
             [self.zumpa replyToThread:self.item.ID withSubject:subj andMessage:msg withCallback:^(BOOL result) {
-                [self zumpaDidPost:result];
+                if(zelf){
+                    [zelf zumpaDidPost:result];
+                }
             }];
         }else{
             [self.zumpa postThread:subj andMessage:msg withCallback:^(BOOL result) {
-                [self zumpaDidPost:result];
+                if(zelf){
+                    [zelf zumpaDidPost:result];
+                }
             }];
         }
     }else{
@@ -257,13 +262,16 @@ CGRect originalScrollViewRect;
 
 -(void) didFinishEditing:(NSData *)result{
     if(result){
-        UIActivityIndicatorView *pbar = [DialogHelper showProgressDialog:self.view];
+        __weak UIActivityIndicatorView *pbar = [DialogHelper showProgressDialog:self.view];
+        __weak PostViewController *zelf = self;
         [self.zumpa sendImageToQ3:result withCallback:^(NSString *url) {
-            [pbar removeFromSuperview];
-            if(url){
-                self.message.text = [self.message.text stringByAppendingFormat:@"\n<%@>",url];
-            }else{
-                [[[UIAlertView alloc]initWithTitle:NSLoc(@"Error") message:NSLoc(@"UnableToUploadImage") delegate:nil cancelButtonTitle:NSLoc(@"OK") otherButtonTitles:nil] show];
+            if(zelf){
+                [pbar removeFromSuperview];
+                if(url){
+                    zelf.message.text = [zelf.message.text stringByAppendingFormat:@"\n<%@>",url];
+                }else{
+                    [[[UIAlertView alloc]initWithTitle:NSLoc(@"Error") message:NSLoc(@"UnableToUploadImage") delegate:nil cancelButtonTitle:NSLoc(@"OK") otherButtonTitles:nil] show];
+                }
             }
         }];
     }

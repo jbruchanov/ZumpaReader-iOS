@@ -96,6 +96,8 @@
 
 - (IBAction)loginDidClick:(id)sender {
     [self.progressBar removeFromSuperview];
+    __weak SettingsViewController *zelf = self;
+    
     if([self.settings boolForKey:IS_LOGGED_IN] == NO){
         NSString *uid = self.userName.text;
         NSString *pwd = self.password.text;
@@ -105,11 +107,14 @@
             return;
         }
         self.progressBar = [DialogHelper showProgressDialog:self.view];
+
         [self.zumpa logIn:uid andPassword:pwd withCallback:^(BOOL result) {
-            [self loginStatusChanged:result save:YES];
-            self.loginButton.enabled = NO;
-            if(!result){
-                [[[UIAlertView alloc]initWithTitle:@":(" message:@"Unable to login" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+            if(zelf){
+                [zelf loginStatusChanged:result save:YES];
+                zelf.loginButton.enabled = NO;
+                if(!result){
+                    [[[UIAlertView alloc]initWithTitle:@":(" message:@"Unable to login" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+                }
             }
 
         }];
@@ -117,7 +122,9 @@
         self.progressBar = [DialogHelper showProgressDialog:self.view];
         self.loginButton.enabled = NO;
         [self.zumpa logOutWithCallback:^(BOOL result) {
-            [self loginStatusChanged:!result save:YES];
+            if(zelf){
+                [zelf loginStatusChanged:!result save:YES];
+            }
         }];
     }
 }
