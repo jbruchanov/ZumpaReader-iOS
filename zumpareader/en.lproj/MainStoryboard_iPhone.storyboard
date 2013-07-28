@@ -267,7 +267,7 @@
                                 <subviews>
                                     <view contentMode="scaleToFill" id="8IU-zX-bCw">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="504"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <subviews>
                                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Subject" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="6IV-d9-t3B">
                                                 <rect key="frame" x="5" y="9" width="320" height="21"/>
@@ -278,11 +278,11 @@
                                             </label>
                                             <view contentMode="scaleToFill" id="MyS-9b-aqJ">
                                                 <rect key="frame" x="0.0" y="38" width="320" height="30"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                                 <subviews>
                                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" id="oQh-oA-mw3">
                                                         <rect key="frame" x="0.0" y="0.0" width="320" height="30"/>
-                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                         <textInputTraits key="textInputTraits"/>
                                                     </textField>
@@ -478,10 +478,6 @@
         <class className="ImageEditorViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/ImageEditorViewController.h"/>
             <relationships>
-                <relationship kind="action" name="cancelDidClick:"/>
-                <relationship kind="action" name="doneDidClick:"/>
-                <relationship kind="action" name="resizeDidClick:" candidateClass="UISegmentedControl"/>
-                <relationship kind="action" name="rotateDidClick:"/>
                 <relationship kind="outlet" name="doneKey" candidateClass="UIBarButtonItem"/>
                 <relationship kind="outlet" name="imageView" candidateClass="UIImageView"/>
                 <relationship kind="outlet" name="originalResolution" candidateClass="UILabel"/>
@@ -494,8 +490,6 @@
         <class className="MainViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/MainViewController.h"/>
             <relationships>
-                <relationship kind="action" name="filterDidClick:"/>
-                <relationship kind="action" name="reloadDidClick:"/>
                 <relationship kind="outlet" name="postButton" candidateClass="UIBarButtonItem"/>
                 <relationship kind="outlet" name="reloadButton" candidateClass="UIBarButtonItem"/>
                 <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
@@ -504,10 +498,6 @@
         <class className="PostViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/PostViewController.h"/>
             <relationships>
-                <relationship kind="action" name="cameraDidClick:"/>
-                <relationship kind="action" name="cancelDidClick:"/>
-                <relationship kind="action" name="doneDidClick:"/>
-                <relationship kind="action" name="sendDidClick:"/>
                 <relationship kind="outlet" name="cameraButton" candidateClass="UIBarButtonItem"/>
                 <relationship kind="outlet" name="message" candidateClass="UITextView"/>
                 <relationship kind="outlet" name="messageLabel" candidateClass="UILabel"/>

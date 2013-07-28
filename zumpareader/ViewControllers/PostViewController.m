@@ -24,6 +24,7 @@
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet UILabel *messageLabel;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *cameraButton;
+@property (strong, nonatomic) UIPopoverController *popOver; //only for ipads
 
 @property (nonatomic) UIImagePickerController *imagePickerController;
 
@@ -230,11 +231,21 @@ CGRect originalScrollViewRect;
     imagePickerController.sourceType = sourceType;
     imagePickerController.delegate = self;
     self.imagePickerController = imagePickerController;
-    [self presentViewController:self.imagePickerController animated:YES completion:nil];
+    
+    UIUserInterfaceIdiom idiom = [[UIDevice currentDevice] userInterfaceIdiom];
+    if(UIUserInterfaceIdiomPhone == idiom){
+        [self presentViewController:self.imagePickerController animated:YES completion:nil];
+    }else if(UIUserInterfaceIdiomPad == idiom){
+        self.popOver = [[UIPopoverController alloc] initWithContentViewController:self.imagePickerController];
+        [self.popOver presentPopoverFromBarButtonItem:self.cameraButton permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+    }else{
+        [[[UIAlertView alloc]initWithTitle:NSLoc(@"Error") message:@"UnableToDoOperation" delegate:nil cancelButtonTitle:NSLoc(@"OK") otherButtonTitles: nil] show];
+    }
 }
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info{
     [self doneDidClick:nil];//hide keyboard
+    self.popOver = nil;//relase popOver
     
     [picker dismissViewControllerAnimated:NO completion:nil]; //must be NO
     self.selectedImage = [info valueForKey:UIImagePickerControllerOriginalImage];

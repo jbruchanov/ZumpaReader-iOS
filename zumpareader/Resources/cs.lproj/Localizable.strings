@@ -20,6 +20,7 @@
 "Responses" = "Odpovědí";
 "WTF_SurveyNotFound" = "Watafak Chyba, anketa nenalezena!?";
 "Filter" = "Filter";
-"NoFilter" = "Bez filtru";
+"NoFilter" = "Nefiltrovaný dredýsky";
 "ByOwnThreads" = "Vlastní dredýsky";
 "ByFavThreads" = "Oblíbený dredýsky";
+"UnableToDoOperation" = "Nende to :(";
