@@ -97,7 +97,7 @@
 - (IBAction)loginDidClick:(id)sender {
     [self.progressBar removeFromSuperview];
     __weak SettingsViewController *zelf = self;
-    
+    zelf.loginButton.enabled = NO;
     if([self.settings boolForKey:IS_LOGGED_IN] == NO){
         NSString *uid = self.userName.text;
         NSString *pwd = self.password.text;
@@ -111,7 +111,7 @@
         [self.zumpa logIn:uid andPassword:pwd withCallback:^(BOOL result) {
             if(zelf){
                 [zelf loginStatusChanged:result save:YES];
-                zelf.loginButton.enabled = NO;
+                zelf.loginButton.enabled = YES;
                 if(!result){
                     [[[UIAlertView alloc]initWithTitle:@":(" message:@"Unable to login" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
                 }
@@ -123,6 +123,7 @@
         self.loginButton.enabled = NO;
         [self.zumpa logOutWithCallback:^(BOOL result) {
             if(zelf){
+                zelf.loginButton.enabled = YES;
                 [zelf loginStatusChanged:!result save:YES];
             }
         }];
