@@ -152,7 +152,7 @@ const double kDefaultTimeout = 2.0;
 #endif
     self.cookie = context;
     
-    BOOL isLoggedIn = [context rangeOfString:[@"portal_lln=" stringByAppendingString:uid]].location != NSNotFound;
+    BOOL isLoggedIn = [context rangeOfString:@"portal_lln="].location != NSNotFound;
     [self.defaults setBool:isLoggedIn forKey:IS_LOGGED_IN];
     if(isLoggedIn){
         [self.defaults setObject:uid forKey:USERNAME];
