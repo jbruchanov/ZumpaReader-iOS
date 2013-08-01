@@ -23,5 +23,6 @@
 @property (weak, nonatomic) ZumpaAsyncWrapper *zumpa;
 @property (weak, nonatomic) id<PostViewControllerDelegate> delegate;
 @property (weak, nonatomic) NSUserDefaults *settings;
+@property (strong, nonatomic) NSString *prefilledMessage;
 
 @end

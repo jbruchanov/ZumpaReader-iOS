@@ -164,7 +164,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     ZumpaSubViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CELL_IDENTITY forIndexPath:indexPath];
-    cell.surveyDelegate = self;
+    cell.surveyDelegate = self;    
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
     ZumpaSubItem *zsi = [self.items objectAtIndex:indexPath.item];
@@ -241,6 +241,10 @@
         pvc.zumpa = self.zumpa;
         pvc.delegate = self;
         pvc.settings = self.settings;
+        
+        if([sender isKindOfClass:[NSString class]]){
+            pvc.prefilledMessage = sender;
+        }
     }
 }
 

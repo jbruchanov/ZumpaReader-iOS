@@ -68,8 +68,17 @@ CGRect originalScrollViewRect;
         self.subject.text = subj;
     }
     
-    if(msg){
-        self.message.text = subj;
+    
+    if(self.prefilledMessage){
+        if(msg && [msg length] > 0){
+            self.message.text = [NSString stringWithFormat:@"%@\n@%@:\n", self.message.text, self.prefilledMessage];
+        }else{
+            self.message.text = [NSString stringWithFormat:@"@%@:\n", self.prefilledMessage];
+        }
+    }else{
+        if(msg){
+            self.message.text = subj;
+        }
     }
     
     //add nice background for edittexts and left margin
