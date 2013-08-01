@@ -97,7 +97,7 @@
      */
     STAssertNotNil(zsi.survey.question, @"Survey question Nil");
     STAssertTrue(zsi.survey.responds > 0, @"Survey responds 0");
-    STAssertNotNil(zsi.survey.ID, @"Survey ID Nil");
+    STAssertTrue(zsi.survey.ID > 0, @"Survey ID Nil");
     STAssertNotNil(zsi.survey.answers, @"Survey answers Nil");
     STAssertNotNil(zsi.survey.percents, @"Survey percents Nil");
     
