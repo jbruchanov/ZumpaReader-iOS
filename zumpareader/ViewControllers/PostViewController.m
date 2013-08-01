@@ -245,9 +245,11 @@ CGRect originalScrollViewRect;
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info{
     [self doneDidClick:nil];//hide keyboard
-    self.popOver = nil;//relase popOver
     
+    [self.popOver dismissPopoverAnimated:YES];
+    self.popOver = nil;
     [picker dismissViewControllerAnimated:NO completion:nil]; //must be NO
+    
     self.selectedImage = [info valueForKey:UIImagePickerControllerOriginalImage];
     [self performSegueWithIdentifier:@"PhotoEdit" sender:self];
 }
