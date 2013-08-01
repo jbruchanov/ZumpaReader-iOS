@@ -26,3 +26,5 @@
 "UnableToDoOperation" = "Nende to :(";
 "SetFavorite" = "Oblíbený";
 "SetNoFavorite" = "Normální";
+"LastPostAuthor" = "Autor poslední odpovědi";
+"ResponseNick" = "Nick pro odpověď";

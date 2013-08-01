@@ -10,6 +10,7 @@
 #import "Settings.h"
 #import "DialogHelper.h"
 #import <QuartzCore/QuartzCore.h>
+#import "I18N.h"
 
 @interface SettingsViewController ()
 @property (weak, nonatomic) IBOutlet UIButton *loginButton;
@@ -20,6 +21,7 @@
 @property (weak, nonatomic) UIActivityIndicatorView *progressBar;
 @property (weak, nonatomic) IBOutlet UITextField *responseNick;
 @property (weak, nonatomic) IBOutlet UISwitch *lastPostAuthor;
+@property (weak, nonatomic) IBOutlet UILabel *lastPostAuthorLabel;
 
 -(void) initButtons;
 -(void) loadSettings;
@@ -42,6 +44,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [self.responseNick setPlaceholder:NSLoc(@"ResponseNick")];
+    [self.lastPostAuthorLabel setText:NSLoc(@"LastPostAuthor")];
     self.settings = [[NSUserDefaults alloc]init];
     [self initButtons];
     [self loadSettings];
@@ -73,6 +77,7 @@
     [self setPassword:nil];
     [self setLoginStatus:nil];
     [self setLoginButton:nil];
+    [self setLastPostAuthorLabel:nil];
     [super viewDidUnload];
 }
 

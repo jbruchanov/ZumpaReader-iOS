@@ -26,3 +26,5 @@
 "UnableToDoOperation" = "Unable To Do Operation";
 "SetFavorite" = "Set favorite";
 "SetNoFavorite" = "No favorite";
+"LastPostAuthor" = "Last post author";
+"ResponseNick" = "Response nick";

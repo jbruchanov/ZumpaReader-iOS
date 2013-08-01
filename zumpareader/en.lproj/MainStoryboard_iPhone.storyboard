@@ -189,6 +189,7 @@
                     </attributedString>
                     <connections>
                         <outlet property="lastPostAuthor" destination="onl-YF-hsb" id="sDo-5J-DwD"/>
+                        <outlet property="lastPostAuthorLabel" destination="ngf-5x-GOU" id="vgN-VR-oLV"/>
                         <outlet property="loginButton" destination="2Q3-Nu-aFL" id="BOo-8N-23r"/>
                         <outlet property="loginStatus" destination="92M-ll-vkB" id="U66-pv-GNs"/>
                         <outlet property="password" destination="wat-R4-cYe" id="Gdx-YB-w5R"/>
@@ -490,6 +491,7 @@
             <relationships>
                 <relationship kind="action" name="addDidClick:"/>
                 <relationship kind="action" name="dataWillLoad:"/>
+                <relationship kind="action" name="favoriteDidCllick:"/>
                 <relationship kind="outlet" name="favorite" candidateClass="UIBarButtonItem"/>
                 <relationship kind="outlet" name="plusButton" candidateClass="UIBarButtonItem"/>
                 <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
@@ -498,10 +500,6 @@
         <class className="ImageEditorViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/ImageEditorViewController.h"/>
             <relationships>
-                <relationship kind="action" name="cancelDidClick:"/>
-                <relationship kind="action" name="doneDidClick:"/>
-                <relationship kind="action" name="resizeDidClick:" candidateClass="UISegmentedControl"/>
-                <relationship kind="action" name="rotateDidClick:"/>
                 <relationship kind="outlet" name="doneKey" candidateClass="UIBarButtonItem"/>
                 <relationship kind="outlet" name="imageView" candidateClass="UIImageView"/>
                 <relationship kind="outlet" name="originalResolution" candidateClass="UILabel"/>
@@ -514,8 +512,6 @@
         <class className="MainViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/MainViewController.h"/>
             <relationships>
-                <relationship kind="action" name="filterDidClick:"/>
-                <relationship kind="action" name="reloadDidClick:"/>
                 <relationship kind="outlet" name="postButton" candidateClass="UIBarButtonItem"/>
                 <relationship kind="outlet" name="reloadButton" candidateClass="UIBarButtonItem"/>
                 <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
@@ -534,6 +530,8 @@
         <class className="SettingsViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/SettingsViewController.h"/>
             <relationships>
+                <relationship kind="action" name="didSaveClick:"/>
+                <relationship kind="action" name="loginDidClick:"/>
                 <relationship kind="outlet" name="lastPostAuthor" candidateClass="UISwitch"/>
                 <relationship kind="outlet" name="loginButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="loginStatus" candidateClass="UILabel"/>
