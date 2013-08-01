@@ -100,4 +100,12 @@
     });
 }
 
+-(void) switchFavoriteThread:(int)threadId withCallback:(void (^)(BOOL))callback{
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        BOOL result = [self.client switchFavoriteThread:threadId];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            callback(result);
+        });
+    });
+}
 @end

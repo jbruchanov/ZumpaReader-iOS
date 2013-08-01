@@ -303,4 +303,20 @@ const double kDefaultTimeout = 2.0;
     Survey *s = [Survey fromJson:result];
     return s;
 }
+
+-(BOOL) switchFavoriteThread:(int)threadId{
+    NSMutableArray *params = [NSMutableArray arrayWithObjects:@"ThreadID", [NSNumber numberWithInt:threadId], nil];
+    
+    NSData* jsonData = [self sendRequest:[self createPostRequest:[self.serviceUrl stringByAppendingString:@"favorite"]
+                                                       andParams:params]];
+    
+    NSDictionary *jsonDict = [NSJSONSerialization JSONObjectWithData:jsonData options:kNilOptions error:nil];
+    NSString *result = [jsonDict objectForKey:kContext];
+    
+#ifdef DEBUG
+    NSString *responseString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+    NSLog(@"%@",responseString);
+#endif
+    return [result boolValue];
+}
 @end

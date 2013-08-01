@@ -16,6 +16,8 @@
 -(void) logIn:(NSString*)uid andPassword:(NSString*)password withCallback:(void (^)(BOOL))callback;
 -(void) logOutWithCallback:(void (^)(BOOL))callback;
 
+-(void) switchFavoriteThread:(int)threadId withCallback:(void (^)(BOOL))callback;
+
 -(void) getItemsWithCallback:(void (^)(ZumpaMainPageResult*))callback;
 -(void) getItemsWithUrl:(NSString*) withUrl andCallback:(void (^)(ZumpaMainPageResult*))callback;
 

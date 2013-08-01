@@ -156,4 +156,11 @@
     STAssertEquals(3879, s.ID, @"Different survey ID");
 }
 
+-(void)testSwitchFavoriteThread{
+    ZumpaWSClient *client = [[ZumpaWSClient alloc] init];
+    [client logIn:self.login with:self.password];
+    BOOL switched = [client switchFavoriteThread:1175788    ];
+    STAssertEquals(YES, switched, @"Different survey ID");
+}
+
 @end

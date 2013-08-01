@@ -46,4 +46,6 @@
 
 -(Survey*) voteSurvey:(int)surveyId forItem:(int)surveyButtonIndex;
 
+-(BOOL) switchFavoriteThread:(int)threadId;
+
 @end
