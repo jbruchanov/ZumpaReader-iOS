@@ -17,6 +17,7 @@
 @property (nonatomic, copy) NSString* itemsUrl;
 @property (nonatomic, strong) NSString *parsedTime;
 @property (nonatomic, copy) NSString *lastAnswerAuthor;
+@property (nonatomic) BOOL favoriteThread;
 
 +(ZumpaItem*) fromJson:(NSDictionary*)dict;
 @end

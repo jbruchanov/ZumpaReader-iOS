@@ -87,6 +87,12 @@ const static int kBottomMargin = 10;
         }else{
             self.colorStrip.alpha = 0;
         }
+        
+        if(self.item.favoriteThread){
+            self.responds.textColor = [UIColor orangeColor];
+        }else{
+            self.responds.textColor = [UIColor blackColor];
+        }
     }
 }
 

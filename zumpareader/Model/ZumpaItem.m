@@ -18,6 +18,7 @@
     zi.responds = [[dict valueForKey:@"Responds"] integerValue];
     zi.itemsUrl = [dict valueForKey:@"ItemsUrl"];
     zi.time = [[dict valueForKey:@"Time"] longLongValue];
+    zi.favoriteThread = [[dict valueForKey:@"IsFavourite"] boolValue];
     
     NSDate* date = [NSDate dateWithTimeIntervalSince1970:zi.time/1000];
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
