@@ -10,13 +10,6 @@
 
 @implementation Survey
 
-@synthesize answers = _answers;
-@synthesize ID = _ID;
-@synthesize percents = _percents;
-@synthesize question = _question;
-@synthesize responds = _responds;
-@synthesize votedItem = _votedItem;
-
 +(Survey*) fromJson:(NSDictionary*)jsonDict{
     if(!jsonDict){
         return nil;
