@@ -39,6 +39,7 @@
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) UISurvey *survey;
 @property (nonatomic) BOOL mustResetContentOffset;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *favorite;
 
 @end
 
@@ -66,11 +67,15 @@
     self.items = [[NSMutableArray alloc]init];
     self.heights = [[NSMutableArray alloc]init];
     [self dataWillLoad];
-    
+    [self initFavoriteButtonText];
     
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+}
+
+-(void) initFavoriteButtonText{
+    [self.favorite setTitle:self.item.favoriteThread ? NSLoc(@"SetNoFavorite") :NSLoc(@"SetFavorite")];
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -105,10 +110,11 @@
 }
 
 -(void) initHeader{
+    self.navigationController.navigationBar.topItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"<" style:UIBarButtonItemStylePlain target:nil action:nil];
+        
     UIBarButtonItem *reload = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(dataWillLoad:)];
-    UIBarButtonItem *add = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addDidClick:)];
     
-    self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:reload,add,nil];
+    self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:reload,nil];
 }
 
 -(void)dataWillLoad{
@@ -224,6 +230,7 @@
 
 - (void)viewDidUnload {
     [self setTableView:nil];
+    [self setFavorite:nil];
     [super viewDidUnload];
 }
 
@@ -270,6 +277,22 @@
         }];
     }else{
         [[[UIAlertView alloc]initWithTitle:NSLoc(@"Error") message:NSLoc(@"WTF_SurveyNotFound") delegate:nil cancelButtonTitle:NSLoc(@"OK") otherButtonTitles: nil]show];
+    }
+}
+- (IBAction)favoriteDidCllick:(id)sender {
+    if(self.isLoading == NO){
+        [self setSpinnerVisible:YES];
+        __weak DetailViewController *zelf = self;
+        ZumpaItem *zi = self.item;
+        [self.zumpa switchFavoriteThread:zi.ID withCallback:^(BOOL result) {
+            if(zelf){
+                if(result){
+                    zi.favoriteThread = !zi.favoriteThread;
+                    [zelf initFavoriteButtonText];
+                }
+                [zelf setSpinnerVisible:NO];
+            }
+        }];
     }
 }
 

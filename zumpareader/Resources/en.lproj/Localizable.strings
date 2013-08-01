@@ -24,3 +24,5 @@
 "ByOwnThreads" = "Own threads";
 "ByFavThreads" = "Favourite threads";
 "UnableToDoOperation" = "Unable To Do Operation";
+"SetFavorite" = "Set favorite";
+"SetNoFavorite" = "No favorite";

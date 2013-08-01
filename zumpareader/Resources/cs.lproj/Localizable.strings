@@ -24,3 +24,5 @@
 "ByOwnThreads" = "Vlastní dredýsky";
 "ByFavThreads" = "Oblíbený dredýsky";
 "UnableToDoOperation" = "Nende to :(";
+"SetFavorite" = "Oblíbený";
+"SetNoFavorite" = "Normální";
