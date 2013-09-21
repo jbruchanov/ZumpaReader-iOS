@@ -28,12 +28,13 @@
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
-        // Initialization code
+        [self.message setScrollEnabled:NO];
     }
     return self;
 }
 
 -(void)setItem:(ZumpaSubItem*)item withSurvey:(BOOL) createSurvey{
+    [self.message setScrollEnabled:NO];//TODO:better place for this
     _item = item;
     if(item.authorFake){
         self.author.text = [NSString stringWithFormat:@"%@ (%@)", item.authorFake, item.authorReal];
