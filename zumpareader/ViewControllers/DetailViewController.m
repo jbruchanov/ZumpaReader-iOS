@@ -16,6 +16,7 @@
 #import "DialogHelper.h"
 
 #define MESSAGE_WIDTH self.view.frame.size.width - 16
+#define MEASURE_HEIGHT_ADD 40
 #define CONTENT_OFFSET @"contentOffset"
 
 #define CELL_IDENTITY @"DetailCell"
@@ -198,7 +199,7 @@
     ZumpaSubItem *zsi = [self.items objectAtIndex:indexPath.item];
     CGSize size = CGSizeMake(MESSAGE_WIDTH, 100000);
     CGSize measuredSize = [zsi.body sizeWithFont:self.measureFont constrainedToSize:size lineBreakMode:NSLineBreakByClipping];
-    int height = measuredSize.height + 40;
+    int height = measuredSize.height + MEASURE_HEIGHT_ADD;
     if(zsi.survey){
         height += [UISurvey estimateHeight:zsi.survey forWidth:self.view.frame.size.width];
     }
