@@ -104,11 +104,11 @@
             <objects>
                 <viewController title="Settings" id="96a-6H-oLp" customClass="SettingsViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="FYN-6C-5M5">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="567.99999999999989"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="DyJ-50-aCi">
-                                <rect key="frame" x="-7" y="0.0" width="334" height="522"/>
+                                <rect key="frame" x="-7" y="0.0" width="334" height="525"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Username" minimumFontSize="17" id="KXs-Ee-nAP">
@@ -194,6 +194,7 @@
                         <outlet property="loginStatus" destination="92M-ll-vkB" id="U66-pv-GNs"/>
                         <outlet property="password" destination="wat-R4-cYe" id="Gdx-YB-w5R"/>
                         <outlet property="responseNick" destination="h3j-Db-j2o" id="3ia-7G-frK"/>
+                        <outlet property="scrollView" destination="DyJ-50-aCi" id="wUe-ax-qgF"/>
                         <outlet property="userName" destination="KXs-Ee-nAP" id="6QS-Ft-Ujl"/>
                     </connections>
                 </viewController>
@@ -337,7 +338,6 @@
                         <outlet property="cameraButton" destination="Q7n-BC-QT3" id="2OU-eA-9v2"/>
                         <outlet property="message" destination="WLw-vz-lxp" id="z7q-k7-HhD"/>
                         <outlet property="messageLabel" destination="upj-Ty-K5f" id="F6R-nf-eGv"/>
-                        <outlet property="scrollView" destination="285-Ky-yeP" id="8O9-0Z-eFD"/>
                         <outlet property="subject" destination="oQh-oA-mw3" id="hza-9f-h9U"/>
                         <segue destination="Md0-nP-tka" kind="modal" identifier="PhotoEdit" id="OE3-FC-rMB"/>
                     </connections>

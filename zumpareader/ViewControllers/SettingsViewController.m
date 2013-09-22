@@ -22,13 +22,15 @@
 @property (weak, nonatomic) IBOutlet UITextField *responseNick;
 @property (weak, nonatomic) IBOutlet UISwitch *lastPostAuthor;
 @property (weak, nonatomic) IBOutlet UILabel *lastPostAuthorLabel;
+@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 
 -(void) initButtons;
 -(void) loadSettings;
-
 @end
 
 @implementation SettingsViewController
+
+CGRect originalScrollViewRect;
 
 @synthesize delegate = _delegate;
 
@@ -60,6 +62,9 @@
         tf.leftViewMode = UITextFieldViewModeAlways;
         [tf setBackground:normal];
     }
+    
+    originalScrollViewRect = self.scrollView.frame;
+    self.scrollView.contentSize = originalScrollViewRect.size;
 }
 
 - (CGRect)textRectForBounds:(CGRect)bounds {
