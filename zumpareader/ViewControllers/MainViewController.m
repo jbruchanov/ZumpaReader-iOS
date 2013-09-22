@@ -80,6 +80,7 @@
     self.zumpa = [[ZumpaAsyncWrapper alloc]initWithWebService:client];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
+    self.tableView.separatorInset = UIEdgeInsetsMake(0,0,0,0);
     
     [self willReload];
     

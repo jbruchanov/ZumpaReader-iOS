@@ -37,7 +37,7 @@
                         <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </label>
                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Mishmash @ 23:59" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.20000000298023224" id="17">
-                        <rect key="frame" x="176" y="24" width="139" height="21"/>
+                        <rect key="frame" x="176" y="23.999999999999996" width="139" height="21"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                         <fontDescription key="fontDescription" type="system" pointSize="11"/>
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>

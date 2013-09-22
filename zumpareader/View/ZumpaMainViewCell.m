@@ -42,7 +42,6 @@ const static int kBottomMargin = 10;
         ZumpaMainViewCell *view = [arr lastObject];
         [self addSubview:view];
         self.frame = view.frame;
-        self.separatorInset = UIEdgeInsetsMake(0, 0, 0, 0);
     }
     return self;
 }

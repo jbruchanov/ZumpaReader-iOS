@@ -70,7 +70,7 @@
     [self dataWillLoad];
     [self initFavoriteButtonText];
     
-    
+    self.tableView.separatorInset = UIEdgeInsetsMake(0, 0, 0, 0);
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
