@@ -36,12 +36,13 @@ const static int kBottomMargin = 10;
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
-            NSArray *arr = [[NSBundle mainBundle] loadNibNamed:@"ZumpaMainViewCell"
-                                                         owner:self
-                                                       options:nil];
-            ZumpaMainViewCell *view = [arr lastObject];
-            [self addSubview:view];
-            self.frame = view.frame;
+        NSArray *arr = [[NSBundle mainBundle] loadNibNamed:@"ZumpaMainViewCell"
+                                                     owner:self
+                                                   options:nil];
+        ZumpaMainViewCell *view = [arr lastObject];
+        [self addSubview:view];
+        self.frame = view.frame;
+        self.separatorInset = UIEdgeInsetsMake(0, 0, 0, 0);
     }
     return self;
 }
@@ -61,25 +62,24 @@ const static int kBottomMargin = 10;
         }else{
             self.date.text = self.item.parsedTime;
         }
-        
-        
-        //doesnt count with rotation and screen width change!
+//        
+//        //doesnt count with rotation and screen width change!
         CGRect subjectFrame = self.subject.frame;
-        
+//
         CGSize size = [self.subject.text sizeWithFont:self.subject.font constrainedToSize:CGSizeMake(subjectFrame.size.width, 100000)];
-        
-        CGRect newSubject = CGRectMake(subjectFrame.origin.x, subjectFrame.origin.y, subjectFrame.size.width, size.height);
-        self.subject.frame = newSubject;
-        
+//
+//        CGRect newSubject = CGRectMake(subjectFrame.origin.x, subjectFrame.origin.y, subjectFrame.size.width, size.height);
+//        self.subject.frame = newSubject;
+//        
         CGRect oldOne = self.author.frame;
-        self.author.frame = CGRectMake(oldOne.origin.x, size.height + GAP, oldOne.size.width, oldOne.size.height);
-        
-        CGRect oldDate = self.date.frame;
-        self.date.frame = CGRectMake(oldDate.origin.x, size.height + GAP, oldDate.size.width, oldDate.size.height);
-        
+//        self.author.frame = CGRectMake(oldOne.origin.x, size.height + GAP, oldOne.size.width, oldOne.size.height);
+//        
+//        CGRect oldDate = self.date.frame;
+//        self.date.frame = CGRectMake(oldDate.origin.x, size.height + GAP, oldDate.size.width, oldDate.size.height);
+//        
         self.frame = CGRectMake(0, 0, self.frame.size.width, size.height + oldOne.size.height + 2*GAP);
-        
-        self.colorStrip.frame = CGRectMake(0,0,self.colorStrip.frame.size.width,self.frame.size.height);
+//
+//        self.colorStrip.frame = CGRectMake(0,0,self.colorStrip.frame.size.width,self.frame.size.height);
         
         if(self.currentUserName && [self.currentUserName isEqualToString:self.author.text]){
             self.colorStrip.backgroundColor = [UIColor colorWithRed:1 green:0 blue:1 alpha:1];
@@ -93,6 +93,7 @@ const static int kBottomMargin = 10;
         }else{
             self.responds.textColor = [UIColor blackColor];
         }
+        
     }
 }
 

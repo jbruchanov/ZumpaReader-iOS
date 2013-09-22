@@ -16,7 +16,7 @@
 #import "DialogHelper.h"
 
 #define MESSAGE_WIDTH self.view.frame.size.width - 16
-#define MEASURE_HEIGHT_ADD 40
+#define MEASURE_HEIGHT_ADD 45
 #define CONTENT_OFFSET @"contentOffset"
 
 #define CELL_IDENTITY @"DetailCell"
