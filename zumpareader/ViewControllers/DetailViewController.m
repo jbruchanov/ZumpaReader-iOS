@@ -14,6 +14,7 @@
 #import "UISurvey.h"
 #import "I18N.h"
 #import "DialogHelper.h"
+#import "Settings.h"
 
 #define MESSAGE_WIDTH self.view.frame.size.width - 16
 #define MEASURE_HEIGHT_ADD 45
@@ -265,6 +266,10 @@
 }
 
 -(void)didVote:(int)surveyButtonIndex{
+    if(![self.settings boolForKey:IS_LOGGED_IN]){
+        [[[UIAlertView alloc] initWithTitle:NSLoc(@"Error") message:NSLoc(@"NotLoggedIn") delegate:nil cancelButtonTitle:NSLoc(@"OK") otherButtonTitles:nil] show];
+        return;
+    }
     __weak ZumpaSubItem *zsi = [self.items objectAtIndex:0];
     if(zsi.survey){
         __weak UIActivityIndicatorView *pbar = [DialogHelper showProgressDialog:self.view];
