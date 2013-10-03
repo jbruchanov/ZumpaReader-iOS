@@ -36,6 +36,7 @@
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *reloadButton;
 @property (strong, nonatomic) NSUserDefaults *settings;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *filterButton;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *postButton;
 @property (nonatomic) BOOL mustResetContentOffset;
 @property (nonatomic, strong) NSString *userName;
@@ -111,6 +112,7 @@
 -(void) viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [self.postButton setEnabled:[self.settings boolForKey:IS_LOGGED_IN]];
+    [self.filterButton setEnabled:[self.settings boolForKey:IS_LOGGED_IN]];
     [self.tableView addObserver:self forKeyPath:CONTENT_OFFSET options:(NSKeyValueObservingOptionNew) context:NULL];
 }
 
