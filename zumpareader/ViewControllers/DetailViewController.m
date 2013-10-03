@@ -291,6 +291,10 @@
 }
 - (IBAction)favoriteDidCllick:(id)sender {
     if(self.isLoading == NO){
+        if(![self.settings boolForKey:IS_LOGGED_IN]){
+            [[[UIAlertView alloc] initWithTitle:NSLoc(@"Error") message:NSLoc(@"NotLoggedIn") delegate:nil cancelButtonTitle:NSLoc(@"OK") otherButtonTitles:nil] show];
+            return;
+        }
         [self setSpinnerVisible:YES];
         __weak DetailViewController *zelf = self;
         ZumpaItem *zi = self.item;
