@@ -30,7 +30,6 @@
 -(void)clientDidFinishLoading;
 -(void)dataWillLoad;
 
-@property (strong, nonatomic) IBOutlet UIBarButtonItem *plusButton;
 @property (nonatomic, strong) NSMutableArray *items;
 @property (nonatomic) BOOL isLoading;
 @property (strong, nonatomic) UIColor *colorEven;
@@ -42,17 +41,12 @@
 @property (strong, nonatomic) UISurvey *survey;
 @property (nonatomic) BOOL mustResetContentOffset;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *favorite;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *addButton;
+@property (strong, nonatomic) IBOutlet UIBarButtonItem *reloadButton;
 
 @end
 
 @implementation DetailViewController
-
-
-@synthesize zumpa = _zumpa;
-@synthesize item = _item;
-@synthesize items = _items;
-@synthesize heights = _heights;
-@synthesize settings = _settings;
 
 - (void)viewDidLoad
 {
@@ -69,15 +63,16 @@
     self.items = [[NSMutableArray alloc]init];
     self.heights = [[NSMutableArray alloc]init];
     [self dataWillLoad];
-    [self initFavoriteButtonText];
-    
+    [self initFavoriteButton];
+    self.addButton.enabled = [self.settings boolForKey:IS_LOGGED_IN];
     self.tableView.separatorInset = UIEdgeInsetsMake(0, 0, 0, 0);
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
--(void) initFavoriteButtonText{
+-(void) initFavoriteButton{
     [self.favorite setTitle:self.item.favoriteThread ? NSLoc(@"SetNoFavorite") :NSLoc(@"SetFavorite")];
+    self.favorite.enabled = [self.settings boolForKey:IS_LOGGED_IN];
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -114,9 +109,9 @@
 -(void) initHeader{
     self.navigationController.navigationBar.topItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"<" style:UIBarButtonItemStylePlain target:nil action:nil];
         
-    UIBarButtonItem *reload = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(dataWillLoad:)];
+    self.reloadButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(dataWillLoad:)];
     
-    self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:reload,nil];
+    self.navigationItem.rightBarButtonItem = self.reloadButton;
 }
 
 -(void)dataWillLoad{
@@ -210,7 +205,6 @@
 -(void)setSpinnerVisible:(BOOL) visible{
     
     if(visible){
-        self.plusButton = self.navigationItem.rightBarButtonItem;
         UIActivityIndicatorView *activityIndicator =
         [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(0, 0, 20, 20)];
         UIBarButtonItem * barButton =
@@ -219,7 +213,7 @@
         
         self.navigationItem.rightBarButtonItem = barButton;
     }else{
-        self.navigationItem.rightBarButtonItem = self.plusButton;
+        self.navigationItem.rightBarButtonItem = self.reloadButton;
     }
 }
 - (IBAction)dataWillLoad:(id)sender {
@@ -302,7 +296,7 @@
             if(zelf){
                 if(result){
                     zi.favoriteThread = !zi.favoriteThread;
-                    [zelf initFavoriteButtonText];
+                    [zelf initFavoriteButton];
                 }
                 [zelf setSpinnerVisible:NO];
             }

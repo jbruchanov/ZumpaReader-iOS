@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="4510" systemVersion="12F37" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="h1T-Mr-4Bg">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="4510" systemVersion="12F45" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="h1T-Mr-4Bg">
     <dependencies>
         <deployment defaultVersion="1792" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3742"/>
@@ -89,6 +89,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="filterButton" destination="UaS-1S-zpu" id="0fV-6H-idS"/>
                         <outlet property="postButton" destination="syb-Jq-BT6" id="8ZD-Gf-RMR"/>
                         <outlet property="reloadButton" destination="lxX-AP-3XD" id="iPp-Er-TMt"/>
                         <outlet property="tableView" destination="iiD-vZ-G1x" id="xeT-ue-yck"/>
@@ -225,9 +226,9 @@
                                         </connections>
                                     </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="bDU-rd-34J"/>
-                                    <barButtonItem title="+" id="k9D-We-drG">
+                                    <barButtonItem title="+" id="ouF-yh-V0o">
                                         <connections>
-                                            <action selector="addDidClick:" destination="1oc-6b-LR4" id="GCo-T6-58v"/>
+                                            <action selector="addDidClick:" destination="1oc-6b-LR4" id="qXq-76-j6f"/>
                                         </connections>
                                     </barButtonItem>
                                 </items>
@@ -237,8 +238,8 @@
                     </view>
                     <navigationItem key="navigationItem" title="Title" id="ygc-I6-7O6"/>
                     <connections>
+                        <outlet property="addButton" destination="ouF-yh-V0o" id="Jfj-CC-kXl"/>
                         <outlet property="favorite" destination="tFg-3z-WWB" id="6F9-lc-B06"/>
-                        <outlet property="plusButton" destination="k9D-We-drG" id="Ult-RU-eAm"/>
                         <outlet property="tableView" destination="fXM-98-IGE" id="uQF-eN-B7o"/>
                         <segue destination="14z-Mp-h78" kind="modal" identifier="Post" modalTransitionStyle="flipHorizontal" id="Dmb-bx-EgC"/>
                     </connections>
@@ -486,6 +487,6 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="3Dd-u9-lUN"/>
+        <segue reference="Dmb-bx-EgC"/>
     </inferredMetricsTieBreakers>
 </document>
