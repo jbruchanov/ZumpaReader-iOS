@@ -13,7 +13,7 @@
 
 -(id) initWithWebService:(ZumpaWSClient*) webServiceClient;
 
--(void) logIn:(NSString*)uid andPassword:(NSString*)password withCallback:(void (^)(BOOL))callback;
+-(void) logIn:(NSString*)uid andPassword:(NSString*)password withCallback:(void (^)(LoginResult*))callback;
 -(void) logOutWithCallback:(void (^)(BOOL))callback;
 
 -(void) switchFavoriteThread:(int)threadId withCallback:(void (^)(BOOL))callback;

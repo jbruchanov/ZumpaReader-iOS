@@ -137,29 +137,31 @@ const double kDefaultTimeout = 2.0;
 }
 
 
--(BOOL) logIn:(NSString*)uid with:(NSString*)password{
+-(LoginResult*) logIn:(NSString*)uid with:(NSString*)password{
     NSData* jsonData = [self sendRequest:[self createPostRequest:[self.serviceUrl stringByAppendingString:@"login"]
                                                        andParams:[NSArray arrayWithObjects:@"UserName",
                                                                   uid,
                                                                   @"Password",
                                                                   password, nil]]];
     NSDictionary *jsonDict = [NSJSONSerialization JSONObjectWithData:jsonData options:kNilOptions error:nil];
-    NSString *context = [jsonDict objectForKey:kContext];
+    NSDictionary *context = [jsonDict objectForKey:kContext];
     
 #ifdef DEBUG
     NSString *responseString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
     NSLog(@"%@",responseString);
 #endif
-    self.cookie = context;
     
-    BOOL isLoggedIn = [context rangeOfString:@"portal_lln="].location != NSNotFound;
+    LoginResult *result = [LoginResult parse:context];
+    self.cookie = result.Cookies;
+    
+    BOOL isLoggedIn = result.Result;
     [self.defaults setBool:isLoggedIn forKey:IS_LOGGED_IN];
     if(isLoggedIn){
         [self.defaults setObject:uid forKey:USERNAME];
         [self.defaults setObject:self.cookie forKey:COOKIES];
     }
     [self.defaults synchronize];
-    return isLoggedIn;
+    return result;
 }
 
 -(BOOL) logOut{

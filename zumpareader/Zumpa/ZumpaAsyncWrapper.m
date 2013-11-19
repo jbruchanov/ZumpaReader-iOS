@@ -24,9 +24,9 @@
 }
 
 /*-(BOOL) logIn:(NSString*)uid with:(NSString*)password;*/
--(void) logIn:(NSString*)uid andPassword:(NSString*)password withCallback:(void (^)(BOOL))callback{
+-(void) logIn:(NSString*)uid andPassword:(NSString*)password withCallback:(void (^)(LoginResult*))callback{
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        BOOL result = [self.client logIn:uid with:password];
+        LoginResult *result = [self.client logIn:uid with:password];
         dispatch_async(dispatch_get_main_queue(), ^{
             callback(result);
         });

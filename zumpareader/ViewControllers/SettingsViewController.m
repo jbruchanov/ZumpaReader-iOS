@@ -118,13 +118,11 @@ CGRect originalScrollViewRect;
         }
         self.progressBar = [DialogHelper showProgressDialog:self.view];
 
-        [self.zumpa logIn:uid andPassword:pwd withCallback:^(BOOL result) {
+        [self.zumpa logIn:uid andPassword:pwd withCallback:^(LoginResult *result) {
             if(zelf){
-                [zelf loginStatusChanged:result save:YES];
+                [zelf loginStatusChanged:result.Result save:YES];
                 zelf.loginButton.enabled = YES;
-                if(!result){
-                    [[[UIAlertView alloc]initWithTitle:@":(" message:@"Unable to login" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
-                }
+                [[[UIAlertView alloc]initWithTitle:(!result ? @":(" : @":)") message:result.ZumpaResult delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
             }
 
         }];

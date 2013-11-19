@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "ZumpaMainPageResult.h"
 #import "Survey.h"
+#import "LoginResult.h"
 
 @protocol ZumpaWSClientDelegate
 
@@ -27,7 +28,7 @@
 -(ZumpaMainPageResult*) getItems:(NSString*) withUrl;
 
 
--(BOOL) logIn:(NSString*)uid with:(NSString*)password;
+-(LoginResult*) logIn:(NSString*)uid with:(NSString*)password;
 -(BOOL) logOut;
 
 -(NSArray*) getSubItemsWithUrl:(NSString*)url;
