@@ -8,31 +8,30 @@
 
 #import "MainViewController.h"
 #import "ZumpaAsyncWrapper.h"
-#import "ZumpaMainPageResult.h"
 #import "ZumpaItem.h"
-#import "ZumpaMainViewCell.h"
 #import "DetailViewController.h"
 #import "PostViewController.h"
 #import "SettingsViewController.h"
 #import "Settings.h"
-#import "DialogHelper.h"
 #import "I18N.h"
+#import "ZRMainViewCell.h"
 
 #define DISPLAY_WIDTH self.view.frame.size.width
 #define LOAD_LIMIT_OFFSET 5
 #define REQUEST_ITEMS_SIZE 35
 #define CONTENT_OFFSET @"contentOffset"
+#define REUSE_KEY @"ZRMainViewCell"
 
 @interface MainViewController () <SettingsViewControllerDelegate, PostViewControllerDelegate, ZumpaWSClientDelegate, UIActionSheetDelegate>
 
 @property (strong, nonatomic) ZumpaAsyncWrapper *zumpa;
 @property (strong, nonatomic) NSMutableArray* zumpaItems;
+@property (strong, nonatomic) NSMutableDictionary* zumpaItemHeights;
 @property (strong, nonatomic) ZumpaMainPageResult* currentResult;
 @property (nonatomic) BOOL isLoading;
 @property (strong, nonatomic) UIColor *colorEven;
 @property (strong, nonatomic) UIColor *colorOdd;
-@property (strong, nonatomic) ZumpaMainViewCell *measureCell;
-@property (strong, nonatomic) UIFont *measureFont;
+@property (strong, nonatomic) ZRMainViewCell *measureCell;
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *reloadButton;
 @property (strong, nonatomic) NSUserDefaults *settings;
@@ -60,17 +59,16 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+
+    self.zumpaItemHeights = [[NSMutableDictionary alloc]init];
     self.settings = [[NSUserDefaults alloc]init];
-    self.measureFont = [UIFont boldSystemFontOfSize:17];
     self.userName = [self.settings stringForKey:USERNAME];
-    
-    
+
     NSBundle *bundle = [NSBundle mainBundle];
     NSDictionary *info = [bundle infoDictionary];
     NSString *prodName = [info objectForKey:@"CFBundleDisplayName"];
     self.title = prodName;
     
-    self.measureCell = [[ZumpaMainViewCell alloc]init];
     self.colorEven = [UIColor whiteColor];
     self.colorOdd = [UIColor colorWithRed:0.95 green:0.95 blue:0.95 alpha:1];
     
@@ -82,10 +80,9 @@
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     self.tableView.separatorInset = UIEdgeInsetsMake(0,0,0,0);
-    
+
     [self willReload];
-    
-    
+
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
     
@@ -161,66 +158,44 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"Cell";
-    ZumpaMainViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    ZRMainViewCell *cell = [tableView dequeueReusableCellWithIdentifier:REUSE_KEY];
     if(!cell){
-        cell = [[ZumpaMainViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-        cell.currentUserName = self.userName;
+        cell = [tableView dequeueReusableCellWithIdentifier:REUSE_KEY];
     }
+
     int index = indexPath.item;
-    
     if(index == [self.zumpaItems count] - LOAD_LIMIT_OFFSET){
         [self willLoadNextPage];
     }
-    
     ZumpaItem *zi = [self.zumpaItems objectAtIndex:index];
     [cell setItem:zi];
     return cell;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    ZumpaItem *zi = [self.zumpaItems objectAtIndex:indexPath.item];
-    self.measureCell.item = zi;
-    return self.measureCell.frame.size.height;
+- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return 50;
 }
-/*
- // Override to support conditional editing of the table view.
- - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
- {
- // Return NO if you do not want the specified item to be editable.
- return YES;
- }
- */
 
-/*
- // Override to support editing the table view.
- - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
- {
- if (editingStyle == UITableViewCellEditingStyleDelete) {
- // Delete the row from the data source
- [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
- }
- else if (editingStyle == UITableViewCellEditingStyleInsert) {
- // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
- }
- }
- */
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
 
-/*
- // Override to support rearranging the table view.
- - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
- {
- }
- */
+    ZumpaItem *item = self.zumpaItems[indexPath.row];
+    NSNumber *height = [self.zumpaItemHeights objectForKey:@(item.ID)];
+    if(height){
+        return [height intValue];
+    }
 
-/*
- // Override to support conditional rearranging of the table view.
- - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
- {
- // Return NO if you do not want the item to be re-orderable.
- return YES;
- }
- */
+    if(!self.measureCell){
+        UINib *nib = [UINib nibWithNibName:@"ZRMainViewCell" bundle:nil];
+        [self.tableView registerNib:nib forCellReuseIdentifier:REUSE_KEY];
+        self.measureCell = [tableView dequeueReusableCellWithIdentifier:REUSE_KEY];
+    }
+
+    self.measureCell.item = item;
+    [self.measureCell layoutIfNeeded];
+    int h = [self.measureCell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize].height + 1;//safety 1 from webinar
+    [self.zumpaItemHeights setObject:@(h) forKey:@(item.ID)];
+    return h;
+}
 
 -(void)willReload{
     if(!self.isLoading){
