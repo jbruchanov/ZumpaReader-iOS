@@ -6,9 +6,9 @@
 //  Copyright (c) 2013 Jiri Bruchanov. All rights reserved.
 //
 
-#import <SenTestingKit/SenTestingKit.h>
+#import <XCTest/XCTest.h>
 
-@interface BaseTest : SenTestCase
+@interface BaseTest : XCTestCase
 
 @property (strong, nonatomic, readonly) NSString *login;
 @property (strong, nonatomic, readonly) NSString *password;
