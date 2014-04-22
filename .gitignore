@@ -16,3 +16,4 @@ xcuserdata
 #Version control files
 .svn
 *.orig
+.idea/
