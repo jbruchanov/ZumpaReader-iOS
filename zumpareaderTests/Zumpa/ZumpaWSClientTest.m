@@ -29,27 +29,27 @@
 -(void) testUrlEscape{
     NSString *url = @"http://portal2.dkm.cz/phorum/list.php?f=2&t=1155343&a=1";
     NSString *q = [url urlEncode];
-    STAssertFalse([url isEqualToString:q], @"Should't be same");
+    XCTAssertFalse([url isEqualToString:q], @"Should't be same");
 }
 
 -(void) testDownloadDataMain{
     ZumpaWSClient *client = [[ZumpaWSClient alloc] init];
     ZumpaMainPageResult *result = [client getItems];
     NSArray *list = result.items;
-    STAssertNil(result.previousPage, @"PreivousPage should be nil");
-    STAssertNotNil(result.nextPage, @"NextPage should not be nil");
-    STAssertNotNil(list, @"List should not be nil");
-    STAssertEquals((int)35, (int)[list count], @"List should have size 35 items");
+    XCTAssertNil(result.previousPage, @"PreivousPage should be nil");
+    XCTAssertNotNil(result.nextPage, @"NextPage should not be nil");
+    XCTAssertNotNil(list, @"List should not be nil");
+    XCTAssertEqual((int)35, (int)[list count], @"List should have size 35 items");
 }
 
 -(void) testDownloadDataPage{
     ZumpaWSClient *client = [[ZumpaWSClient alloc] init];
     ZumpaMainPageResult *result = [client getItems:@"http://portal2.dkm.cz/phorum/list.php?f=2&t=1155343&a=1"];
     NSArray *list = result.items;
-    STAssertNotNil(result.previousPage, @"PreivousPage should not be nil");
-    STAssertNotNil(result.nextPage, @"NextPage should not be nil");
-    STAssertNotNil(list, @"List should not be nil");
-    STAssertEquals((int)35, (int)[list count], @"List should have size 35 items");
+    XCTAssertNotNil(result.previousPage, @"PreivousPage should not be nil");
+    XCTAssertNotNil(result.nextPage, @"NextPage should not be nil");
+    XCTAssertNotNil(list, @"List should not be nil");
+    XCTAssertEqual((int)35, (int)[list count], @"List should have size 35 items");
 }
 
 -(void) testParse{
@@ -58,34 +58,34 @@
     NSArray *list = result.items;
     for (id item in list) {
         ZumpaItem *zi = (ZumpaItem*)item;
-        STAssertNotNil(zi, @"Invalid object");
-        STAssertNotNil(zi.author, @"author test");
-        STAssertNotNil(zi.subject, @"subject test");
-        STAssertNotNil(zi.itemsUrl, @"itemsUrl test");
+        XCTAssertNotNil(zi, @"Invalid object");
+        XCTAssertNotNil(zi.author, @"author test");
+        XCTAssertNotNil(zi.subject, @"subject test");
+        XCTAssertNotNil(zi.itemsUrl, @"itemsUrl test");
     }
 }
 
 -(void) testLogin{
     ZumpaWSClient *client = [[ZumpaWSClient alloc] init];
     BOOL login = [client logIn:self.login with:self.password];
-    STAssertEquals(YES, login, @"Should be loggeding");
+    XCTAssertEqual(YES, login, @"Should be loggeding");
 }
 
 -(void) testLogout{
     ZumpaWSClient *client = [[ZumpaWSClient alloc] init];
     [client logIn:self.login with:self.password];
     BOOL logout = [client logOut];
-    STAssertEquals(YES, logout, @"Should be loggeding");
+    XCTAssertEqual(YES, logout, @"Should be loggeding");
 }
 
 -(void) testSubItems{
     ZumpaWSClient *client = [[ZumpaWSClient alloc] init];
     NSArray *subItems = [client getSubItemsWithUrl:@"http://portal2.dkm.cz/phorum/read.php?f=2&i=1155593&t=1155593"];
     
-    STAssertNotNil(subItems, @"Items should not be nil!");
+    XCTAssertNotNil(subItems, @"Items should not be nil!");
     
     ZumpaSubItem *zsi = [subItems objectAtIndex:0];
-    STAssertNotNil(zsi.survey, @"Survey should not be nil");
+    XCTAssertNotNil(zsi.survey, @"Survey should not be nil");
     
     /* 
      @property (nonatomic, copy) NSString *question;
@@ -95,11 +95,11 @@
      @property (nonatomic, assign) NSArray *percents;
      @property (nonatomic) int votedItem;
      */
-    STAssertNotNil(zsi.survey.question, @"Survey question Nil");
-    STAssertTrue(zsi.survey.responds > 0, @"Survey responds 0");
-    STAssertTrue(zsi.survey.ID > 0, @"Survey ID Nil");
-    STAssertNotNil(zsi.survey.answers, @"Survey answers Nil");
-    STAssertNotNil(zsi.survey.percents, @"Survey percents Nil");
+    XCTAssertNotNil(zsi.survey.question, @"Survey question Nil");
+    XCTAssertTrue(zsi.survey.responds > 0, @"Survey responds 0");
+    XCTAssertTrue(zsi.survey.ID > 0, @"Survey ID Nil");
+    XCTAssertNotNil(zsi.survey.answers, @"Survey answers Nil");
+    XCTAssertNotNil(zsi.survey.percents, @"Survey percents Nil");
     
     /*
      @property (nonatomic, copy) NSString* authorReal;
@@ -114,14 +114,14 @@
     
     BOOL hasInsideUris = NO;
     for (ZumpaSubItem *zsi in subItems) {
-        STAssertNotNil(zsi, @"Nil subitem");
-        STAssertNotNil(zsi.authorReal, @"Nil subitem authorReal");
-        STAssertNotNil(zsi.body, @"Nil subitem body");
-        STAssertTrue(zsi.time != 0, @"Time is 0");
+        XCTAssertNotNil(zsi, @"Nil subitem");
+        XCTAssertNotNil(zsi.authorReal, @"Nil subitem authorReal");
+        XCTAssertNotNil(zsi.body, @"Nil subitem body");
+        XCTAssertTrue(zsi.time != 0, @"Time is 0");
         hasInsideUris |= zsi.hasInsideUris;
     }
     
-    STAssertTrue(hasInsideUris, @"No inside uris at all!");
+    XCTAssertTrue(hasInsideUris, @"No inside uris at all!");
 }
 
 -(void) testReplyToThread{
@@ -132,7 +132,7 @@
 
 -(void) testFailedLogin{
     ZumpaWSClient *client = [[ZumpaWSClient alloc] init];
-    STAssertFalse([client logIn:self.login with:@"blabla"], @"Should be NO for invalid login credentials!");
+    XCTAssertFalse([client logIn:self.login with:@"blabla"], @"Should be NO for invalid login credentials!");
     //[client replyToThread:1152897 withSubject:@"iOS subject" andMessage:@"iOS 1234 test"];
 }
 
@@ -143,7 +143,7 @@
         NSData *img = [NSData dataWithContentsOfFile:filePath];
         ZumpaWSClient *client = [[ZumpaWSClient alloc] init];
         NSString *serverURL = [client sendImageToQ3:img];
-        STAssertNotNil(serverURL, @"There should be some image url");
+        XCTAssertNotNil(serverURL, @"There should be some image url");
         NSLog(@"%@", serverURL);
     }
 }
@@ -152,15 +152,15 @@
     ZumpaWSClient *client = [[ZumpaWSClient alloc] init];
     [client logIn:self.login with:self.password];
     Survey *s = [client voteSurvey:3879 forItem:4];
-    STAssertNotNil(s, @"Survey should be ni;!");
-    STAssertEquals(3879, s.ID, @"Different survey ID");
+    XCTAssertNotNil(s, @"Survey should be ni;!");
+    XCTAssertEqual(3879, s.ID, @"Different survey ID");
 }
 
 -(void)testSwitchFavoriteThread{
     ZumpaWSClient *client = [[ZumpaWSClient alloc] init];
     [client logIn:self.login with:self.password];
     BOOL switched = [client switchFavoriteThread:1175788    ];
-    STAssertEquals(YES, switched, @"Different survey ID");
+    XCTAssertEqual(YES, switched, @"Different survey ID");
 }
 
 @end
