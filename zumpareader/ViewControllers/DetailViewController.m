@@ -9,7 +9,6 @@
 #import "DetailViewController.h"
 #import "ZumpaSubItem.h"
 #import "PostViewController.h"
-#import "Survey.h"
 #import "UISurvey.h"
 #import "I18N.h"
 #import "DialogHelper.h"
