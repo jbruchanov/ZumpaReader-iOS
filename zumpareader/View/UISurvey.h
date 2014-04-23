@@ -22,8 +22,6 @@
 
 @property (nonatomic, weak) id<UISurveyDelegate> delegate;
 
-- (id)initWithSurvey:(Survey*) survey forTop:(int) top andWidth:(int)width;
-
-+ (int) estimateHeight:(Survey*) survey forWidth:(int) width;
+- (id)initWithSurvey:(Survey*) survey;
 
 @end

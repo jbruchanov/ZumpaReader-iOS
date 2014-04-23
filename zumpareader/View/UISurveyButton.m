@@ -9,16 +9,15 @@
 #import "UISurveyButton.h"
 #import "UIColor+Parser.h"
 
-static CGFloat const kStripHeight = 3;
 static CGFloat const kStripLeftMargin = 10;
 static CGFloat const kStripRightMargin = 10;
-static CGFloat const kStripBottomMargin = 7;
 
 @interface UISurveyButton()
 
 @property (nonatomic, strong) UIView *bottomStrip;
 @property (nonatomic, strong) NSArray *colors;
 @property (nonatomic, strong) NSString *realTitle;
+@property (nonatomic, strong) NSLayoutConstraint *widthConstraint;
 
 @end
 
@@ -28,22 +27,6 @@ static CGFloat const kStripBottomMargin = 7;
 {
     self = [super init];
     if (self) {
-        [self initButton:YES];
-    }
-    return self;
-}
-
--(id) initWithCoder:(NSCoder *)aDecoder{
-    self = [super initWithCoder:aDecoder];
-    if(self){
-        [self initButton:NO];
-    }
-    return self;
-}
-
--(id)initWithFrame:(CGRect)frame{
-    self = [super initWithFrame:frame];
-    if(self){
         [self initButton:YES];
     }
     return self;
@@ -104,21 +87,32 @@ static CGFloat const kStripBottomMargin = 7;
     [self initStrip];
 }
 
--(void) initStrip{    
-    if(!self.bottomStrip){
-        self.bottomStrip = [[UIView alloc]initWithFrame:[self createFrame]];
-        self.bottomStrip.userInteractionEnabled = NO;
-        [self addSubview:self.bottomStrip];
-    }else{
-        self.bottomStrip.frame = [self createFrame];
-    }
-    [self.bottomStrip setBackgroundColor:[self.colors objectAtIndex:self.surveyButtonIndex]];
-}
+-(void) initStrip{
 
--(CGRect) createFrame{
-    int width = self.frame.size.width - kStripLeftMargin - kStripRightMargin;
-    int stripWidth = (width/100.0f) * self.percentage;
-    return CGRectMake(kStripLeftMargin, self.frame.size.height - kStripBottomMargin, stripWidth, kStripHeight);
+    NSDictionary *viewsDictionary;
+
+    if (!self.bottomStrip) {
+        self.bottomStrip = [[UIView alloc] init];
+        self.bottomStrip.translatesAutoresizingMaskIntoConstraints = NO;
+        [self addSubview:self.bottomStrip];
+
+        viewsDictionary = @{@"bottomStrip" : self.bottomStrip};
+        //align bottom with h=4pt rule
+        [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[bottomStrip(4)]-4-|"
+                                                                     options:0 metrics:nil views:viewsDictionary]];
+    } else {
+        viewsDictionary = @{@"bottomStrip" : self.bottomStrip};
+    }
+
+    if (self.widthConstraint) {
+        [self removeConstraints:self.widthConstraint];
+        self.widthConstraint = nil;
+    }
+
+    NSString *constraint = [NSString stringWithFormat:@"|-4-[bottomStrip(%d)]-4-|", (int)(self.percentage * 3.1f)];
+    self.widthConstraint = [NSLayoutConstraint constraintsWithVisualFormat:constraint options:0 metrics:nil views:viewsDictionary];
+    [self addConstraints:self.widthConstraint];
+    [self.bottomStrip setBackgroundColor:[self.colors objectAtIndex:self.surveyButtonIndex]];
 }
 
 -(void) setFrame:(CGRect)frame{

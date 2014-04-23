@@ -89,14 +89,14 @@
     
     /* 
      @property (nonatomic, copy) NSString *question;
-     @property (nonatomic) int responds;
+     @property (nonatomic) int responsesSum;
      @property (nonatomic, copy) NSString *ID;
      @property (nonatomic, assign) NSArray *answers;
      @property (nonatomic, assign) NSArray *percents;
      @property (nonatomic) int votedItem;
      */
     XCTAssertNotNil(zsi.survey.question, @"Survey question Nil");
-    XCTAssertTrue(zsi.survey.responds > 0, @"Survey responds 0");
+    XCTAssertTrue(zsi.survey.responsesSum > 0, @"Survey responsesSum 0");
     XCTAssertTrue(zsi.survey.ID > 0, @"Survey ID Nil");
     XCTAssertNotNil(zsi.survey.answers, @"Survey answers Nil");
     XCTAssertNotNil(zsi.survey.percents, @"Survey percents Nil");

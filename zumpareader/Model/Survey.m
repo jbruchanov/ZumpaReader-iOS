@@ -20,7 +20,7 @@
     item.ID = [[jsonDict valueForKey:@"ID"] intValue];
     item.percents = [jsonDict valueForKey:@"Percents"];
     item.question = [jsonDict valueForKey:@"Question"];
-    item.responds = [[jsonDict valueForKey:@"Responds"] intValue];
+    item.responsesSum = [[jsonDict valueForKey:@"Responds"] intValue];
     item.votedItem = [[jsonDict valueForKey:@"VotedItem"] intValue];
 
     return item;
