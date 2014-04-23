@@ -83,11 +83,6 @@
 
     [self willReload];
 
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
-    
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context{
@@ -191,7 +186,6 @@
     }
 
     self.measureCell.item = item;
-    [self.measureCell layoutIfNeeded];
     int h = [self.measureCell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize].height + 1;//safety 1 from webinar
     [self.zumpaItemHeights setObject:@(h) forKey:@(item.ID)];
     return h;
@@ -240,7 +234,7 @@
      // Pass the selected object to the new view controller.
      [self.navigationController pushViewController:detailViewController animated:YES];
      */
-    
+    [self.tableView deselectRowAtIndexPath:indexPath animated:NO];
     [self performSegueWithIdentifier:@"OpenDetail" sender:[self.zumpaItems objectAtIndex:indexPath.item]];
 }
 
