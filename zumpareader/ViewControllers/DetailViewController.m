@@ -8,19 +8,15 @@
 
 #import "DetailViewController.h"
 #import "ZumpaSubItem.h"
-#import "ZumpaSubViewCell.h"
 #import "PostViewController.h"
 #import "Survey.h"
 #import "UISurvey.h"
 #import "I18N.h"
 #import "DialogHelper.h"
 #import "Settings.h"
+#import "ZRSubViewCell.h"
 
-#define MESSAGE_WIDTH self.view.frame.size.width - 16
-#define MEASURE_HEIGHT_ADD 45
 #define CONTENT_OFFSET @"contentOffset"
-
-#define CELL_IDENTITY @"DetailCell"
 
 @interface DetailViewController () <PostViewControllerDelegate, UISurveyDelegate>
 
@@ -31,14 +27,13 @@
 -(void)dataWillLoad;
 
 @property (nonatomic, strong) NSMutableArray *items;
+@property (nonatomic, strong) NSMutableDictionary *itemViews;
+@property (nonatomic, strong) NSMutableDictionary *itemHeights;
+
 @property (nonatomic) BOOL isLoading;
 @property (strong, nonatomic) UIColor *colorEven;
 @property (strong, nonatomic) UIColor *colorOdd;
-@property (strong, nonatomic) NSMutableArray *heights;
-@property (strong, nonatomic) ZumpaSubViewCell *measureCell;
-@property (strong, nonatomic) UIFont *measureFont;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-@property (strong, nonatomic) UISurvey *survey;
 @property (nonatomic) BOOL mustResetContentOffset;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *favorite;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *addButton;
@@ -52,16 +47,15 @@
 {
     [super viewDidLoad];
     [self initHeader];
-    [self initMeasurementStuff];
     self.title = self.item.subject;
     
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     self.colorEven = [UIColor whiteColor];
     self.colorOdd = [UIColor colorWithRed:0.95 green:0.95 blue:0.95 alpha:1];
-    [self.tableView registerNib:[UINib nibWithNibName:@"ZumpaSubViewCell" bundle:nil] forCellReuseIdentifier:@"DetailCell"];
     self.items = [[NSMutableArray alloc]init];
-    self.heights = [[NSMutableArray alloc]init];
+    self.itemHeights = [[NSMutableDictionary alloc]init];
+    self.itemViews = [[NSMutableDictionary alloc]init];
     [self dataWillLoad];
     [self initFavoriteButton];
     self.addButton.enabled = [self.settings boolForKey:IS_LOGGED_IN];
@@ -100,12 +94,6 @@
     }
 }
 
--(void) initMeasurementStuff{
-    NSArray *nibObjects = [[NSBundle mainBundle] loadNibNamed:@"ZumpaSubViewCell" owner:nil options:nil];
-    ZumpaSubViewCell *cell = [nibObjects lastObject];
-    self.measureFont = [cell fontForMeasurement];
-}
-
 -(void) initHeader{
     self.navigationController.navigationBar.topItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
         
@@ -118,7 +106,6 @@
     if(self.isLoading == NO){
         self.isLoading = YES;
         [self setSpinnerVisible:YES];
-        self.survey = nil;
         __weak DetailViewController *zelf = self;
         [self.zumpa getSubItemsWithUrl:self.item.itemsUrl andCallback:^(NSArray *array)  {
             if(zelf){
@@ -160,14 +147,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    ZumpaSubViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CELL_IDENTITY forIndexPath:indexPath];
-    cell.surveyDelegate = self;    
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    
-    ZumpaSubItem *zsi = [self.items objectAtIndex:indexPath.item];
-    
-    [cell setItem:zsi withSurvey:!self.survey];
-    [self.heights insertObject:[NSNumber numberWithInt:cell.height] atIndex:indexPath.item];
+    UITableViewCell *cell = [self.itemViews objectForKey:@(indexPath.row)];
     return cell;
 }
 
@@ -177,29 +157,22 @@
     return nil;
 }
 
-- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath{
-    ZumpaSubViewCell *zsvc = ((ZumpaSubViewCell*)cell);
-    if(indexPath.item == 0){
-        if(self.survey){
-            zsvc.survey = self.survey;
-            [zsvc addSubview: zsvc.survey];
-        }else{
-            self.survey = zsvc.survey;
-        }
-    }
-    [cell setBackgroundColor: (indexPath.row % 2 == 0) ? self.colorEven : self.colorOdd];
-}
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    
-    ZumpaSubItem *zsi = [self.items objectAtIndex:indexPath.item];
-    CGSize size = CGSizeMake(MESSAGE_WIDTH, 100000);
-    CGSize measuredSize = [zsi.body sizeWithFont:self.measureFont constrainedToSize:size lineBreakMode:NSLineBreakByClipping];
-    int height = measuredSize.height + MEASURE_HEIGHT_ADD;
-    if(zsi.survey){
-        height += [UISurvey estimateHeight:zsi.survey forWidth:self.view.frame.size.width];
+    ZumpaSubItem *item = self.items[indexPath.row];
+    NSNumber *height = [self.itemHeights objectForKey:@(indexPath.row)];
+    if (height) {
+        return [height intValue];
     }
-    return height;
+
+    ZRSubViewCell *zsvc = [ZRSubViewCell create];
+    [zsvc setBackgroundColor: (indexPath.row % 2 == 0) ? self.colorEven : self.colorOdd];
+    [self.itemViews setObject:zsvc forKey:@(indexPath.row)];
+
+    zsvc.item = item;
+    int h = [zsvc.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize].height + 1;//safety 1 from webinar
+    [self.itemHeights setObject:@(h) forKey:@(indexPath.row)];
+    return h;
 }
 
 -(void)setSpinnerVisible:(BOOL) visible{
@@ -244,17 +217,6 @@
     }
 }
 
-- (void)tableView:(UITableView *)tableView didEndDisplayingCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath{
-    if(indexPath.item == 0){
-        ZumpaSubViewCell *zsvc = (ZumpaSubViewCell*)cell;
-        if(zsvc.survey){
-            self.survey = (self.isLoading) ? nil : zsvc.survey;
-            [zsvc.survey removeFromSuperview];
-            zsvc.survey = nil;
-        }
-    }
-}
-
 -(void) userDidSendMessage{
     [self dataWillLoad];
 }
@@ -271,12 +233,14 @@
         [self.zumpa voteSurvey:zsi.survey.ID forItem:surveyButtonIndex withCallback:^(Survey *newSurvey) {
             if(zelf){
                 [pbar removeFromSuperview];
-                zsi.survey = newSurvey;
-                if(zelf.survey){
-                    [zelf.survey setSurvey: newSurvey];
-                }else{
-                    [zelf.tableView reloadData];
-                }
+                //TODO:Survey handling
+//                zsi.survey = newSurvey;
+//                if(zelf.survey){
+//                    [zelf.survey setSurvey: newSurvey];
+//                }else{
+//                    [zelf.tableView reloadData];
+//                }
+                [zelf.tableView reloadData];
             }
         }];
     }else{
@@ -303,5 +267,10 @@
         }];
     }
 }
+
+- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return 100;
+}
+
 
 @end
