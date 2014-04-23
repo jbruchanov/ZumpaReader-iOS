@@ -64,18 +64,18 @@
     });
 }
 
--(void) postThread:(NSString*)subject andMessage:(NSString*)message withCallback:(void (^)(BOOL))callback{
+-(void) postThread:(NSString*)subject andMessage:(NSString*)message withCallback:(void (^)(PostResult*))callback{
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        BOOL result = [self.client postThread:subject andMessage:message];
+        PostResult *result = [self.client postThread:subject andMessage:message];
         dispatch_async(dispatch_get_main_queue(), ^{
             callback(result);
         });
     });
 }
 
--(void) replyToThread:(int)threadId withSubject:(NSString*) subject andMessage:(NSString*)message withCallback:(void (^)(BOOL))callback{
+-(void) replyToThread:(int)threadId withSubject:(NSString*) subject andMessage:(NSString*)message withCallback:(void (^)(PostResult*))callback{
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        BOOL result = [self.client replyToThread:threadId withSubject:subject andMessage:message];
+        PostResult *result = [self.client replyToThread:threadId withSubject:subject andMessage:message];
         dispatch_async(dispatch_get_main_queue(), ^{
             callback(result);
         });

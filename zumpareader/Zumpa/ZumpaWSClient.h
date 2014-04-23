@@ -10,6 +10,7 @@
 #import "ZumpaMainPageResult.h"
 #import "Survey.h"
 #import "LoginResult.h"
+#import "PostResult.h"
 
 @protocol ZumpaWSClientDelegate
 
@@ -39,9 +40,9 @@
 
  */
 
--(BOOL) postThread:(NSString*)subject andMessage:(NSString*)message;
+-(PostResult*) postThread:(NSString*)subject andMessage:(NSString*)message;
 
--(BOOL) replyToThread:(int)threadId withSubject:(NSString*) subject andMessage:(NSString*)message;
+-(PostResult*) replyToThread:(int)threadId withSubject:(NSString*) subject andMessage:(NSString*)message;
 
 -(NSString*) sendImageToQ3:(NSData*)jpeg;
 

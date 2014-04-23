@@ -29,7 +29,7 @@
     }];
     
     [self activeWait:&finalResult];
-    STAssertEquals(YES, finalResult, @"Should be finished!");
+    XCTAssertEqual(YES, finalResult, @"Should be finished!");
 }
 
 -(void) testLogout{
@@ -43,7 +43,7 @@
     }];
     
     [self activeWait:&finalResult];
-    STAssertEquals(YES, finalResult, @"Should be finished!");
+    XCTAssertEqual(YES, finalResult, @"Should be finished!");
 }
 
 -(void) testGetItemsWithCallback{
@@ -54,11 +54,11 @@
     
     [zaw getItemsWithCallback:^(ZumpaMainPageResult *pageResult) {
         finalResult = YES;
-        STAssertNotNil(pageResult, @"PageResult");
+        XCTAssertNil(pageResult, @"PageResult");
     }];
     
     [self activeWait:&finalResult];
-    STAssertEquals(YES, finalResult, @"Should be finished!");
+    XCTAssertEqual(YES, finalResult, @"Should be finished!");
 }
 
 -(void) testGetItemsUrlWithCallback{
@@ -69,11 +69,11 @@
     
     [zaw getItemsWithUrl:nil andCallback:^(ZumpaMainPageResult *pageResult) {
         finalResult = YES;
-        STAssertNotNil(pageResult, @"PageResult");
+        XCTAssertNil(pageResult, @"PageResult");
     }];
     
     [self activeWait:&finalResult];
-    STAssertEquals(YES, finalResult, @"Should be finished!");
+    XCTAssertEqual(YES, finalResult, @"Should be finished!");
 }
 
 -(void) testGetSubItemsWithUrl{
@@ -84,11 +84,11 @@
     
     [zaw getSubItemsWithUrl:@"http://portal2.dkm.cz/phorum/read.php?f=2&i=1155762&t=1155762" andCallback:^(NSArray *array) {
         finalResult = YES;
-        STAssertNotNil(array, @"NSArray NIL");
+        XCTAssertNil(array, @"NSArray NIL");
     }];
     
     [self activeWait:&finalResult];
-    STAssertEquals(YES, finalResult, @"Should be finished!");
+    XCTAssertEqual(YES, finalResult, @"Should be finished!");
 }
 
 -(void) activeWait:(BOOL*) stop{

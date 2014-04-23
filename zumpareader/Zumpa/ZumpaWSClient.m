@@ -232,7 +232,7 @@ const double kDefaultTimeout = 2.0;
     return items;    
 }
 
--(BOOL) post:(int)threadId withSubject:(NSString*) subject andMessage:(NSString*)message{
+-(PostResult*) post:(int)threadId withSubject:(NSString*) subject andMessage:(NSString*)message{
     
     NSMutableArray *params = [NSMutableArray arrayWithObjects:@"Subject", subject,
                        @"Message", message,
@@ -253,14 +253,14 @@ const double kDefaultTimeout = 2.0;
     NSString *responseString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
     NSLog(@"%@",responseString);
 #endif
-    return [result boolValue];
+    return [PostResult fromJson:jsonDict];
 }
 
--(BOOL) postThread:(NSString*)subject andMessage:(NSString*)message{
+-(PostResult*) postThread:(NSString*)subject andMessage:(NSString*)message{
     return [self post:0 withSubject:subject andMessage:message];
 }
 
--(BOOL) replyToThread:(int)threadId withSubject:(NSString*) subject andMessage:(NSString*)message{
+-(PostResult*) replyToThread:(int)threadId withSubject:(NSString*) subject andMessage:(NSString*)message{
     return [self post:threadId withSubject:subject andMessage:message];
 }
 

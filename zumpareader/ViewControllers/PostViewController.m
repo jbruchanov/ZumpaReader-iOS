@@ -142,33 +142,32 @@ CGRect originalScrollViewRect;
     if([subj length] > 0 && [msg length] > 0){
         [self showProgressBar:YES];
         __weak PostViewController *zelf = self;
+
+        void (^callback)(PostResult *) = ^(PostResult *result) {
+            if (zelf) {
+                [zelf zumpaDidPost:result];
+            }
+        };
+
         if(self.item){
-            [self.zumpa replyToThread:self.item.ID withSubject:subj andMessage:msg withCallback:^(BOOL result) {
-                if(zelf){
-                    [zelf zumpaDidPost:result];
-                }
-            }];
+            [self.zumpa replyToThread:self.item.ID withSubject:subj andMessage:msg withCallback:callback];
         }else{
-            [self.zumpa postThread:subj andMessage:msg withCallback:^(BOOL result) {
-                if(zelf){
-                    [zelf zumpaDidPost:result];
-                }
-            }];
+            [self.zumpa postThread:subj andMessage:msg withCallback:callback];
         }
     }else{
         [[[UIAlertView alloc]initWithTitle:NSLoc(@"Nope") message:NSLoc(@"SubjectOrMessageEmpty") delegate:nil cancelButtonTitle:NSLoc(@"OK") otherButtonTitles: nil] show];
     }
 }
 
--(void) zumpaDidPost:(BOOL) result{
+-(void) zumpaDidPost:(PostResult*) result{
     [self showProgressBar:NO];
-    if(result){
+    if(!result.HasError){
         self.subject.text = @"";
         self.message.text = @"";
         [self.delegate userDidSendMessage];
         [self cancelDidClick:nil];
     }else{
-        [[[UIAlertView alloc]initWithTitle:NSLoc(@"Error") message:NSLoc(@"SendingProblem") delegate:nil cancelButtonTitle:NSLoc(@"OK")  otherButtonTitles: nil] show];
+        [[[UIAlertView alloc]initWithTitle:NSLoc(@"Error") message:result.ErrorMessage delegate:nil cancelButtonTitle:NSLoc(@"OK")  otherButtonTitles: nil] show];
     }
 }
 

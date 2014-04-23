@@ -23,9 +23,9 @@
 
 -(void) getSubItemsWithUrl:(NSString*)url andCallback:(void (^)(NSArray*))callback;
 
--(void) postThread:(NSString*)subject andMessage:(NSString*)message withCallback:(void (^)(BOOL))callback;
+-(void) postThread:(NSString*)subject andMessage:(NSString*)message withCallback:(void (^)(PostResult*))callback;
 
--(void) replyToThread:(int)threadId withSubject:(NSString*) subject andMessage:(NSString*)message withCallback:(void (^)(BOOL))callback;
+-(void) replyToThread:(int)threadId withSubject:(NSString*) subject andMessage:(NSString*)message withCallback:(void (^)(PostResult*))callback;
 
 -(void) sendImageToQ3:(NSData*)jpeg withCallback:(void (^) (NSString*))callback;
 
