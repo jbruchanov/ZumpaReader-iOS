@@ -59,8 +59,23 @@
     [self initFavoriteButton];
     self.addButton.enabled = [self.settings boolForKey:IS_LOGGED_IN];
     self.tableView.separatorInset = UIEdgeInsetsMake(0, 0, 0, 0);
+
+    UILongPressGestureRecognizer *lpgr = [[UILongPressGestureRecognizer alloc]
+            initWithTarget:self action:@selector(didLongClick:)];
+    lpgr.minimumPressDuration = 2.0; //seconds
+    lpgr.delegate = self;
+    [self.tableView addGestureRecognizer:lpgr];
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+}
+
+-(void)didLongClick:(UIGestureRecognizer *)gestureRecognizer{
+    CGPoint p = [gestureRecognizer locationInView:self.tableView];
+    NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:p];
+    if (indexPath){
+        ZumpaSubItem *item = [self.items objectAtIndex:indexPath.row];
+        [self performSegueWithIdentifier: @"Post" sender: item.authorReal];
+    }
 }
 
 -(void) initFavoriteButton{
