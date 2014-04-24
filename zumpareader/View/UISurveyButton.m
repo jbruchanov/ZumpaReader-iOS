@@ -45,7 +45,8 @@ static CGFloat const kStripRightMargin = 10;
 
 -(void) setTitle:(NSString *)title forState:(UIControlState)state{
     self.realTitle = title;
-    [super setTitle:[NSString stringWithFormat:@"%@ (%d%%)", title, self.percentage] forState:state];    
+    [super setTitle:[NSString stringWithFormat:@"%@ (%d%%)", title, self.percentage] forState:state];
+    [self layoutIfNeeded];
 }
 
 -(void)initButton:(BOOL) fontColors{
@@ -56,7 +57,7 @@ static CGFloat const kStripRightMargin = 10;
     [self setBackgroundImage:normal forState:UIControlStateNormal];
     [self setBackgroundImage:pressed forState:UIControlStateHighlighted];
     [self setClearsContextBeforeDrawing:YES];
-    self.titleLabel.numberOfLines = 0;
+    self.titleLabel.numberOfLines = 2;
     
     /*
      Colors from android version
@@ -70,7 +71,7 @@ static CGFloat const kStripRightMargin = 10;
     self.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     self.contentEdgeInsets = UIEdgeInsetsMake(0, kStripLeftMargin, 0, kStripRightMargin);
     
-    self.titleLabel.font = [UIFont fontWithName:self.titleLabel.font.fontName size:14];
+    self.titleLabel.font = [UIFont fontWithName:self.titleLabel.font.fontName size:13];
     [self setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [self setTitleColor:[UIColor whiteColor] forState:UIControlStateHighlighted];
     [self setTitleColor:[UIColor grayColor] forState:UIControlStateDisabled];

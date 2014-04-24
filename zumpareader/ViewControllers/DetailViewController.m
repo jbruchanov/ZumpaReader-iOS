@@ -165,6 +165,7 @@
     }
 
     ZRSubViewCell *zsvc = [ZRSubViewCell create];
+    zsvc.surveyDelegate = self;
     [zsvc setBackgroundColor: (indexPath.row % 2 == 0) ? self.colorEven : self.colorOdd];
     [self.itemViews setObject:zsvc forKey:@(indexPath.row)];
 
@@ -232,13 +233,9 @@
         [self.zumpa voteSurvey:zsi.survey.ID forItem:surveyButtonIndex withCallback:^(Survey *newSurvey) {
             if(zelf){
                 [pbar removeFromSuperview];
-                //TODO:Survey handling
-//                zsi.survey = newSurvey;
-//                if(zelf.survey){
-//                    [zelf.survey setSurvey: newSurvey];
-//                }else{
-//                    [zelf.tableView reloadData];
-//                }
+                zsi.survey = newSurvey;
+                ZRSubViewCell *cell = [zelf.itemViews objectForKey:@(0)];
+                cell.survey.survey = newSurvey;
                 [zelf.tableView reloadData];
             }
         }];

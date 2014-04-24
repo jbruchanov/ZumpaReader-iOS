@@ -26,6 +26,7 @@
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
+        self.translatesAutoresizingMaskIntoConstraints = NO;
         // Initialization code
     }
     return self;
@@ -43,10 +44,17 @@
     self.message.text = item.body;
     self.time.text = item.parsedTime;
 
-    if(item.survey){
-//        self.survey = [[UISurvey alloc]initWithSurvey:item.survey forTop:self.message.contentSize.height andWidth:self.frame.size.width];
-//        self.survey.delegate = self.surveyDelegate;
-//        [self.childViews addSubview:self.survey];
+    if (item.survey && !self.survey) {
+        self.childViews.hidden = NO;
+
+        self.survey = [[UISurvey alloc] initWithSurvey:item.survey];
+        self.survey.delegate = self.surveyDelegate;
+        [self.childViews addSubview:self.survey];
+        NSDictionary *viewsDictionary = @{@"uisurvey": self.survey/*, @"message": self.message*/};
+        [self.childViews addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|[uisurvey]|"
+                                                                                options:0 metrics:nil views:viewsDictionary]];
+        [self.childViews addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[uisurvey(>=25)]|"
+                                                                                options:0 metrics:nil views:viewsDictionary]];
     }
     [self layoutIfNeeded];
 }

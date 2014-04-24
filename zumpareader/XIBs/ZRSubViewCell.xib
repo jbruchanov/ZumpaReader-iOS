@@ -6,40 +6,37 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" placeholderIntrinsicWidth="367" placeholderIntrinsicHeight="42" selectionStyle="default" indentationWidth="10" id="Zzx-hm-0F3" customClass="ZRSubViewCell">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="112" id="Zzx-hm-0F3" customClass="ZRSubViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="49"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Zzx-hm-0F3" id="FEs-1C-VP9">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="49"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="48"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <userGuides>
                     <userLayoutGuide location="6" affinity="minX"/>
                     <userLayoutGuide location="4" affinity="maxX"/>
                 </userGuides>
                 <subviews>
-                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" verticalCompressionResistancePriority="749" text="JtS" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fg7-Va-5KZ">
+                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" verticalCompressionResistancePriority="749" text="JtS" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fg7-Va-5KZ" userLabel="Nickname">
                         <rect key="frame" x="6" y="6" width="314" height="18"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                         <color key="textColor" red="0.49803921579999999" green="0.49803921579999999" blue="0.49803921579999999" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </label>
-                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="23:59:59 05.01." textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QVM-Aj-wQr">
+                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="23:59:59 05.01." textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QVM-Aj-wQr" userLabel="Time">
                         <rect key="frame" x="250" y="1" width="66" height="11"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
                         <fontDescription key="fontDescription" type="system" pointSize="9"/>
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                         <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </label>
-                    <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kvZ-Hm-p9M">
-                        <rect key="frame" x="0.0" y="0.0" width="5" height="49"/>
+                    <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kvZ-Hm-p9M" userLabel="ColorStrip">
+                        <rect key="frame" x="0.0" y="0.0" width="5" height="48"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.14901961389999999" green="1" blue="0.29803922770000002" alpha="1" colorSpace="deviceRGB"/>
-                        <constraints>
-                            <constraint firstAttribute="width" constant="5" id="kqR-cq-3Ve"/>
-                        </constraints>
                     </view>
-                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="314" translatesAutoresizingMaskIntoConstraints="NO" id="LQP-0h-q6E">
+                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="314" translatesAutoresizingMaskIntoConstraints="NO" id="LQP-0h-q6E" userLabel="Message">
                         <rect key="frame" x="6" y="28" width="314" height="16"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
@@ -47,41 +44,33 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dnr-lB-Gay" userLabel="ChildContainer">
-                        <rect key="frame" x="0.0" y="48" width="320" height="1"/>
+                        <rect key="frame" x="6" y="48" width="310" height="0.0"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" heightSizable="YES"/>
-                        <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JQQ-kc-Bs9">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                            </button>
-                        </subviews>
-                        <color key="backgroundColor" red="0.14901961389999999" green="1" blue="0.29803922770000002" alpha="1" colorSpace="deviceRGB"/>
                     </view>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="kvZ-Hm-p9M" firstAttribute="top" secondItem="FEs-1C-VP9" secondAttribute="top" id="5xp-bj-ka2"/>
-                    <constraint firstItem="Fg7-Va-5KZ" firstAttribute="top" secondItem="FEs-1C-VP9" secondAttribute="top" constant="6" id="DxM-df-WtW"/>
-                    <constraint firstAttribute="bottom" secondItem="kvZ-Hm-p9M" secondAttribute="bottom" id="Edw-WC-oX0"/>
-                    <constraint firstItem="LQP-0h-q6E" firstAttribute="top" secondItem="Fg7-Va-5KZ" secondAttribute="bottom" constant="4" id="HCv-dS-dLV"/>
-                    <constraint firstAttribute="trailing" secondItem="Fg7-Va-5KZ" secondAttribute="trailing" id="IZh-Zj-U1O"/>
-                    <constraint firstAttribute="trailing" secondItem="dnr-lB-Gay" secondAttribute="trailing" id="MkN-CG-JBw"/>
-                    <constraint firstAttribute="bottom" secondItem="dnr-lB-Gay" secondAttribute="bottom" id="NUm-7R-Kpl"/>
-                    <constraint firstItem="LQP-0h-q6E" firstAttribute="leading" secondItem="FEs-1C-VP9" secondAttribute="leading" constant="6" id="X7h-8O-6Bp"/>
-                    <constraint firstAttribute="trailing" secondItem="LQP-0h-q6E" secondAttribute="trailing" id="YJw-x7-Pfq"/>
-                    <constraint firstItem="kvZ-Hm-p9M" firstAttribute="leading" secondItem="FEs-1C-VP9" secondAttribute="leading" id="g4x-q7-8aj"/>
-                    <constraint firstItem="Fg7-Va-5KZ" firstAttribute="leading" secondItem="FEs-1C-VP9" secondAttribute="leading" constant="6" id="nwY-M5-9Un"/>
-                    <constraint firstAttribute="trailing" secondItem="QVM-Aj-wQr" secondAttribute="trailing" constant="4" id="oV4-Ei-fOT"/>
-                    <constraint firstItem="dnr-lB-Gay" firstAttribute="leading" secondItem="FEs-1C-VP9" secondAttribute="leading" id="rcc-Uo-Mkz"/>
-                    <constraint firstItem="QVM-Aj-wQr" firstAttribute="top" secondItem="FEs-1C-VP9" secondAttribute="top" constant="1" id="y9y-Tz-Brp"/>
-                    <constraint firstItem="dnr-lB-Gay" firstAttribute="top" secondItem="LQP-0h-q6E" secondAttribute="bottom" constant="4" id="zca-Dq-yXg"/>
+                    <constraint firstItem="QVM-Aj-wQr" firstAttribute="top" secondItem="FEs-1C-VP9" secondAttribute="top" constant="1" id="308-0K-fLX"/>
+                    <constraint firstItem="Fg7-Va-5KZ" firstAttribute="leading" secondItem="FEs-1C-VP9" secondAttribute="leading" constant="6" id="7Nc-zD-MbZ"/>
+                    <constraint firstItem="dnr-lB-Gay" firstAttribute="leading" secondItem="LQP-0h-q6E" secondAttribute="leading" id="Aly-RQ-LnQ"/>
+                    <constraint firstItem="Fg7-Va-5KZ" firstAttribute="top" secondItem="FEs-1C-VP9" secondAttribute="top" constant="6" id="Ata-55-pbV"/>
+                    <constraint firstItem="LQP-0h-q6E" firstAttribute="top" secondItem="Fg7-Va-5KZ" secondAttribute="bottom" constant="4" id="Iwl-mu-5NP"/>
+                    <constraint firstItem="LQP-0h-q6E" firstAttribute="leading" secondItem="FEs-1C-VP9" secondAttribute="leading" constant="6" id="Okm-hv-eOp"/>
+                    <constraint firstAttribute="bottom" secondItem="dnr-lB-Gay" secondAttribute="bottom" id="TcX-Fc-5pz"/>
+                    <constraint firstItem="dnr-lB-Gay" firstAttribute="trailing" secondItem="QVM-Aj-wQr" secondAttribute="trailing" id="Tq4-Hk-vD6"/>
+                    <constraint firstAttribute="trailing" secondItem="LQP-0h-q6E" secondAttribute="trailing" id="VHY-yg-CkF"/>
+                    <constraint firstItem="dnr-lB-Gay" firstAttribute="top" secondItem="LQP-0h-q6E" secondAttribute="bottom" constant="4" id="WAy-o5-OyH"/>
+                    <constraint firstAttribute="trailing" secondItem="QVM-Aj-wQr" secondAttribute="trailing" constant="4" id="YL1-rY-Cqr"/>
+                    <constraint firstItem="dnr-lB-Gay" firstAttribute="leading" secondItem="kvZ-Hm-p9M" secondAttribute="trailing" constant="1" id="cbR-I8-vyo"/>
+                    <constraint firstAttribute="trailing" secondItem="Fg7-Va-5KZ" secondAttribute="trailing" id="pej-Vb-eBo"/>
+                    <constraint firstItem="kvZ-Hm-p9M" firstAttribute="leading" secondItem="FEs-1C-VP9" secondAttribute="leading" id="q7P-ar-ZgJ"/>
+                    <constraint firstAttribute="bottom" secondItem="kvZ-Hm-p9M" secondAttribute="bottom" id="sx2-a4-cal"/>
+                    <constraint firstItem="kvZ-Hm-p9M" firstAttribute="top" secondItem="FEs-1C-VP9" secondAttribute="top" id="w32-Ai-DjR"/>
+                    <constraint firstItem="dnr-lB-Gay" firstAttribute="bottom" secondItem="kvZ-Hm-p9M" secondAttribute="bottom" id="wIj-r6-xaw"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
                 <outlet property="author" destination="Fg7-Va-5KZ" id="Tsu-8l-4Xq"/>
-                <outlet property="childViews" destination="dnr-lB-Gay" id="kVH-vn-FLr"/>
+                <outlet property="childViews" destination="dnr-lB-Gay" id="cgj-IS-xmd"/>
                 <outlet property="message" destination="LQP-0h-q6E" id="1S0-Lr-Q0I"/>
                 <outlet property="strip" destination="kvZ-Hm-p9M" id="DEZ-Kw-9vf"/>
                 <outlet property="time" destination="QVM-Aj-wQr" id="86M-Xl-Lcl"/>

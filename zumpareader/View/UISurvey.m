@@ -36,17 +36,18 @@
 
 - (void)initUIWithSurvey:(Survey *)survey {
     NSMutableArray *buttons = [[NSMutableArray alloc] initWithCapacity:[survey.answers count]];
+    self.buttons = buttons;
 
     //question
-    NSString *question = [NSString stringWithFormat:@"%@\n%@: %d", survey.question, NSLoc(@"Responses"), survey.responsesSum];
+    NSString *question = [NSString stringWithFormat:@"%@ (%d)", survey.question, survey.responsesSum];
     [self createQuestionView:question];
 
     NSMutableDictionary *viewsDictionary = [[NSMutableDictionary alloc]init];
     [viewsDictionary setObject:self.question forKey:@"question"];
 
-    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|-10-[question]-10-|" options:0 metrics:nil views:viewsDictionary]];
+    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|-5-[question]-5-|" options:0 metrics:nil views:viewsDictionary]];
 
-    NSString *vertConstrain = @"V:|-[question]";
+    NSString *vertConstrain = @"V:|[question]";
 
     for (int i = 0, n = [survey.answers count]; i < n; i++) {
         NSString *ans = [survey.answers objectAtIndex:i];
@@ -61,11 +62,12 @@
         NSString *buttonName = [NSString stringWithFormat:@"button%d", i];
         [viewsDictionary setObject:usb forKey:buttonName];
 
-        NSString *constrain = [NSString stringWithFormat:@"|-[%@]-|", buttonName];
+        NSString *constrain = [NSString stringWithFormat:@"|-5-[%@]-5-|", buttonName];
         [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:constrain options:0 metrics:nil views:viewsDictionary]];
-        vertConstrain = [vertConstrain stringByAppendingFormat:@"-2-[%@(>=40)]", buttonName];
+        vertConstrain = [vertConstrain stringByAppendingFormat:@"-5-[%@(>=35)]", buttonName];
     }
 
+    vertConstrain = [vertConstrain stringByAppendingString:@"-5-|"];
     [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:vertConstrain options:0 metrics:nil views:viewsDictionary]];
 }
 
@@ -98,10 +100,10 @@
     NSString *question = [NSString stringWithFormat:@"%@\n%@: %d", survey.question, NSLoc(@"Responses"), survey.responsesSum];
     [self.question setText:question];
     if([self.buttons count] == [survey.answers count]){//just for sure
-        for(int i = 0, n = [self.buttons count];i<n;i++){
+        for (int i = 0, n = [self.buttons count]; i < n; i++) {
             UISurveyButton *usb = [self.buttons objectAtIndex:i];
-            usb.percentage = [[survey.percents objectAtIndex:i]intValue];
-            [usb setEnabled: i != survey.votedItem];
+            usb.percentage = [[survey.percents objectAtIndex:i] intValue];
+            [usb setEnabled:i != survey.votedItem];
             [usb setTitle:[survey.answers objectAtIndex:i] forState:UIControlStateNormal];
         }
     }
