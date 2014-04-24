@@ -226,7 +226,7 @@
                                         </connections>
                                     </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="bDU-rd-34J"/>
-                                    <barButtonItem title="+" id="ouF-yh-V0o">
+                                    <barButtonItem width="50" systemItem="add" id="ouF-yh-V0o">
                                         <connections>
                                             <action selector="addDidClick:" destination="1oc-6b-LR4" id="qXq-76-j6f"/>
                                         </connections>
@@ -487,6 +487,6 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="3Dd-u9-lUN"/>
+        <segue reference="Dmb-bx-EgC"/>
     </inferredMetricsTieBreakers>
 </document>
