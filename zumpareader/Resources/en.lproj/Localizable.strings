@@ -24,8 +24,12 @@
 "ByOwnThreads" = "Own threads";
 "ByFavThreads" = "Favourite threads";
 "UnableToDoOperation" = "Unable To Do Operation";
-"SetFavorite" = "Set favorite";
-"SetNoFavorite" = "No favorite";
+"SetFavorite" = "Fav+";
+"SetNoFavorite" = "Fav-";
 "LastPostAuthor" = "Last post author";
 "ResponseNick" = "Response nick";
 "NotLoggedIn" = "Not logged in!";
+"Username" = "Username";
+"Password" = "Password";
+"Filter" = "Filfter";
+"LoggedIn" = "Logged in:";

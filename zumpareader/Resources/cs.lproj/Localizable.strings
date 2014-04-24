@@ -24,7 +24,12 @@
 "ByOwnThreads" = "Vlastní dredýsky";
 "ByFavThreads" = "Oblíbený dredýsky";
 "UnableToDoOperation" = "Nende to :(";
-"SetFavorite" = "Oblíbený";
-"SetNoFavorite" = "Normální";
+"SetFavorite" = "Fav+";
+"SetNoFavorite" = "Fav-";
 "LastPostAuthor" = "Autor poslední odpovědi";
 "ResponseNick" = "Nick pro odpověď";
+"NotLoggedIn" = "Potřeba se přihlásit!";
+"Username" = "Username";
+"Password" = "Heslo";
+"Filter" = "Filftr";
+"LoggedIn" = "Prihlasen:";

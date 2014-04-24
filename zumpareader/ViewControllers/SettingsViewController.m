@@ -46,6 +46,9 @@ CGRect originalScrollViewRect;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+
+    [self.userName setPlaceholder:NSLoc(@"Username")];
+    [self.password setPlaceholder:NSLoc(@"Password")];
     [self.responseNick setPlaceholder:NSLoc(@"ResponseNick")];
     [self.lastPostAuthorLabel setText:NSLoc(@"LastPostAuthor")];
     self.settings = [[NSUserDefaults alloc]init];
