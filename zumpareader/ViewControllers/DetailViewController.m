@@ -287,7 +287,14 @@
 
     dc.zumpa = self.zumpa;
     ZumpaItem *zi = [[ZumpaItem alloc]init];
-    zi.subject = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleDisplayName"];
+    zi.ID = [[link substringFromIndex:[link rangeOfString:@"&t="].location + 3] intValue];
+    if(zi.ID == 0){
+        //something is wrong, need ID
+        NSURL *url = [NSURL URLWithString:link];
+        [[UIApplication sharedApplication] openURL:url];
+        return;
+    }
+    zi.subject = @"Zumpicka";//[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleDisplayName"];
     zi.itemsUrl = link;
     dc.settings = self.settings;
     dc.item = zi;
