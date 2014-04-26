@@ -30,6 +30,7 @@ const double kDefaultTimeout = 2.0;
 @property (nonatomic) BOOL isLoggedIn;
 @property (nonatomic, strong) NSUserDefaults *defaults;
 @property (nonatomic, strong) NSString *serviceUrl;
+@property (nonatomic, strong) NSString *pushRegUrl;
 @end
 
 
@@ -44,7 +45,8 @@ const double kDefaultTimeout = 2.0;
             
         NSDictionary* props = [[NSDictionary alloc] initWithContentsOfFile:plistPath];
         self.serviceUrl = [props objectForKey:@"ZumpaWebServiceURL"];
-        
+        self.pushRegUrl = [props objectForKey:@"PushServiceURL"];
+
     }
     return self;
 }
@@ -321,4 +323,28 @@ const double kDefaultTimeout = 2.0;
 #endif
     return [result boolValue];
 }
+
+- (BOOL)register:(BOOL) reg pushToken:(NSString *)token forUser:(NSString *)userName withUID:(NSString *)uid {
+    NSString *urlSuffix = [NSString stringWithFormat:
+            reg ? @"?user=%@&uid=%@&regid=%@&platform=ios&%@" : @"?user=%@&regid=%@&platform=ios&%@",//no uid for unregister
+                    [userName urlEncode],
+                    [uid urlEncode],
+                    [token urlEncode],
+                    reg ? @"register" : @"unregister"];
+    NSString *url = [self.pushRegUrl stringByAppendingString:urlSuffix];
+
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url]
+                                                           cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData
+                                                       timeoutInterval:10];
+    [request setHTTPMethod: @"GET"];
+
+    NSError *requestError;
+    NSURLResponse *urlResponse = nil;
+
+    NSData *response = [NSURLConnection sendSynchronousRequest:request returningResponse:&urlResponse error:&requestError];
+    NSString *responseString = [[NSString alloc] initWithData:response encoding:NSUTF8StringEncoding];
+
+    return [@"[OK]" isEqualToString:responseString];
+}
+
 @end

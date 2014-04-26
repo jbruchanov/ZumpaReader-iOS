@@ -9,7 +9,6 @@
 #import "SettingsViewController.h"
 #import "Settings.h"
 #import "DialogHelper.h"
-#import <QuartzCore/QuartzCore.h>
 #import "I18N.h"
 
 @interface SettingsViewController ()
@@ -51,7 +50,7 @@ CGRect originalScrollViewRect;
     [self.password setPlaceholder:NSLoc(@"Password")];
     [self.responseNick setPlaceholder:NSLoc(@"ResponseNick")];
     [self.lastPostAuthorLabel setText:NSLoc(@"LastPostAuthor")];
-    self.settings = [[NSUserDefaults alloc]init];
+    self.settings = [NSUserDefaults standardUserDefaults];
     [self initButtons];
     [self loadSettings];
     
@@ -111,23 +110,32 @@ CGRect originalScrollViewRect;
     [self.progressBar removeFromSuperview];
     __weak SettingsViewController *zelf = self;
     zelf.loginButton.enabled = NO;
+    __block NSString *userName = self.userName.text;
+
     if([self.settings boolForKey:IS_LOGGED_IN] == NO){
-        NSString *uid = self.userName.text;
         NSString *pwd = self.password.text;
         
-        if([uid length] == 0 || [pwd length] == 0){
+        if([userName length] == 0 || [pwd length] == 0){
             [[[UIAlertView alloc]initWithTitle:@"Nope :P" message:@"Missing username or password" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
             return;
         }
         self.progressBar = [DialogHelper showProgressDialog:self.view];
 
-        [self.zumpa logIn:uid andPassword:pwd withCallback:^(LoginResult *result) {
-            if(zelf){
+        [self.zumpa logIn:userName andPassword:pwd withCallback:^(LoginResult *result) {
+            if (zelf) {
                 [zelf loginStatusChanged:result.Result save:YES];
                 zelf.loginButton.enabled = YES;
-                [[[UIAlertView alloc]initWithTitle:(!result ? @":(" : @":)") message:result.ZumpaResult delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
-            }
+                [[[UIAlertView alloc] initWithTitle:(!result ? @":(" : @":)") message:result.ZumpaResult delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
 
+                NSString *token = [zelf.settings valueForKey:PUSH_TOKEN];
+                if (token && [token length] > 0) {
+                    [zelf.zumpa register:YES pushToken:token forUser:userName withUID:result.UID withCallback:^(BOOL pushReggged) {
+                        if (!pushReggged) {
+                            [[[UIAlertView alloc] initWithTitle:@":(" message:@"Unable to send push token" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+                        }
+                    }];
+                }
+            }
         }];
     }else{
         self.progressBar = [DialogHelper showProgressDialog:self.view];
@@ -136,6 +144,7 @@ CGRect originalScrollViewRect;
             if(zelf){
                 zelf.loginButton.enabled = YES;
                 [zelf loginStatusChanged:!result save:YES];
+                [zelf.zumpa register:NO pushToken:@"" forUser:userName withUID:@"" withCallback:nil];
             }
         }];
     }

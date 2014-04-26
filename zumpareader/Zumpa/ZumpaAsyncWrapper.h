@@ -31,4 +31,6 @@
 
 -(void) voteSurvey:(int)surveyId forItem:(int)surveyButtonIndex withCallback:(void (^) (Survey*))callback;
 
+-(void) register:(BOOL) reg pushToken:(NSString *)token forUser:(NSString *)userName withUID:(NSString *)uid withCallback:(void (^)(BOOL))callback;
+
 @end

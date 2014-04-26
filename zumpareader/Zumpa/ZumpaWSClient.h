@@ -50,4 +50,6 @@
 
 -(BOOL) switchFavoriteThread:(int)threadId;
 
+- (BOOL)register:(BOOL) reg pushToken:(NSString *)token forUser:(NSString *)userName withUID:(NSString *)uid;
+
 @end

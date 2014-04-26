@@ -108,4 +108,15 @@
         });
     });
 }
+
+-(void) register:(BOOL) reg pushToken:(NSString *)token forUser:(NSString *)userName withUID:(NSString *)uid withCallback:(void (^)(BOOL))callback{
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        BOOL result = [self.client register:reg pushToken:token forUser:userName withUID:uid];
+        if (callback) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                callback(result);
+            });
+        }
+    });
+}
 @end
