@@ -206,7 +206,7 @@
         <!--Detail View Controller - Title-->
         <scene sceneID="wy9-ct-Rah">
             <objects>
-                <viewController id="1oc-6b-LR4" customClass="DetailViewController" sceneMemberID="viewController">
+                <viewController restorationIdentifier="DetailViewController" storyboardIdentifier="DetailViewController" id="1oc-6b-LR4" customClass="DetailViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="5OG-6z-bbq">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -246,7 +246,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nV0-zx-lJu" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="517" y="284"/>
+            <point key="canvasLocation" x="483" y="430"/>
         </scene>
         <!--Post View Controller-->
         <scene sceneID="xvy-b3-n3C">
@@ -345,7 +345,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CWv-C1-aJl" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="536" y="-449"/>
+            <point key="canvasLocation" x="500" y="-577"/>
         </scene>
         <!--Image Editor View Controller-->
         <scene sceneID="VHI-yk-9tA">

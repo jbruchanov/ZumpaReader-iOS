@@ -17,7 +17,7 @@
 
 #define CONTENT_OFFSET @"contentOffset"
 
-@interface DetailViewController () <PostViewControllerDelegate, UISurveyDelegate>
+@interface DetailViewController () <PostViewControllerDelegate, UISurveyDelegate, ZRSubViewCellDelegate>
 
 
 -(void)setSpinnerVisible:(BOOL) visible;
@@ -62,7 +62,7 @@
 
     UILongPressGestureRecognizer *lpgr = [[UILongPressGestureRecognizer alloc]
             initWithTarget:self action:@selector(didLongClick:)];
-    lpgr.minimumPressDuration = 2.0; //seconds
+    lpgr.minimumPressDuration = 1.5; //seconds
     lpgr.delegate = self;
     [self.tableView addGestureRecognizer:lpgr];
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
@@ -181,6 +181,7 @@
 
     ZRSubViewCell *zsvc = [ZRSubViewCell create];
     zsvc.surveyDelegate = self;
+    zsvc.clickDelegate = self;
     [zsvc setBackgroundColor: (indexPath.row % 2 == 0) ? self.colorEven : self.colorOdd];
     [self.itemViews setObject:zsvc forKey:@(indexPath.row)];
 
@@ -277,6 +278,23 @@
             }
         }];
     }
+}
+
+
+- (void)didOpenZumpaLink:(NSString *)link {
+    UIStoryboard *sb = [UIStoryboard storyboardWithName:@"MainStoryboard_iPhone" bundle:nil];
+    DetailViewController * dc = [sb instantiateViewControllerWithIdentifier:@"DetailViewController"];
+
+    dc.zumpa = self.zumpa;
+    ZumpaItem *zi = [[ZumpaItem alloc]init];
+    zi.subject = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleDisplayName"];
+    zi.itemsUrl = link;
+    dc.settings = self.settings;
+    dc.item = zi;
+
+    [self.navigationController pushViewController:dc animated:YES];
+
+
 }
 
 - (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {

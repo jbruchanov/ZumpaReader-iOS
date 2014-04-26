@@ -36,8 +36,8 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.14901961389999999" green="1" blue="0.29803922770000002" alpha="1" colorSpace="deviceRGB"/>
                     </view>
-                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="314" translatesAutoresizingMaskIntoConstraints="NO" id="LQP-0h-q6E" userLabel="Message">
-                        <rect key="frame" x="6" y="28" width="314" height="16"/>
+                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="310" translatesAutoresizingMaskIntoConstraints="NO" id="LQP-0h-q6E" userLabel="Message">
+                        <rect key="frame" x="6" y="28" width="310" height="16"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -57,7 +57,7 @@
                     <constraint firstItem="LQP-0h-q6E" firstAttribute="leading" secondItem="FEs-1C-VP9" secondAttribute="leading" constant="6" id="Okm-hv-eOp"/>
                     <constraint firstAttribute="bottom" secondItem="dnr-lB-Gay" secondAttribute="bottom" id="TcX-Fc-5pz"/>
                     <constraint firstItem="dnr-lB-Gay" firstAttribute="trailing" secondItem="QVM-Aj-wQr" secondAttribute="trailing" id="Tq4-Hk-vD6"/>
-                    <constraint firstAttribute="trailing" secondItem="LQP-0h-q6E" secondAttribute="trailing" id="VHY-yg-CkF"/>
+                    <constraint firstAttribute="trailing" secondItem="LQP-0h-q6E" secondAttribute="trailing" constant="4" id="VHY-yg-CkF"/>
                     <constraint firstItem="dnr-lB-Gay" firstAttribute="top" secondItem="LQP-0h-q6E" secondAttribute="bottom" constant="4" id="WAy-o5-OyH"/>
                     <constraint firstAttribute="trailing" secondItem="QVM-Aj-wQr" secondAttribute="trailing" constant="4" id="YL1-rY-Cqr"/>
                     <constraint firstItem="dnr-lB-Gay" firstAttribute="leading" secondItem="kvZ-Hm-p9M" secondAttribute="trailing" constant="1" id="cbR-I8-vyo"/>

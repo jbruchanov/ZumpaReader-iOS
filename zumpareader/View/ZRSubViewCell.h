@@ -10,6 +10,13 @@
 #import "UISurvey.h"
 #import "ZumpaSubItem.h"
 
+@protocol ZRSubViewCellDelegate
+
+-(void) didOpenZumpaLink:(NSString*) link;
+
+@end
+
+
 @interface ZRSubViewCell : UITableViewCell
 
 @property (strong, nonatomic) UISurvey *survey;
@@ -17,6 +24,8 @@
 @property (strong, nonatomic) id<UISurveyDelegate> surveyDelegate;
 
 @property (strong, nonatomic) ZumpaSubItem* item;
+
+@property (weak, nonatomic) id<ZRSubViewCellDelegate> clickDelegate;
 
 +(ZRSubViewCell *) create;
 
