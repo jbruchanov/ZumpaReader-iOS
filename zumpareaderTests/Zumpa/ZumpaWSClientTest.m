@@ -67,8 +67,8 @@
 
 -(void) testLogin{
     ZumpaWSClient *client = [[ZumpaWSClient alloc] init];
-    BOOL login = [client logIn:self.login with:self.password];
-    XCTAssertEqual(YES, login, @"Should be loggeding");
+    LoginResult *login = [client logIn:self.login with:self.password];
+    XCTAssertEqual(YES, login.Result, @"Should be loggeding");
 }
 
 -(void) testLogout{

@@ -24,7 +24,7 @@
     __block BOOL finalResult = NO;
     
     
-    [zaw logIn:self.login andPassword:self.password withCallback:^(BOOL result) {
+    [zaw logIn:self.login andPassword:self.password withCallback:^(LoginResult *result) {
         finalResult = YES;
     }];
     

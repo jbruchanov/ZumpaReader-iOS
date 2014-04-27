@@ -6,7 +6,6 @@
 //  Copyright (c) 2013 Jiri Bruchanov. All rights reserved.
 //
 
-#import <XCTest/XCTest.h>
 #import "BaseTest.h"
 
 @interface ZumpaWSClientTest : BaseTest
