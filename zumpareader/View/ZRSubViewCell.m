@@ -8,6 +8,8 @@
 
 #import "ZRSubViewCell.h"
 #import "DetailViewController.h"
+#import "Settings.h"
+#import "UIColor+Parser.h"
 
 #define MSG_FONT_NAME @"Verdana"
 #define MSG_FONT_SIZE 10.0
@@ -17,9 +19,10 @@
 @property (weak, nonatomic) IBOutlet UILabel *author;
 @property (weak, nonatomic) IBOutlet UILabel *time;
 @property (weak, nonatomic) IBOutlet UILabel *message;
-@property (weak, nonatomic) IBOutlet UIView *strip;
+@property (weak, nonatomic) IBOutlet UIView *colorStrip;
 @property (weak, nonatomic) IBOutlet UIView *childViews;
 
+@property (strong, nonatomic) NSString *userName;
 
 @end
 
@@ -44,6 +47,10 @@
         self.author.text = item.authorReal;
     }
 
+    if (!self.userName) {
+        self.userName = [[NSUserDefaults standardUserDefaults] valueForKey:USERNAME];
+    }
+
     self.message.text = item.body;
     self.time.text = item.parsedTime;
 
@@ -61,6 +68,7 @@
                                                                                     options:0 metrics:nil views:viewsDictionary]];
         }
     }
+    [self initColorStrip];
 
     if(item.hasInsideUris){
         self.childViews.hidden = NO;
@@ -142,6 +150,17 @@
 
 + (ZRSubViewCell *)create {
     return [[[NSBundle mainBundle] loadNibNamed:@"ZRSubViewCell" owner:nil options:nil] lastObject];
+}
+
+-(void) initColorStrip{
+    BOOL show = YES;
+    if ([self.item.authorReal isEqualToString:self.userName]) {
+        [self.colorStrip setBackgroundColor:[UIColor colorWithInt:OWN]];
+    } else {
+        show = NO;
+    }
+
+    [self.colorStrip setHidden:!show];
 }
 
 @end

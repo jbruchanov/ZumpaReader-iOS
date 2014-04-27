@@ -87,7 +87,7 @@
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context{
     int y = (int)self.tableView.contentOffset.y;
-    if(!self.mustResetContentOffset &&  y < -100){
+    if(!self.mustResetContentOffset &&  y < - 300){
         [self willReload];
         self.mustResetContentOffset = YES;
     }

@@ -38,4 +38,16 @@
                             blue:b / 255.0
                            alpha:a /255.0];
 }
+
++(UIColor*) colorWithInt:(int)value{
+    int a = (value >> 24) & 0xFF;
+    int r = (value >> 16) & 0xFF;
+    int g = (value >> 8) & 0xFF;
+    int b = (value) & 0xFF;
+
+    return [UIColor colorWithRed:r / 255.0
+                           green:g / 255.0
+                            blue:b / 255.0
+                           alpha:a /255.0];
+}
 @end

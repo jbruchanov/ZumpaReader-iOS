@@ -18,38 +18,41 @@
                 </userGuides>
                 <subviews>
                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" verticalCompressionResistancePriority="749" text="JtS" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fg7-Va-5KZ" userLabel="Nickname">
-                        <rect key="frame" x="6" y="6" width="314" height="18"/>
+                        <rect key="frame" x="6" y="6" width="314" height="15"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                        <color key="textColor" red="0.49803921579999999" green="0.49803921579999999" blue="0.49803921579999999" alpha="1" colorSpace="calibratedRGB"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <color key="textColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
                         <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </label>
                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="23:59:59 05.01." textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QVM-Aj-wQr" userLabel="Time">
-                        <rect key="frame" x="250" y="1" width="66" height="11"/>
+                        <rect key="frame" x="250" y="3" width="66" height="11"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
                         <fontDescription key="fontDescription" type="system" pointSize="9"/>
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                         <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </label>
                     <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kvZ-Hm-p9M" userLabel="ColorStrip">
-                        <rect key="frame" x="0.0" y="0.0" width="5" height="48"/>
+                        <rect key="frame" x="0.0" y="0.0" width="2" height="48"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.14901961389999999" green="1" blue="0.29803922770000002" alpha="1" colorSpace="deviceRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="2" id="KZZ-nE-Si6"/>
+                        </constraints>
                     </view>
                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="310" translatesAutoresizingMaskIntoConstraints="NO" id="LQP-0h-q6E" userLabel="Message">
-                        <rect key="frame" x="6" y="28" width="310" height="16"/>
+                        <rect key="frame" x="6" y="25" width="310" height="16"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dnr-lB-Gay" userLabel="ChildContainer">
-                        <rect key="frame" x="6" y="48" width="310" height="0.0"/>
+                        <rect key="frame" x="6" y="45" width="310" height="3"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" heightSizable="YES"/>
                     </view>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="QVM-Aj-wQr" firstAttribute="top" secondItem="FEs-1C-VP9" secondAttribute="top" constant="1" id="308-0K-fLX"/>
+                    <constraint firstItem="QVM-Aj-wQr" firstAttribute="top" secondItem="FEs-1C-VP9" secondAttribute="top" constant="3" id="308-0K-fLX"/>
                     <constraint firstItem="Fg7-Va-5KZ" firstAttribute="leading" secondItem="FEs-1C-VP9" secondAttribute="leading" constant="6" id="7Nc-zD-MbZ"/>
                     <constraint firstItem="dnr-lB-Gay" firstAttribute="leading" secondItem="LQP-0h-q6E" secondAttribute="leading" id="Aly-RQ-LnQ"/>
                     <constraint firstItem="Fg7-Va-5KZ" firstAttribute="top" secondItem="FEs-1C-VP9" secondAttribute="top" constant="6" id="Ata-55-pbV"/>
@@ -60,19 +63,17 @@
                     <constraint firstAttribute="trailing" secondItem="LQP-0h-q6E" secondAttribute="trailing" constant="4" id="VHY-yg-CkF"/>
                     <constraint firstItem="dnr-lB-Gay" firstAttribute="top" secondItem="LQP-0h-q6E" secondAttribute="bottom" constant="4" id="WAy-o5-OyH"/>
                     <constraint firstAttribute="trailing" secondItem="QVM-Aj-wQr" secondAttribute="trailing" constant="4" id="YL1-rY-Cqr"/>
-                    <constraint firstItem="dnr-lB-Gay" firstAttribute="leading" secondItem="kvZ-Hm-p9M" secondAttribute="trailing" constant="1" id="cbR-I8-vyo"/>
+                    <constraint firstItem="kvZ-Hm-p9M" firstAttribute="leading" secondItem="FEs-1C-VP9" secondAttribute="leading" id="fut-1d-eza"/>
+                    <constraint firstAttribute="bottom" secondItem="kvZ-Hm-p9M" secondAttribute="bottom" id="oVE-1O-cAA"/>
                     <constraint firstAttribute="trailing" secondItem="Fg7-Va-5KZ" secondAttribute="trailing" id="pej-Vb-eBo"/>
-                    <constraint firstItem="kvZ-Hm-p9M" firstAttribute="leading" secondItem="FEs-1C-VP9" secondAttribute="leading" id="q7P-ar-ZgJ"/>
-                    <constraint firstAttribute="bottom" secondItem="kvZ-Hm-p9M" secondAttribute="bottom" id="sx2-a4-cal"/>
-                    <constraint firstItem="kvZ-Hm-p9M" firstAttribute="top" secondItem="FEs-1C-VP9" secondAttribute="top" id="w32-Ai-DjR"/>
-                    <constraint firstItem="dnr-lB-Gay" firstAttribute="bottom" secondItem="kvZ-Hm-p9M" secondAttribute="bottom" id="wIj-r6-xaw"/>
+                    <constraint firstItem="kvZ-Hm-p9M" firstAttribute="top" secondItem="FEs-1C-VP9" secondAttribute="top" id="wdp-tm-7Vq"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
                 <outlet property="author" destination="Fg7-Va-5KZ" id="Tsu-8l-4Xq"/>
                 <outlet property="childViews" destination="dnr-lB-Gay" id="cgj-IS-xmd"/>
+                <outlet property="colorStrip" destination="kvZ-Hm-p9M" id="DEZ-Kw-9vf"/>
                 <outlet property="message" destination="LQP-0h-q6E" id="1S0-Lr-Q0I"/>
-                <outlet property="strip" destination="kvZ-Hm-p9M" id="DEZ-Kw-9vf"/>
                 <outlet property="time" destination="QVM-Aj-wQr" id="86M-Xl-Lcl"/>
             </connections>
         </tableViewCell>
