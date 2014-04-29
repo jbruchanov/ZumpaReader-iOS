@@ -22,6 +22,7 @@
 #define kItems @"Items"
 #define kPrevPage @"PreviousPage"
 #define kNextPage @"NextPage"
+//#define MYDEBUG YES
 
 const double kDefaultTimeout = 2.0;
 
@@ -71,7 +72,7 @@ const double kDefaultTimeout = 2.0;
     
     NSData *toReturn = [NSJSONSerialization dataWithJSONObject:dict options:NSJSONWritingPrettyPrinted error:nil];
     
-#ifdef DEBUG
+#ifdef MYDEBUG
     NSString *responseString = [[NSString alloc] initWithData:toReturn encoding:NSUTF8StringEncoding];
     NSLog(@"%@",responseString);
 #endif
@@ -148,7 +149,7 @@ const double kDefaultTimeout = 2.0;
     NSDictionary *jsonDict = [NSJSONSerialization JSONObjectWithData:jsonData options:kNilOptions error:nil];
     NSDictionary *context = [jsonDict objectForKey:kContext];
     
-#ifdef DEBUG
+#ifdef MYDEBUG
     NSString *responseString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
     NSLog(@"%@",responseString);
 #endif
@@ -172,7 +173,7 @@ const double kDefaultTimeout = 2.0;
     NSDictionary *jsonDict = [NSJSONSerialization JSONObjectWithData:jsonData options:kNilOptions error:nil];
     NSString *context = [jsonDict objectForKey:kContext];
     
-#ifdef DEBUG
+#ifdef MYDEBUG
     NSString *responseString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
     NSLog(@"%@",responseString);
 #endif
@@ -189,7 +190,7 @@ const double kDefaultTimeout = 2.0;
                                                        andParams:[NSArray arrayWithObjects:
                                                                   @"Page",
                                                                   (withUrl) ? withUrl : @"", nil]]];
-#ifdef DEBUG
+#ifdef MYDEBUG
     NSString *responseString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
     NSLog(@"%@",responseString);
 #endif
@@ -217,7 +218,7 @@ const double kDefaultTimeout = 2.0;
     NSData* jsonData = [self sendRequest:[self createPostRequest:[self.serviceUrl stringByAppendingString:@"thread"]
                                                        andParams:[NSArray arrayWithObjects:@"ItemsUrl",
                                                                   url, nil]]];
-#ifdef DEBUG
+#ifdef MYDEBUG
     NSString *responseString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
     NSLog(@"%@",responseString);
 #endif
@@ -251,7 +252,7 @@ const double kDefaultTimeout = 2.0;
     NSDictionary *jsonDict = [NSJSONSerialization JSONObjectWithData:jsonData options:kNilOptions error:nil];
     NSString *result = [jsonDict objectForKey:kContext];
     
-#ifdef DEBUG
+#ifdef MYDEBUG
     NSString *responseString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
     NSLog(@"%@",responseString);
 #endif
@@ -279,7 +280,7 @@ const double kDefaultTimeout = 2.0;
     NSDictionary *jsonDict = [NSJSONSerialization JSONObjectWithData:jsonData options:kNilOptions error:nil];
     NSString *context = [jsonDict objectForKey:kContext];
     
-#ifdef DEBUG
+#ifdef MYDEBUG
     NSString *responseString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
     NSLog(@"%@",responseString);
 #endif
@@ -299,7 +300,7 @@ const double kDefaultTimeout = 2.0;
     NSDictionary *jsonDict = [NSJSONSerialization JSONObjectWithData:jsonData options:kNilOptions error:nil];
     NSDictionary *result = [jsonDict objectForKey:kContext];
     
-#ifdef DEBUG
+#ifdef MYDEBUG
     NSString *responseString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
     NSLog(@"%@",responseString);
 #endif
@@ -317,7 +318,7 @@ const double kDefaultTimeout = 2.0;
     NSDictionary *jsonDict = [NSJSONSerialization JSONObjectWithData:jsonData options:kNilOptions error:nil];
     NSString *result = [jsonDict objectForKey:kContext];
     
-#ifdef DEBUG
+#ifdef MYDEBUG
     NSString *responseString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
     NSLog(@"%@",responseString);
 #endif

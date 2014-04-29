@@ -8,12 +8,17 @@
 
 #import "AppDelegate.h"
 #import "Settings.h"
+#import "ZumpaHelper.h"
 
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    // Override point for customization after application launch.
+    NSDictionary *userInfo = [launchOptions valueForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
+    NSString *threadId = [userInfo objectForKey:@"threadId"];
+    if (threadId) {
+        [[NSUserDefaults standardUserDefaults] setValue:threadId forKey:THREAD_ID_TO_OPEN];
+    }
 
     [[UIApplication sharedApplication] registerForRemoteNotificationTypes:
             (UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
@@ -61,5 +66,34 @@
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     [defaults setValue:nil forKey:PUSH_TOKEN];
 }
+
+//- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
+//    NSLog(@"%@",@"XXX:didReceiveRemoteNotification");
+//    NSString *threadId = [userInfo valueForKey:@"threadId"];
+//    if (threadId) {
+//        UILocalNotification *localNotif = [[UILocalNotification alloc] init];
+//        localNotif.fireDate = [NSDate date];  // date after 10 sec from now
+//        localNotif.timeZone = [NSTimeZone defaultTimeZone];
+//        localNotif.alertBody = @"Žumpoviny si tě žádají"; // text of you that you have fetched
+//        localNotif.soundName = UILocalNotificationDefaultSoundName;
+//
+//        localNotif.userInfo = @{@"threadId" : threadId, @"time" : @([[NSDate date] timeIntervalSince1970])};
+//        [[UIApplication sharedApplication] presentLocalNotificationNow:localNotif];
+//    }
+//}
+//
+//- (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification {
+//    NSLog(@"%@",@"XXX:didReceiveLocalNotification");
+//    if (UIApplicationStateActive != application.applicationState) {//stupid click detection event
+//        double now = [[NSDate date] timeIntervalSince1970];
+//        double fired = [[notification.userInfo objectForKey:@"time"] doubleValue];
+//        double diff = now - fired;
+//        int threadId = [[notification.userInfo objectForKey:@"threadId"] intValue];
+//        if (diff > 1 && threadId > 0) {
+//            [application cancelLocalNotification:notification];
+//            [(UINavigationController *) self.window.rootViewController pushViewController:[ZumpaHelper controllerForZumpaSubItemById:threadId] animated:YES];
+//        }
+//    }
+//}
 
 @end

@@ -15,9 +15,9 @@
 #import "Settings.h"
 #import "I18N.h"
 #import "ZRMainViewCell.h"
+#import "ZumpaHelper.h"
 
-#define DISPLAY_WIDTH self.view.frame.size.width
-#define LOAD_LIMIT_OFFSET 5
+#define LOAD_LIMIT_OFFSET 10
 #define REQUEST_ITEMS_SIZE 35
 #define CONTENT_OFFSET @"contentOffset"
 #define REUSE_KEY @"ZRMainViewCell"
@@ -87,7 +87,7 @@
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context{
     int y = (int)self.tableView.contentOffset.y;
-    if(!self.mustResetContentOffset &&  y < - 300){
+    if(!self.mustResetContentOffset &&  y < - 100){
         [self willReload];
         self.mustResetContentOffset = YES;
     }
@@ -106,6 +106,12 @@
     [self.postButton setEnabled:[self.settings boolForKey:IS_LOGGED_IN]];
     [self.filterButton setEnabled:[self.settings boolForKey:IS_LOGGED_IN]];
     [self.tableView addObserver:self forKeyPath:CONTENT_OFFSET options:(NSKeyValueObservingOptionNew) context:NULL];
+
+    NSString *threadIdToOpenByPush = [self.settings valueForKey:THREAD_ID_TO_OPEN];
+    if(threadIdToOpenByPush){
+        [self.navigationController pushViewController:[ZumpaHelper controllerForZumpaSubItemById:[threadIdToOpenByPush intValue]] animated:YES];
+        [self.settings setValue:nil forKey:THREAD_ID_TO_OPEN];
+    }
 }
 
 -(void)viewWillDisappear:(BOOL)animated{

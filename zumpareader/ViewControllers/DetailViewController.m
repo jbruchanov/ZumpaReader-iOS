@@ -14,6 +14,7 @@
 #import "DialogHelper.h"
 #import "Settings.h"
 #import "ZRSubViewCell.h"
+#import "ZumpaHelper.h"
 
 #define CONTENT_OFFSET @"contentOffset"
 
@@ -282,26 +283,7 @@
 
 
 - (void)didOpenZumpaLink:(NSString *)link {
-    UIStoryboard *sb = [UIStoryboard storyboardWithName:@"MainStoryboard_iPhone" bundle:nil];
-    DetailViewController * dc = [sb instantiateViewControllerWithIdentifier:@"DetailViewController"];
-
-    dc.zumpa = self.zumpa;
-    ZumpaItem *zi = [[ZumpaItem alloc]init];
-    zi.ID = [[link substringFromIndex:[link rangeOfString:@"&t="].location + 3] intValue];
-    if(zi.ID == 0){
-        //something is wrong, need ID
-        NSURL *url = [NSURL URLWithString:link];
-        [[UIApplication sharedApplication] openURL:url];
-        return;
-    }
-    zi.subject = @"Zumpicka";//[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleDisplayName"];
-    zi.itemsUrl = link;
-    dc.settings = self.settings;
-    dc.item = zi;
-
-    [self.navigationController pushViewController:dc animated:YES];
-
-
+    [self.navigationController pushViewController:[ZumpaHelper controllerForZumpaSubItemByLink:link] animated:YES];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
