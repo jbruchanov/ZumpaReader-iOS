@@ -181,8 +181,9 @@
     }
 
     ZRSubViewCell *zsvc = [ZRSubViewCell create];
+    zsvc.index = indexPath.row;
     zsvc.surveyDelegate = self;
-    zsvc.clickDelegate = self;
+    zsvc.cellDelegate = self;
     [zsvc setBackgroundColor: (indexPath.row % 2 == 0) ? self.colorEven : self.colorOdd];
     [self.itemViews setObject:zsvc forKey:@(indexPath.row)];
 
@@ -282,12 +283,18 @@
 }
 
 
+- (void)setHeight:(int)newHeight forItemAtIndex:(int) index {
+    [self.itemHeights setObject:@(newHeight) forKey:@(index)];
+    [self.tableView reloadData];
+}
+
+
 - (void)didOpenZumpaLink:(NSString *)link {
     [self.navigationController pushViewController:[ZumpaHelper controllerForZumpaSubItemByLink:link] animated:YES];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 100;
+    return UITableViewAutomaticDimension;
 }
 
 

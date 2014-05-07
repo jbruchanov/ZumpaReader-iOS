@@ -109,7 +109,7 @@
 }
 
 - (UIButton *)createButton:(NSString *)url {
-    UIButton *button = [[UIButton alloc] init];
+    __block UIButton *button = [[UIButton alloc] init];
     button.translatesAutoresizingMaskIntoConstraints = NO;
 
     button.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
@@ -119,16 +119,50 @@
     [button setTitleColor:[UIColor whiteColor] forState:UIControlStateHighlighted];
     [button setTitleColor:[UIColor grayColor] forState:UIControlStateDisabled];
 
-    UIImage *normal = [[UIImage imageNamed:@"home_button_background.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(2, 2, 2, 2)];
-    UIImage *pressed = [[UIImage imageNamed:@"home_button_background_hit.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(5, 5, 5, 5)];
 
-    [button setBackgroundImage:normal forState:UIControlStateNormal];
-    [button setBackgroundImage:pressed forState:UIControlStateHighlighted];
+
     [button setClearsContextBeforeDrawing:YES];
     button.titleLabel.numberOfLines = 2;
     button.titleLabel.lineBreakMode = NSLineBreakByTruncatingMiddle;
 
     [button setTitle:url forState:UIControlStateNormal];
+
+    if ([url hasSuffix:@".jpg"] || [url hasSuffix:@".png"] || [url hasSuffix:@".jpeg"] || [url hasSuffix:@".gif"]) {
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0),
+                ^{
+                    NSURL *imageURL = [NSURL URLWithString:url];
+                    __block NSData *imageData;
+                    dispatch_sync(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0),
+                            ^{
+                                imageData = [NSData dataWithContentsOfURL:imageURL];
+                                dispatch_sync(dispatch_get_main_queue(), ^{
+                                    if(!imageData || [imageData length] == 0){
+                                        [self initButtonBackground:button];
+                                        return;
+                                    }
+
+                                    UIImage *image = [UIImage imageWithData:imageData];
+                                    if (image) {
+                                        if (button) {
+
+                                            CGFloat viewHeight = [self.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize].height;
+                                            CGFloat buttonHeight = [button systemLayoutSizeFittingSize:UILayoutFittingCompressedSize].height;
+                                            CGFloat width = [UIScreen mainScreen].bounds.size.width - 20;
+                                            float ratio = width / image.size.width;
+
+                                            [button setImage:image forState:UIControlStateNormal];
+                                            [button setTitle:@"" forState:UIControlStateNormal];
+                                            [self.cellDelegate setHeight:(int) (1 + viewHeight - buttonHeight + (image.size.height * ratio)) forItemAtIndex:self.index];
+                                        }
+                                    } else {
+                                        [self initButtonBackground:button];
+                                    }
+                                });
+                            });
+                });
+    } else {
+        [self initButtonBackground:button];
+    }
 
     button.titleLabel.font = [UIFont fontWithName:MSG_FONT_NAME size:MSG_FONT_SIZE];
 
@@ -136,11 +170,19 @@
     return button;
 }
 
+-(void)initButtonBackground:(UIButton *)button {
+    UIImage *normal = [[UIImage imageNamed:@"home_button_background.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(2, 2, 2, 2)];
+    UIImage *pressed = [[UIImage imageNamed:@"home_button_background_hit.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(5, 5, 5, 5)];
+
+    [button setBackgroundImage:normal forState:UIControlStateNormal];
+    [button setBackgroundImage:pressed forState:UIControlStateHighlighted];
+}
+
 - (void)didClickOnURLButton:(UIButton *)button {
     NSString *urlValue = button.titleLabel.text;
     if ([urlValue rangeOfString:@"portal2.dkm.cz/phorum/"].location != NSNotFound) {
-        if (self.clickDelegate) {
-            [self.clickDelegate didOpenZumpaLink:urlValue];
+        if (self.cellDelegate) {
+            [self.cellDelegate didOpenZumpaLink:urlValue];
         }
     } else {
         NSURL *url = [NSURL URLWithString:urlValue];

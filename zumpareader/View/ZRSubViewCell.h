@@ -14,6 +14,8 @@
 
 -(void) didOpenZumpaLink:(NSString*) link;
 
+- (void)setHeight:(int)newHeight forItemAtIndex:(int)index;
+
 @end
 
 
@@ -25,7 +27,9 @@
 
 @property (strong, nonatomic) ZumpaSubItem* item;
 
-@property (weak, nonatomic) id<ZRSubViewCellDelegate> clickDelegate;
+@property (nonatomic) int index;
+
+@property (weak, nonatomic) id<ZRSubViewCellDelegate> cellDelegate;
 
 +(ZRSubViewCell *) create;
 
